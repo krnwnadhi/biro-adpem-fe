@@ -8,7 +8,10 @@ import {
 } from "@mantine/core";
 
 import App from "./App.jsx";
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
 import ReactDOM from "react-dom/client";
+import store from "./redux/store/store.js";
 
 const colorSchemeManager = localStorageColorSchemeManager({
     key: "adpem-color-scheme",
@@ -31,6 +34,10 @@ const theme = createTheme({
 
 ReactDOM.createRoot(document.getElementById("root")).render(
     <MantineProvider theme={theme} colorSchemeManager={colorSchemeManager}>
-        <App />
+        <Provider store={store}>
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
+        </Provider>
     </MantineProvider>
 );

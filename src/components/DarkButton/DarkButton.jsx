@@ -14,6 +14,8 @@ export function DarkButton() {
     const computedColorScheme = useComputedColorScheme("light", {
         getInitialValueInEffect: true,
     });
+    const { colorScheme } = useMantineColorScheme();
+    const dark = colorScheme === "dark";
 
     return (
         <Group justify="center">
@@ -23,17 +25,20 @@ export function DarkButton() {
                         computedColorScheme === "light" ? "dark" : "light"
                     )
                 }
-                variant="default"
-                size="xl"
+                variant="subtle"
+                size="md"
                 aria-label="Toggle color scheme"
+                title={dark ? "Mode Terang" : "Mode Gelap"}
             >
                 <IconSun
                     className={cx(classes.icon, classes.light)}
                     stroke={1.5}
+                    size={18}
                 />
                 <IconMoon
                     className={cx(classes.icon, classes.dark)}
                     stroke={1.5}
+                    size={18}
                 />
             </ActionIcon>
         </Group>
