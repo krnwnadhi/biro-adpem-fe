@@ -16,6 +16,7 @@
     color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
     font-weight: 500;
     font-size: var(--mantine-font-size-sm);
+    border-radius: var(--mantine-font-size-md);
 
     @media (max-width: $mantine-breakpoint-sm) {
         height: rem(42px);
@@ -37,7 +38,7 @@
 
     @mixin hover {
         background-color: light-dark(
-            var(--mantine-color-gray-0),
+            var(--mantine-color-gray-3),
             var(--mantine-color-dark-7)
         );
     }

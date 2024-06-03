@@ -33,12 +33,10 @@ export function DarkButton() {
                 <IconSun
                     className={cx(classes.icon, classes.light)}
                     stroke={1.5}
-                    size={18}
                 />
                 <IconMoon
                     className={cx(classes.icon, classes.dark)}
                     stroke={1.5}
-                    size={18}
                 />
             </ActionIcon>
         </Group>

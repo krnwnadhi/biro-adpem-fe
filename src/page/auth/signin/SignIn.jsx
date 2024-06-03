@@ -3,6 +3,7 @@ import {
     Button,
     Center,
     Container,
+    Fieldset,
     Group,
     Paper,
     PasswordInput,
@@ -12,10 +13,11 @@ import {
     TextInput,
     Title,
 } from "@mantine/core";
-import { Link, Navigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import { DarkButton } from "../../../components/DarkButton/DarkButton";
+import { Link } from "react-router-dom";
+import { Redirect } from "react-router-dom/cjs/react-router-dom";
 import { loginUserAction } from "../../../redux/slices/users/usersSlices";
 import { useForm } from "@mantine/form";
 
@@ -38,16 +40,16 @@ export default function SignIn(props) {
 
     //select state from store
     const storeDataLogin = useSelector((store) => store?.users);
-    const { userAuth, appError, serverError } = storeDataLogin;
-    console.log("storeDataLogin", storeDataLogin);
+    const { userAuth, loading } = storeDataLogin;
+    console.log("storeDataLogin", JSON.stringify(storeDataLogin, null, 2));
 
-    //redirect'
+    //redirect
     if (userAuth) {
-        return <Navigate to="/" replace={true} />;
+        return <Redirect to="/" replace={true} />;
     }
 
     const formOnSubmit = form.onSubmit((values) => {
-        console.log(values);
+        // console.log(values);
         dispatch(loginUserAction(values));
         form.clearErrors();
     });
@@ -55,51 +57,55 @@ export default function SignIn(props) {
     return (
         <Container size={450} pt={150}>
             <Center>
-                <Title order={3}>BIRO ADMINISTRASI PEMERINTAHAN</Title>
+                {/* <Title order={4}>BIRO ADMINISTRASI PEMBANGUNAN</Title> */}
+                <Title order={4}>Lorem ipsum</Title>
             </Center>
+
             <Paper radius="md" mt={20} p="xl" withBorder shadow="md" {...props}>
                 <form onSubmit={formOnSubmit}>
-                    <Stack>
-                        <TextInput
-                            required
-                            label="Email"
-                            placeholder="user@mail.com"
-                            value={form.values.email}
-                            onChange={(event) =>
-                                form.setFieldValue(
-                                    "email",
-                                    event.currentTarget.value
-                                )
-                            }
-                            error={form.errors.email && "Invalid email"}
-                            radius="md"
-                        />
+                    <Fieldset disabled={loading}>
+                        <Stack>
+                            <TextInput
+                                required
+                                label="Email"
+                                placeholder="user@mail.com"
+                                value={form.values.email}
+                                onChange={(event) =>
+                                    form.setFieldValue(
+                                        "email",
+                                        event.currentTarget.value
+                                    )
+                                }
+                                error={form.errors.email && "Invalid email"}
+                                radius="md"
+                            />
 
-                        <PasswordInput
-                            required
-                            label="Password"
-                            placeholder="Your password"
-                            value={form.values.password}
-                            onChange={(event) =>
-                                form.setFieldValue(
-                                    "password",
-                                    event.currentTarget.value
-                                )
-                            }
-                            error={
-                                form.errors.password &&
-                                "Password should include at least 6 characters"
-                            }
-                            radius="md"
-                        />
-                    </Stack>
+                            <PasswordInput
+                                required
+                                label="Password"
+                                placeholder="Your password"
+                                value={form.values.password}
+                                onChange={(event) =>
+                                    form.setFieldValue(
+                                        "password",
+                                        event.currentTarget.value
+                                    )
+                                }
+                                error={
+                                    form.errors.password &&
+                                    "Password should include at least 6 characters"
+                                }
+                                radius="md"
+                            />
+                        </Stack>
 
-                    <Group justify="space-between" mt="xl">
-                        <DarkButton />
-                        <Button type="submit" radius="xl">
-                            LOG IN
-                        </Button>
-                    </Group>
+                        <Group justify="space-between" mt="xl">
+                            <DarkButton />
+                            <Button type="submit" radius="xl" loading={loading}>
+                                LOG IN
+                            </Button>
+                        </Group>
+                    </Fieldset>
                 </form>
             </Paper>
 

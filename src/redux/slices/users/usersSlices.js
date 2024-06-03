@@ -1,7 +1,10 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
+import { IconCheck } from "@tabler/icons-react";
 import axios from "axios";
 import { baseUserURL } from "../../../utils/baseURL";
+import { notifications } from "@mantine/notifications";
+import { rem } from "@mantine/core";
 import secureLocalStorage from "react-secure-storage";
 
 //register action
@@ -43,6 +46,8 @@ export const loginUserAction = createAsyncThunk(
                 },
             };
 
+            await new Promise((resolve) => setTimeout(resolve, 2000));
+
             const { data } = await axios.post(
                 `${baseUserURL}/login`,
                 userData,
@@ -50,6 +55,7 @@ export const loginUserAction = createAsyncThunk(
             );
             // save to local storage
             secureLocalStorage.setItem("logInfo", JSON.stringify(data));
+
             return data;
         } catch (error) {
             if (!error?.response) {
@@ -162,19 +168,41 @@ const usersSLices = createSlice({
         //login user
         builder.addCase(loginUserAction.pending, (state, action) => {
             state.loading = true;
+            state.isLogin = false;
             state.appError = undefined;
             state.serverError = undefined;
+            notifications.show({
+                loading: true,
+                title: "Loading",
+                message: "Memuat data...",
+                autoClose: 2000,
+            });
         });
         builder.addCase(loginUserAction.fulfilled, (state, action) => {
             state.loading = false;
+            state.isLogin = true;
             state.userAuth = action?.payload;
             state.appError = undefined;
             state.serverError = undefined;
+            notifications.show({
+                loading: false,
+                title: "Success",
+                message: "Login berhasil!",
+                color: "green",
+                autoClose: 2000,
+            });
         });
         builder.addCase(loginUserAction.rejected, (state, action) => {
             state.loading = false;
+            state.isLogin = false;
             state.appError = action?.payload?.message;
             state.serverError = action?.error?.message;
+            notifications.show({
+                title: "Error",
+                message: state.appError,
+                color: "red",
+                autoClose: 3000,
+            });
         });
 
         //logout user

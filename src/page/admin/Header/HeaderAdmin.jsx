@@ -2,13 +2,13 @@ import {
     ActionIcon,
     Box,
     Burger,
-    Button,
     Center,
     Collapse,
     Divider,
     Drawer,
     Group,
     HoverCard,
+    Image,
     ScrollArea,
     SimpleGrid,
     Text,
@@ -16,11 +16,15 @@ import {
     Tooltip,
     UnstyledButton,
     rem,
+    useComputedColorScheme,
     useMantineTheme,
 } from "@mantine/core";
 import {
     IconBinaryTree,
     IconBook,
+    IconBrandFacebook,
+    IconBrandInstagram,
+    IconBrandYoutube,
     IconBuilding,
     IconBuildingArch,
     IconChevronDown,
@@ -30,8 +34,8 @@ import {
 } from "@tabler/icons-react";
 import { Link, useLocation } from "react-router-dom";
 
-import { DarkButton } from "../DarkButton/DarkButton";
-import classes from "./Header.module.css";
+import { DarkButton } from "../../../components/DarkButton/DarkButton";
+import classes from "./HeaderAdmin.module.css";
 import { useDisclosure } from "@mantine/hooks";
 
 const dataProfil = [
@@ -88,7 +92,7 @@ const dataLayanan = [
     },
 ];
 
-export default function Header() {
+export default function HeaderAdmin() {
     const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
         useDisclosure(false);
     const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
@@ -98,7 +102,11 @@ export default function Header() {
 
     const theme = useMantineTheme();
 
-    const withouSidebarRoutes = [
+    const computedColorScheme = useComputedColorScheme("dark", {
+        getInitialValueInEffect: true,
+    });
+
+    const withoutSidebarRoutes = [
         "404",
         "/signin",
         "/register",
@@ -109,7 +117,7 @@ export default function Header() {
     ];
 
     const { pathname } = useLocation();
-    if (withouSidebarRoutes.some((item) => pathname.includes(item)))
+    if (withoutSidebarRoutes.some((item) => pathname.includes(item)))
         return null;
 
     const linksProfil = dataProfil.map((item) => (
@@ -179,9 +187,24 @@ export default function Header() {
         <Box pb={30}>
             <header className={classes.header}>
                 <Group justify="space-between" h="100%">
+                    <Image
+                        // ml={200}
+                        width={250}
+                        height={80}
+                        src={
+                            computedColorScheme === "dark"
+                                ? "https://res.cloudinary.com/degzbxlnx/image/upload/v1690361888/biro-administrasi-pembangunan-setda-provinsi-jambi_wnnxqw.png"
+                                : "https://res.cloudinary.com/degzbxlnx/image/upload/v1690361888/biro-administrasi-pembangunan-setda-provinsi-jambi_1_obbwwu.png"
+                        }
+                        fallbackSrc={
+                            computedColorScheme === "dark"
+                                ? "https://placehold.co/250x65/242424/FFF?text=Biro+Administrasi+Pembangunan+Setda\nProvinsi+Jambi"
+                                : "https://placehold.co/250x65/FFF/000000?text=Biro+Administrasi+Pembangunan+Setda\nProvinsi+Jambi"
+                        }
+                    />
                     <Group h="100%" gap={0} visibleFrom="sm">
                         <Link to="/" className={classes.link}>
-                            Home
+                            Beranda
                         </Link>
 
                         {/*  */}
@@ -282,7 +305,8 @@ export default function Header() {
                         <Link to="/about" className={classes.link}>
                             About
                         </Link>
-                        {/* <Tooltip transition="slide-up" label="Dashboard">
+
+                        <Tooltip transition="slide-up" label="Dashboard">
                             <UnstyledButton
                                 component={Link}
                                 to="/dashboard"
@@ -292,14 +316,29 @@ export default function Header() {
                                     <IconLayoutDashboard size={18} />
                                 </ActionIcon>
                             </UnstyledButton>
-                        </Tooltip> */}
+                        </Tooltip>
                     </Group>
 
-                    <Group visibleFrom="sm">
+                    <Group justify="center" pb="xl" px="md">
                         <DarkButton />
-                        <Button variant="default" component={Link} to="/signin">
-                            Log in
-                        </Button>
+
+                        <Divider orientation="vertical" />
+
+                        <ActionIcon size="lg" variant="subtle">
+                            <Tooltip transition="slide-up" label="Facebook">
+                                <IconBrandFacebook size={16} stroke={1.5} />
+                            </Tooltip>
+                        </ActionIcon>
+                        <ActionIcon size="lg" variant="subtle">
+                            <Tooltip transition="slide-up" label="Instagram">
+                                <IconBrandInstagram size={16} stroke={1.5} />
+                            </Tooltip>
+                        </ActionIcon>
+                        <ActionIcon size="lg" variant="subtle">
+                            <Tooltip transition="slide-up" label="Youtube">
+                                <IconBrandYoutube size={16} stroke={1.5} />
+                            </Tooltip>
+                        </ActionIcon>
                     </Group>
 
                     <Burger
@@ -377,15 +416,24 @@ export default function Header() {
                         </Center>
                     </UnstyledButton>
 
+                    <Tooltip transition="slide-up" label="Dashboard">
+                        <UnstyledButton
+                            component={Link}
+                            to="/dashboard"
+                            className={classes.link}
+                        >
+                            <ActionIcon variant="transparent">
+                                <IconLayoutDashboard size={18} />
+                            </ActionIcon>
+                        </UnstyledButton>
+                    </Tooltip>
+
                     <Collapse in={linksOpenedThree}>{linksLayanan}</Collapse>
 
                     <Divider my="sm" />
 
                     <Group justify="center" grow pb="xl" px="md">
                         <DarkButton />
-                        <Button variant="default" component={Link} to="/login">
-                            Log in
-                        </Button>
                     </Group>
                 </ScrollArea>
             </Drawer>

@@ -2,13 +2,13 @@ import {
     ActionIcon,
     Box,
     Burger,
-    Button,
     Center,
     Collapse,
     Divider,
     Drawer,
     Group,
     HoverCard,
+    Image,
     ScrollArea,
     SimpleGrid,
     Text,
@@ -16,22 +16,25 @@ import {
     Tooltip,
     UnstyledButton,
     rem,
+    useComputedColorScheme,
     useMantineTheme,
 } from "@mantine/core";
 import {
     IconBinaryTree,
     IconBook,
+    IconBrandFacebook,
+    IconBrandInstagram,
+    IconBrandYoutube,
     IconBuilding,
     IconBuildingArch,
     IconChevronDown,
     IconFileInfo,
-    IconLayoutDashboard,
     IconPhotoCheck,
 } from "@tabler/icons-react";
 import { Link, useLocation } from "react-router-dom";
 
-import { DarkButton } from "../DarkButton/DarkButton";
-import classes from "./HeaderMegaMenu.module.css";
+import { DarkButton } from "../../../components/DarkButton/DarkButton";
+import classes from "./HeaderUser.module.css";
 import { useDisclosure } from "@mantine/hooks";
 
 const dataProfil = [
@@ -88,7 +91,7 @@ const dataLayanan = [
     },
 ];
 
-export function HeaderMegaMenu() {
+export default function HeaderUser() {
     const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
         useDisclosure(false);
     const [linksOpened, { toggle: toggleLinks }] = useDisclosure(false);
@@ -98,7 +101,11 @@ export function HeaderMegaMenu() {
 
     const theme = useMantineTheme();
 
-    const withouSidebarRoutes = [
+    const computedColorScheme = useComputedColorScheme("dark", {
+        getInitialValueInEffect: true,
+    });
+
+    const withoutSidebarRoutes = [
         "404",
         "/signin",
         "/register",
@@ -109,23 +116,21 @@ export function HeaderMegaMenu() {
     ];
 
     const { pathname } = useLocation();
-    if (withouSidebarRoutes.some((item) => pathname.includes(item)))
+    if (withoutSidebarRoutes.some((item) => pathname.includes(item)))
         return null;
 
     const linksProfil = dataProfil.map((item) => (
         <UnstyledButton className={classes.subLink} key={item.title}>
             <Group wrap="nowrap" align="flex-start">
-                <ThemeIcon size={34} variant="default" radius="md">
+                <ThemeIcon size={34} variant="outline" radius="md">
                     <item.icon
                         style={{ width: rem(22), height: rem(22) }}
                         color={theme.colors.blue[6]}
                     />
                 </ThemeIcon>
                 <UnstyledButton component={Link} to={item.link}>
-                    <Text size="sm" weight={500}>
-                        {item.title}
-                    </Text>
-                    <Text size="xs" color="dimmed">
+                    <Text size="sm">{item.title}</Text>
+                    <Text size="xs" c="dimmed">
                         {item.description}
                     </Text>
                 </UnstyledButton>
@@ -146,7 +151,7 @@ export function HeaderMegaMenu() {
                     <Text size="sm" weight={500}>
                         {item.title}
                     </Text>
-                    <Text size="xs" color="dimmed">
+                    <Text size="xs" c="dimmed">
                         {item.description}
                     </Text>
                 </UnstyledButton>
@@ -167,7 +172,7 @@ export function HeaderMegaMenu() {
                     <Text size="sm" weight={500}>
                         {item.title}
                     </Text>
-                    <Text size="xs" color="dimmed">
+                    <Text size="xs" c="dimmed">
                         {item.description}
                     </Text>
                 </UnstyledButton>
@@ -179,9 +184,23 @@ export function HeaderMegaMenu() {
         <Box pb={30}>
             <header className={classes.header}>
                 <Group justify="space-between" h="100%">
+                    <Image
+                        width={250}
+                        height={80}
+                        src={
+                            computedColorScheme === "dark"
+                                ? "https://res.cloudinary.com/degzbxlnx/image/upload/v1690361888/biro-administrasi-pembangunan-setda-provinsi-jambi_wnnxqw.png"
+                                : "https://res.cloudinary.com/degzbxlnx/image/upload/v1690361888/biro-administrasi-pembangunan-setda-provinsi-jambi_1_obbwwu.png"
+                        }
+                        fallbackSrc={
+                            computedColorScheme === "dark"
+                                ? "https://placehold.co/250x65/242424/FFF?text=Biro+Administrasi+Pembangunan+Setda\nProvinsi+Jambi"
+                                : "https://placehold.co/250x65/FFF/000000?text=Biro+Administrasi+Pembangunan+Setda\nProvinsi+Jambi"
+                        }
+                    />
                     <Group h="100%" gap={0} visibleFrom="sm">
                         <Link to="/" className={classes.link}>
-                            Home
+                            Beranda
                         </Link>
 
                         {/*  */}
@@ -279,28 +298,28 @@ export function HeaderMegaMenu() {
                                 </SimpleGrid>
                             </HoverCard.Dropdown>
                         </HoverCard>
-                        <Link to="/about" className={classes.link}>
-                            About
-                        </Link>
-
-                        <Tooltip transition="slide-up" label="Dashboard">
-                            <UnstyledButton
-                                component={Link}
-                                to="/dashboard"
-                                className={classes.link}
-                            >
-                                <ActionIcon variant="transparent">
-                                    <IconLayoutDashboard size={18} />
-                                </ActionIcon>
-                            </UnstyledButton>
-                        </Tooltip>
                     </Group>
 
-                    <Group visibleFrom="sm">
+                    <Group visibleFrom="md">
                         <DarkButton />
-                        <Button variant="default" component={Link} to="/signin">
-                            Log in
-                        </Button>
+
+                        <Divider orientation="vertical" />
+
+                        <ActionIcon size="lg" variant="subtle">
+                            <Tooltip transition="slide-up" label="Facebook">
+                                <IconBrandFacebook size={16} stroke={1.5} />
+                            </Tooltip>
+                        </ActionIcon>
+                        <ActionIcon size="lg" variant="subtle">
+                            <Tooltip transition="slide-up" label="Instagram">
+                                <IconBrandInstagram size={16} stroke={1.5} />
+                            </Tooltip>
+                        </ActionIcon>
+                        <ActionIcon size="lg" variant="subtle">
+                            <Tooltip transition="slide-up" label="Youtube">
+                                <IconBrandYoutube size={16} stroke={1.5} />
+                            </Tooltip>
+                        </ActionIcon>
                     </Group>
 
                     <Burger
@@ -380,23 +399,28 @@ export function HeaderMegaMenu() {
 
                     <Collapse in={linksOpenedThree}>{linksLayanan}</Collapse>
 
-                    <Tooltip transition="slide-up" label="Dashboard">
-                        <UnstyledButton
-                            component={Link}
-                            to="/dashboard"
-                            className={classes.link}
-                        >
-                            Dashboard
-                        </UnstyledButton>
-                    </Tooltip>
-
                     <Divider my="sm" />
 
-                    <Group justify="center" grow pb="xl" px="md">
+                    <Group justify="center" pb="xl" px="md">
                         <DarkButton />
-                        <Button variant="default" component={Link} to="/login">
-                            Log in
-                        </Button>
+
+                        <Divider orientation="vertical" />
+
+                        <ActionIcon size="lg" variant="subtle">
+                            <Tooltip transition="slide-up" label="Facebook">
+                                <IconBrandFacebook size={16} stroke={1.5} />
+                            </Tooltip>
+                        </ActionIcon>
+                        <ActionIcon size="lg" variant="subtle">
+                            <Tooltip transition="slide-up" label="Instagram">
+                                <IconBrandInstagram size={16} stroke={1.5} />
+                            </Tooltip>
+                        </ActionIcon>
+                        <ActionIcon size="lg" variant="subtle">
+                            <Tooltip transition="slide-up" label="Youtube">
+                                <IconBrandYoutube size={16} stroke={1.5} />
+                            </Tooltip>
+                        </ActionIcon>
                     </Group>
                 </ScrollArea>
             </Drawer>

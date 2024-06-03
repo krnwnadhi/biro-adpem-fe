@@ -4,7 +4,7 @@ import Header from "../Header/Header";
 const HomepageAdmin = () => {
     return (
         <Container size="xl">
-            <Header />
+            {/* <Header /> */}
             HomepageAdmin
         </Container>
     );
