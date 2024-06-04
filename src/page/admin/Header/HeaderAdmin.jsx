@@ -188,7 +188,6 @@ export default function HeaderAdmin() {
             <header className={classes.header}>
                 <Group justify="space-between" h="100%">
                     <Image
-                        // ml={200}
                         width={250}
                         height={80}
                         src={

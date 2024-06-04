@@ -1,18 +1,19 @@
 import { Redirect, Route, Switch } from "react-router-dom/cjs/react-router-dom";
 
 import About from "./page/user/about/About";
-import Error from "./components/Error/Error";
-import Homepage from "./page/user/homepage/Homepage";
+import Error from "./page/Error/Error";
+import { Footer } from "./page/Footer/Footer";
+import HomepageUser from "./page/user/homepage/HomepageUser";
+import IndexPage from "./page/Homepage/IndexPage";
 import Navbar from "./page/Navbar/Navbar";
 import SignIn from "./page/auth/signin/SignIn";
 
 function App() {
     return (
-        <>
-            {/* <HeaderMegaMenu /> */}
+        <div>
             <Navbar />
             <Switch>
-                <Route exact path="/" component={Homepage} />
+                <Route exact path="/" component={IndexPage} />
                 <Route path="/about" component={About} />
                 <Route path="/signin" component={SignIn} />
                 <Route exact path="/404" component={Error} />
@@ -20,7 +21,8 @@ function App() {
                     <Redirect to="/404" />
                 </Route>
             </Switch>
-        </>
+            <Footer />
+        </div>
     );
 }
 

@@ -17,7 +17,7 @@ const avatars = [
     "https://raw.githubusercontent.com/mantinedev/mantine/master/.demo/avatars/avatar-7.png",
 ];
 
-const Homepage = () => {
+const HomepageUser = () => {
     return (
         <Container size="xs">
             <Card withBorder padding="lg" radius="md">
@@ -59,4 +59,4 @@ const Homepage = () => {
     );
 };
 
-export default Homepage;
+export default HomepageUser;
