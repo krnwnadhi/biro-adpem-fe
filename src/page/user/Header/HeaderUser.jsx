@@ -9,6 +9,7 @@ import {
     Group,
     HoverCard,
     Image,
+    Portal,
     ScrollArea,
     SimpleGrid,
     Text,
@@ -32,10 +33,10 @@ import {
     IconPhotoCheck,
 } from "@tabler/icons-react";
 import { Link, useLocation } from "react-router-dom";
+import { useDisclosure, useHeadroom } from "@mantine/hooks";
 
 import { DarkButton } from "../../../components/DarkButton/DarkButton";
 import classes from "./HeaderUser.module.css";
-import { useDisclosure } from "@mantine/hooks";
 
 const dataProfil = [
     {
@@ -100,6 +101,8 @@ export default function HeaderUser() {
         useDisclosure(false);
 
     const theme = useMantineTheme();
+
+    const pinned = useHeadroom({ fixedAt: 120 });
 
     const computedColorScheme = useComputedColorScheme("dark", {
         getInitialValueInEffect: true,
@@ -181,249 +184,287 @@ export default function HeaderUser() {
     ));
 
     return (
-        <Box pb={30}>
-            <header className={classes.header}>
-                <Group justify="space-between" h="100%">
-                    <Image
-                        width={250}
-                        height={80}
-                        src={
-                            computedColorScheme === "dark"
-                                ? "https://res.cloudinary.com/degzbxlnx/image/upload/v1690361888/biro-administrasi-pembangunan-setda-provinsi-jambi_wnnxqw.png"
-                                : "https://res.cloudinary.com/degzbxlnx/image/upload/v1690361888/biro-administrasi-pembangunan-setda-provinsi-jambi_1_obbwwu.png"
-                        }
-                        fallbackSrc={
-                            computedColorScheme === "dark"
-                                ? "https://placehold.co/250x65/242424/FFF?text=Biro+Administrasi+Pembangunan+Setda\nProvinsi+Jambi"
-                                : "https://placehold.co/250x65/FFF/000000?text=Biro+Administrasi+Pembangunan+Setda\nProvinsi+Jambi"
-                        }
-                    />
-                    <Group h="100%" gap={0} visibleFrom="sm">
-                        <Link to="/" className={classes.link}>
-                            Beranda
-                        </Link>
-
-                        {/*  */}
-                        <HoverCard
-                            width={600}
-                            position="bottom"
-                            radius="md"
-                            shadow="md"
-                            withinPortal
-                        >
-                            <HoverCard.Target>
-                                <a href="#" className={classes.link}>
-                                    <Center inline>
-                                        <Box component="span" mr={5}>
-                                            Profil
-                                        </Box>
-                                        <IconChevronDown
-                                            style={{
-                                                width: rem(16),
-                                                height: rem(16),
-                                            }}
-                                            color={theme.colors.blue[6]}
-                                        />
-                                    </Center>
-                                </a>
-                            </HoverCard.Target>
-
-                            <HoverCard.Dropdown style={{ overflow: "hidden" }}>
-                                <SimpleGrid cols={2} spacing={0}>
-                                    {linksProfil}
-                                </SimpleGrid>
-                            </HoverCard.Dropdown>
-                        </HoverCard>
-                        {/*  */}
-
-                        <HoverCard
-                            width={600}
-                            position="bottom"
-                            radius="md"
-                            shadow="md"
-                            withinPortal
-                        >
-                            <HoverCard.Target>
-                                <a href="#" className={classes.link}>
-                                    <Center inline>
-                                        <Box component="span" mr={5}>
-                                            Informasi
-                                        </Box>
-                                        <IconChevronDown
-                                            style={{
-                                                width: rem(16),
-                                                height: rem(16),
-                                            }}
-                                            color={theme.colors.blue[6]}
-                                        />
-                                    </Center>
-                                </a>
-                            </HoverCard.Target>
-
-                            <HoverCard.Dropdown style={{ overflow: "hidden" }}>
-                                <SimpleGrid cols={2} spacing={0}>
-                                    {linksInformasi}
-                                </SimpleGrid>
-                            </HoverCard.Dropdown>
-                        </HoverCard>
-                        {/*  */}
-
-                        <HoverCard
-                            width={600}
-                            position="bottom"
-                            radius="md"
-                            shadow="md"
-                            withinPortal
-                        >
-                            <HoverCard.Target>
-                                <a href="#" className={classes.link}>
-                                    <Center inline>
-                                        <Box component="span" mr={5}>
-                                            Layanan
-                                        </Box>
-                                        <IconChevronDown
-                                            style={{
-                                                width: rem(16),
-                                                height: rem(16),
-                                            }}
-                                            color={theme.colors.blue[6]}
-                                        />
-                                    </Center>
-                                </a>
-                            </HoverCard.Target>
-
-                            <HoverCard.Dropdown style={{ overflow: "hidden" }}>
-                                <SimpleGrid cols={2} spacing={0}>
-                                    {linksLayanan}
-                                </SimpleGrid>
-                            </HoverCard.Dropdown>
-                        </HoverCard>
-                    </Group>
-
-                    <Group visibleFrom="md">
-                        <DarkButton />
-
-                        <Divider orientation="vertical" />
-
-                        <ActionIcon size="lg" variant="subtle">
-                            <Tooltip transition="slide-up" label="Facebook">
-                                <IconBrandFacebook size={16} stroke={1.5} />
-                            </Tooltip>
-                        </ActionIcon>
-                        <ActionIcon size="lg" variant="subtle">
-                            <Tooltip transition="slide-up" label="Instagram">
-                                <IconBrandInstagram size={16} stroke={1.5} />
-                            </Tooltip>
-                        </ActionIcon>
-                        <ActionIcon size="lg" variant="subtle">
-                            <Tooltip transition="slide-up" label="Youtube">
-                                <IconBrandYoutube size={16} stroke={1.5} />
-                            </Tooltip>
-                        </ActionIcon>
-                    </Group>
-
-                    <Burger
-                        opened={drawerOpened}
-                        onClick={toggleDrawer}
-                        hiddenFrom="sm"
-                    />
-                </Group>
-            </header>
-
-            {/* MOBILE */}
-
-            <Drawer
-                opened={drawerOpened}
-                onClose={closeDrawer}
-                size="80%"
-                padding="md"
-                title="Biro Adpem"
-                hiddenFrom="sm"
-                zIndex={1000000}
+        <Portal>
+            <Box
+                // pb={30}
+                style={{
+                    position: "fixed",
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    // padding: "var(--mantine-spacing-xs)",
+                    height: rem(80),
+                    zIndex: 1000000,
+                    transform: `translate3d(0, ${pinned ? 0 : rem(-110)}, 0)`,
+                    transition: "transform 400ms ease",
+                    backgroundColor: "var(--mantine-color-body)",
+                }}
             >
-                <ScrollArea h={`calc(100vh - ${rem(80)})`} mx="-md">
-                    <Divider my="sm" />
+                <header className={classes.header}>
+                    <Group justify="space-between" h="100%">
+                        <Image
+                            width={250}
+                            height={80}
+                            src={
+                                computedColorScheme === "dark"
+                                    ? "https://res.cloudinary.com/degzbxlnx/image/upload/v1690361888/biro-administrasi-pembangunan-setda-provinsi-jambi_wnnxqw.png"
+                                    : "https://res.cloudinary.com/degzbxlnx/image/upload/v1690361888/biro-administrasi-pembangunan-setda-provinsi-jambi_1_obbwwu.png"
+                            }
+                            fallbackSrc={
+                                computedColorScheme === "dark"
+                                    ? "https://placehold.co/250x65/242424/FFF?text=Biro+Administrasi+Pembangunan+Setda\nProvinsi+Jambi"
+                                    : "https://placehold.co/250x65/FFF/000000?text=Biro+Administrasi+Pembangunan+Setda\nProvinsi+Jambi"
+                            }
+                        />
+                        <Group h="100%" gap={0} visibleFrom="sm">
+                            <Link to="/" className={classes.link}>
+                                Beranda
+                            </Link>
 
-                    <a href="/" className={classes.link}>
-                        Home
-                    </a>
+                            {/*  */}
+                            <HoverCard
+                                width={600}
+                                position="bottom"
+                                radius="md"
+                                shadow="md"
+                                withinPortal
+                            >
+                                <HoverCard.Target>
+                                    <a href="#" className={classes.link}>
+                                        <Center inline>
+                                            <Box component="span" mr={5}>
+                                                Profil
+                                            </Box>
+                                            <IconChevronDown
+                                                style={{
+                                                    width: rem(16),
+                                                    height: rem(16),
+                                                }}
+                                                color={theme.colors.blue[6]}
+                                            />
+                                        </Center>
+                                    </a>
+                                </HoverCard.Target>
 
-                    <UnstyledButton
-                        className={classes.link}
-                        onClick={toggleLinks}
-                    >
-                        <Center inline>
-                            <Box component="span" mr={5}>
-                                Profil
-                            </Box>
-                            <IconChevronDown
-                                style={{ width: rem(16), height: rem(16) }}
-                                color={theme.colors.blue[6]}
-                            />
-                        </Center>
-                    </UnstyledButton>
+                                <HoverCard.Dropdown
+                                    style={{ overflow: "hidden" }}
+                                >
+                                    <SimpleGrid cols={2} spacing={0}>
+                                        {linksProfil}
+                                    </SimpleGrid>
+                                </HoverCard.Dropdown>
+                            </HoverCard>
+                            {/*  */}
 
-                    <Collapse in={linksOpened}>{linksProfil}</Collapse>
+                            <HoverCard
+                                width={600}
+                                position="bottom"
+                                radius="md"
+                                shadow="md"
+                                withinPortal
+                            >
+                                <HoverCard.Target>
+                                    <a href="#" className={classes.link}>
+                                        <Center inline>
+                                            <Box component="span" mr={5}>
+                                                Informasi
+                                            </Box>
+                                            <IconChevronDown
+                                                style={{
+                                                    width: rem(16),
+                                                    height: rem(16),
+                                                }}
+                                                color={theme.colors.blue[6]}
+                                            />
+                                        </Center>
+                                    </a>
+                                </HoverCard.Target>
 
-                    <UnstyledButton
-                        className={classes.link}
-                        onClick={toggleLinksTwo}
-                    >
-                        <Center inline>
-                            <Box component="span" mr={5}>
-                                Informasi
-                            </Box>
-                            <IconChevronDown
-                                style={{ width: rem(16), height: rem(16) }}
-                                color={theme.colors.blue[6]}
-                            />
-                        </Center>
-                    </UnstyledButton>
+                                <HoverCard.Dropdown
+                                    style={{ overflow: "hidden" }}
+                                >
+                                    <SimpleGrid cols={2} spacing={0}>
+                                        {linksInformasi}
+                                    </SimpleGrid>
+                                </HoverCard.Dropdown>
+                            </HoverCard>
+                            {/*  */}
 
-                    <Collapse in={linksOpenedTwo}>{linksInformasi}</Collapse>
+                            <HoverCard
+                                width={600}
+                                position="bottom"
+                                radius="md"
+                                shadow="md"
+                                withinPortal
+                            >
+                                <HoverCard.Target>
+                                    <a href="#" className={classes.link}>
+                                        <Center inline>
+                                            <Box component="span" mr={5}>
+                                                Layanan
+                                            </Box>
+                                            <IconChevronDown
+                                                style={{
+                                                    width: rem(16),
+                                                    height: rem(16),
+                                                }}
+                                                color={theme.colors.blue[6]}
+                                            />
+                                        </Center>
+                                    </a>
+                                </HoverCard.Target>
 
-                    <UnstyledButton
-                        className={classes.link}
-                        onClick={toggleLinksThree}
-                    >
-                        <Center inline>
-                            <Box component="span" mr={5}>
-                                Layanan
-                            </Box>
-                            <IconChevronDown
-                                style={{ width: rem(16), height: rem(16) }}
-                                color={theme.colors.blue[6]}
-                            />
-                        </Center>
-                    </UnstyledButton>
+                                <HoverCard.Dropdown
+                                    style={{ overflow: "hidden" }}
+                                >
+                                    <SimpleGrid cols={2} spacing={0}>
+                                        {linksLayanan}
+                                    </SimpleGrid>
+                                </HoverCard.Dropdown>
+                            </HoverCard>
+                        </Group>
 
-                    <Collapse in={linksOpenedThree}>{linksLayanan}</Collapse>
+                        <Group visibleFrom="md">
+                            <DarkButton />
 
-                    <Divider my="sm" />
+                            <Divider orientation="vertical" />
 
-                    <Group justify="center" pb="xl" px="md">
-                        <DarkButton />
+                            <ActionIcon size="lg" variant="subtle">
+                                <Tooltip transition="slide-up" label="Facebook">
+                                    <IconBrandFacebook size={16} stroke={1.5} />
+                                </Tooltip>
+                            </ActionIcon>
+                            <ActionIcon size="lg" variant="subtle">
+                                <Tooltip
+                                    transition="slide-up"
+                                    label="Instagram"
+                                >
+                                    <IconBrandInstagram
+                                        size={16}
+                                        stroke={1.5}
+                                    />
+                                </Tooltip>
+                            </ActionIcon>
+                            <ActionIcon size="lg" variant="subtle">
+                                <Tooltip transition="slide-up" label="Youtube">
+                                    <IconBrandYoutube size={16} stroke={1.5} />
+                                </Tooltip>
+                            </ActionIcon>
+                        </Group>
 
-                        <Divider orientation="vertical" />
-
-                        <ActionIcon size="lg" variant="subtle">
-                            <Tooltip transition="slide-up" label="Facebook">
-                                <IconBrandFacebook size={16} stroke={1.5} />
-                            </Tooltip>
-                        </ActionIcon>
-                        <ActionIcon size="lg" variant="subtle">
-                            <Tooltip transition="slide-up" label="Instagram">
-                                <IconBrandInstagram size={16} stroke={1.5} />
-                            </Tooltip>
-                        </ActionIcon>
-                        <ActionIcon size="lg" variant="subtle">
-                            <Tooltip transition="slide-up" label="Youtube">
-                                <IconBrandYoutube size={16} stroke={1.5} />
-                            </Tooltip>
-                        </ActionIcon>
+                        <Burger
+                            opened={drawerOpened}
+                            onClick={toggleDrawer}
+                            hiddenFrom="sm"
+                        />
                     </Group>
-                </ScrollArea>
-            </Drawer>
-        </Box>
+                </header>
+
+                {/* MOBILE */}
+
+                <Drawer
+                    opened={drawerOpened}
+                    onClose={closeDrawer}
+                    size="80%"
+                    padding="md"
+                    title="Biro Adpem"
+                    hiddenFrom="sm"
+                    zIndex={1000000}
+                >
+                    <ScrollArea h={`calc(100vh - ${rem(80)})`} mx="-md">
+                        <Divider my="sm" />
+
+                        <a href="/" className={classes.link}>
+                            Home
+                        </a>
+
+                        <UnstyledButton
+                            className={classes.link}
+                            onClick={toggleLinks}
+                        >
+                            <Center inline>
+                                <Box component="span" mr={5}>
+                                    Profil
+                                </Box>
+                                <IconChevronDown
+                                    style={{ width: rem(16), height: rem(16) }}
+                                    color={theme.colors.blue[6]}
+                                />
+                            </Center>
+                        </UnstyledButton>
+
+                        <Collapse in={linksOpened}>{linksProfil}</Collapse>
+
+                        <UnstyledButton
+                            className={classes.link}
+                            onClick={toggleLinksTwo}
+                        >
+                            <Center inline>
+                                <Box component="span" mr={5}>
+                                    Informasi
+                                </Box>
+                                <IconChevronDown
+                                    style={{ width: rem(16), height: rem(16) }}
+                                    color={theme.colors.blue[6]}
+                                />
+                            </Center>
+                        </UnstyledButton>
+
+                        <Collapse in={linksOpenedTwo}>
+                            {linksInformasi}
+                        </Collapse>
+
+                        <UnstyledButton
+                            className={classes.link}
+                            onClick={toggleLinksThree}
+                        >
+                            <Center inline>
+                                <Box component="span" mr={5}>
+                                    Layanan
+                                </Box>
+                                <IconChevronDown
+                                    style={{ width: rem(16), height: rem(16) }}
+                                    color={theme.colors.blue[6]}
+                                />
+                            </Center>
+                        </UnstyledButton>
+
+                        <Collapse in={linksOpenedThree}>
+                            {linksLayanan}
+                        </Collapse>
+
+                        <Divider my="sm" />
+
+                        <Group justify="center" pb="xl" px="md">
+                            <DarkButton />
+
+                            <Divider orientation="vertical" />
+
+                            <ActionIcon size="lg" variant="subtle">
+                                <Tooltip transition="slide-up" label="Facebook">
+                                    <IconBrandFacebook size={16} stroke={1.5} />
+                                </Tooltip>
+                            </ActionIcon>
+                            <ActionIcon size="lg" variant="subtle">
+                                <Tooltip
+                                    transition="slide-up"
+                                    label="Instagram"
+                                >
+                                    <IconBrandInstagram
+                                        size={16}
+                                        stroke={1.5}
+                                    />
+                                </Tooltip>
+                            </ActionIcon>
+                            <ActionIcon size="lg" variant="subtle">
+                                <Tooltip transition="slide-up" label="Youtube">
+                                    <IconBrandYoutube size={16} stroke={1.5} />
+                                </Tooltip>
+                            </ActionIcon>
+                        </Group>
+                    </ScrollArea>
+                </Drawer>
+            </Box>
+        </Portal>
     );
 }

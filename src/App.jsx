@@ -3,7 +3,6 @@ import { Redirect, Route, Switch } from "react-router-dom/cjs/react-router-dom";
 import About from "./page/user/about/About";
 import Error from "./page/Error/Error";
 import { Footer } from "./page/Footer/Footer";
-import HomepageUser from "./page/user/homepage/HomepageUser";
 import IndexPage from "./page/Homepage/IndexPage";
 import Navbar from "./page/Navbar/Navbar";
 import SignIn from "./page/auth/signin/SignIn";
