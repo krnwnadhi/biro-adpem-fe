@@ -1,6 +1,5 @@
 import {
     Box,
-    Card,
     Container,
     Divider,
     Image,
@@ -17,6 +16,8 @@ import classes from "./About.module.css";
 const About = () => {
     return (
         <>
+            <Space h="xl" />
+
             <Container size="xl" p="lg">
                 <Divider
                     my="xl"
@@ -29,18 +30,18 @@ const About = () => {
                     color="blue"
                 />
                 <SimpleGrid
-                    cols={{ base: 1, md: 2 }}
+                    cols={{ base: 1, sm: 2 }}
                     spacing={{ base: 10, sm: "xl" }}
                     verticalSpacing={{ base: "xl", md: "md" }}
                 >
-                    <Paper
-                        withBorder
-                        shadow="md"
-                        p="xl"
-                        radius="md"
-                        className={classes.box}
-                    >
-                        <Fade triggerOnce cascade>
+                    <Fade triggerOnce cascade delay={500}>
+                        <Paper
+                            // withBorder
+                            shadow="md"
+                            p="xl"
+                            radius="md"
+                            className={classes.box}
+                        >
                             <Box my="xs">
                                 <Text
                                     c="blue"
@@ -70,21 +71,14 @@ const About = () => {
                                 Usaha (KPBU) dalam penyediaan infrastruktur, dan
                                 pelaporan pelaksanaan pembangunan.
                             </Text>
-                        </Fade>
-                    </Paper>
-                    <Fade delay={500} triggerOnce>
+                        </Paper>
+
                         <Image
                             className={classes.box}
                             height={370}
                             radius="md"
                             src="https://res.cloudinary.com/degzbxlnx/image/upload/v1690966461/Untitled_design_3_g4c2d0.png"
-                            alt="With custom placeholder"
-                            withPlaceholder
-                            placeholder={
-                                <Text size="sm">
-                                    Gubernur & Wakil Gubernur Provinsi Jambi.png
-                                </Text>
-                            }
+                            alt="Gubernur & Wakil Gubernur Provinsi Jambi"
                         />
                     </Fade>
                 </SimpleGrid>

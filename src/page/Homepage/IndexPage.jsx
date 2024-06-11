@@ -1,4 +1,5 @@
 import About from "./About";
+import BeritaPage from "./BeritaPage";
 import HeroHeader from "./HeroHeader";
 import ScrollToTop from "./ScrollToTop";
 import { useEffect } from "react";
@@ -11,10 +12,10 @@ const IndexPage = () => {
     return (
         <>
             <HeroHeader />
+            <About />
+            <BeritaPage />
 
             <ScrollToTop />
-
-            <About />
         </>
     );
 };
