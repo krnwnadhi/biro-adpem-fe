@@ -1,14 +1,15 @@
 .wrapper {
     position: relative;
-    padding-top: rem(350px);
+    padding-top: rem(325px);
     padding-bottom: rem(200px);
-    background-image: url(https://images.unsplash.com/photo-1690446142957-124a5800e656?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80);
+    height: 100svh;
     background-size: cover;
     background-position: center;
 
     @media (max-width: $mantine-breakpoint-xs) {
         padding-top: rem(250px);
         padding-bottom: rem(250px);
+        height: 100svh;
     }
 }
 

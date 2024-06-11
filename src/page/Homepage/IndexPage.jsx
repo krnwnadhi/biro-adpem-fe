@@ -29,6 +29,7 @@ const IndexPage = () => {
                     )}
                 </Transition>
             </Affix>
+            {/* <HeroHeader /> */}
         </div>
     );
 };

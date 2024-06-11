@@ -106,7 +106,8 @@ export function Footer() {
             </Container>
             <Container className={classes.afterFooter}>
                 <Text c="dimmed" size="sm">
-                    Copyright © 2023 Biro Adminitrasi Pembangunan Provinsi Jambi
+                    Copyright © 2023 Biro Adminitrasi Pembangunan Setda Provinsi
+                    Jambi
                 </Text>
             </Container>
         </footer>

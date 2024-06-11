@@ -11,6 +11,7 @@ import {
 import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
 import { Notifications } from "@mantine/notifications";
+import { ParallaxProvider } from "react-scroll-parallax";
 import { Provider } from "react-redux";
 import ReactDOM from "react-dom/client";
 import store from "./redux/store/store.js";
@@ -38,8 +39,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <MantineProvider theme={theme} colorSchemeManager={colorSchemeManager}>
         <Provider store={store}>
             <BrowserRouter>
-                <Notifications position="top-right" limit={3} />
-                <App />
+                <ParallaxProvider>
+                    <Notifications position="top-right" limit={3} />
+                    <App />
+                </ParallaxProvider>
             </BrowserRouter>
         </Provider>
     </MantineProvider>

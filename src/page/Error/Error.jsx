@@ -21,7 +21,13 @@ const Error = () => {
                     salah mengetik URL? Pastikan untuk memeriksa ejaan Anda.
                 </Text>
                 <Group justify="center">
-                    <Button component={Link} to="/" variant="subtle" size="md">
+                    <Button
+                        component={Link}
+                        to="/"
+                        variant="subtle"
+                        size="md"
+                        radius="md"
+                    >
                         Halaman Utama
                     </Button>
                 </Group>
