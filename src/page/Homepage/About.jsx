@@ -75,7 +75,7 @@ const About = () => {
 
                         <Image
                             className={classes.box}
-                            height={370}
+                            height={350}
                             radius="md"
                             src="https://res.cloudinary.com/degzbxlnx/image/upload/v1690966461/Untitled_design_3_g4c2d0.png"
                             alt="Gubernur & Wakil Gubernur Provinsi Jambi"
