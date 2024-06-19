@@ -8,6 +8,7 @@ const IndexPage = () => {
     return (
         <>
             <HeroHeader />
+
             <About />
             <BeritaPage />
             <Gallery />
