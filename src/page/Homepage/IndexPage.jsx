@@ -2,7 +2,6 @@ import About from "./About";
 import BeritaPage from "./BeritaPage";
 import { Gallery } from "./Gallery";
 import HeroHeader from "./HeroHeader";
-import ScrollToTop from "./ScrollToTop";
 
 const IndexPage = () => {
     return (
@@ -12,8 +11,6 @@ const IndexPage = () => {
             <About />
             <BeritaPage />
             <Gallery />
-
-            <ScrollToTop />
         </>
     );
 };

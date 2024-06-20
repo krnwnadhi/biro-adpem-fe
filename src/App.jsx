@@ -6,6 +6,7 @@ import { Footer } from "./page/Footer/Footer";
 import IndexPage from "./page/Homepage/IndexPage";
 import { IndexProfil } from "./page/Profil/IndexProfil";
 import Navbar from "./page/Navbar/Navbar";
+import ScrollToTop from "./page/Homepage/ScrollToTop";
 import SelayangPandang from "./page/Profil/SelayangPandang";
 import SignIn from "./page/auth/signin/SignIn";
 import StrukturOrganisasi from "./page/Profil/StrukturOrganisasi";
@@ -41,7 +42,10 @@ function App() {
                     <Redirect to="/404" />
                 </Route>
             </Switch>
+
             <Footer />
+
+            <ScrollToTop />
         </div>
     );
 }

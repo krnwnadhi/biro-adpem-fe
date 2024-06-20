@@ -21,57 +21,64 @@ export function IndexProfil() {
     const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
     return (
-        <Container size="xl" mt={100}>
-            <Tabs
-                variant="pills"
-                radius="lg"
-                value={tabValue}
-                onChange={(value) => history.push(`/profil/${value}`)}
-                orientation={mobile ? "horizontal" : "vertical"}
-                keepMounted={false}
-                loop
-            >
-                <Tabs.List mr="xl" grow={mobile ? true : false}>
-                    <Tabs.Tab
-                        p="lg"
-                        value="selayangpandang"
-                        leftSection={<IconPhoto style={iconStyle} />}
-                    >
-                        Selayang Pandang
-                    </Tabs.Tab>
-                    <Tabs.Tab
-                        p="lg"
-                        color="green"
-                        value="visimisi"
-                        leftSection={<IconMessageCircle style={iconStyle} />}
-                    >
-                        Visi & Misi
-                    </Tabs.Tab>
-                    <Tabs.Tab
-                        p="lg"
-                        color="red"
-                        value="strukturorganisasi"
-                        leftSection={<IconSettings style={iconStyle} />}
-                    >
-                        Struktur Organisasi
-                    </Tabs.Tab>
-                </Tabs.List>
-
-                <Tabs.Panel value="selayangpandang" mt={mobile ? "xl" : null}>
-                    <SelayangPandang />
-                </Tabs.Panel>
-
-                <Tabs.Panel value="visimisi" mt={mobile ? "xl" : null}>
-                    <VisiMisi />
-                </Tabs.Panel>
-
-                <Tabs.Panel
-                    value="strukturorganisasi"
-                    mt={mobile ? "xl" : null}
+        <>
+            <Container size="xl" mt={100}>
+                <Tabs
+                    variant="pills"
+                    radius="lg"
+                    value={tabValue}
+                    onChange={(value) => history.push(`/profil/${value}`)}
+                    orientation={mobile ? "horizontal" : "vertical"}
+                    keepMounted={false}
+                    loop
                 >
-                    <StrukturOrganisasi />
-                </Tabs.Panel>
-            </Tabs>
-        </Container>
+                    <Tabs.List mr="xl" grow={mobile ? true : false}>
+                        <Tabs.Tab
+                            p="lg"
+                            value="selayangpandang"
+                            leftSection={<IconPhoto style={iconStyle} />}
+                        >
+                            Selayang Pandang
+                        </Tabs.Tab>
+                        <Tabs.Tab
+                            p="lg"
+                            color="green"
+                            value="visimisi"
+                            leftSection={
+                                <IconMessageCircle style={iconStyle} />
+                            }
+                        >
+                            Visi & Misi
+                        </Tabs.Tab>
+                        <Tabs.Tab
+                            p="lg"
+                            color="red"
+                            value="strukturorganisasi"
+                            leftSection={<IconSettings style={iconStyle} />}
+                        >
+                            Struktur Organisasi
+                        </Tabs.Tab>
+                    </Tabs.List>
+
+                    <Tabs.Panel
+                        value="selayangpandang"
+                        mt={mobile ? "xl" : null}
+                    >
+                        <SelayangPandang />
+                    </Tabs.Panel>
+
+                    <Tabs.Panel value="visimisi" mt={mobile ? "xl" : null}>
+                        <VisiMisi />
+                    </Tabs.Panel>
+
+                    <Tabs.Panel
+                        value="strukturorganisasi"
+                        mt={mobile ? "xl" : null}
+                    >
+                        <StrukturOrganisasi />
+                    </Tabs.Panel>
+                </Tabs>
+            </Container>
+        </>
     );
 }

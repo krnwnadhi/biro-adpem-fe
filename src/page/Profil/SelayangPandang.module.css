@@ -1,0 +1,13 @@
+.image {
+    transition: box-shadow 150ms ease, transform 500ms ease;
+
+    @mixin hover {
+        box-shadow: var(--mantine-shadow-md);
+        border: rem(1px) solid
+            light-dark(
+                var(--mantine-color-blue-filled),
+                var(--mantine-color-dark-1)
+            );
+        transform: scale(1.01);
+    }
+}
