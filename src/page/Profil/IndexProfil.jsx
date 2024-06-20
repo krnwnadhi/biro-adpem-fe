@@ -1,52 +1,75 @@
-import { Container, Tabs, rem } from "@mantine/core";
+import { Container, Tabs, rem, useMantineTheme } from "@mantine/core";
 import {
     IconMessageCircle,
     IconPhoto,
     IconSettings,
 } from "@tabler/icons-react";
+import { useHistory, useParams } from "react-router-dom";
+
+import SelayangPandang from "./SelayangPandang";
+import StrukturOrganisasi from "./StrukturOrganisasi";
+import VisiMisi from "./VisiMisi";
+import { useMediaQuery } from "@mantine/hooks";
 
 export function IndexProfil() {
     const iconStyle = { width: rem(12), height: rem(12) };
 
+    const history = useHistory();
+    const { tabValue } = useParams();
+
+    const theme = useMantineTheme();
+    const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
+
     return (
         <Container size="xl" mt={100}>
             <Tabs
-                defaultValue="gallery"
                 variant="pills"
                 radius="lg"
-                // orientation="vertical"
+                value={tabValue}
+                onChange={(value) => history.push(`/profil/${value}`)}
+                orientation={mobile ? "horizontal" : "vertical"}
+                keepMounted={false}
+                loop
             >
-                <Tabs.List grow>
+                <Tabs.List mr="xl" grow={mobile ? true : false}>
                     <Tabs.Tab
-                        value="gallery"
+                        p="lg"
+                        value="selayangpandang"
                         leftSection={<IconPhoto style={iconStyle} />}
                     >
-                        Gallery
+                        Selayang Pandang
                     </Tabs.Tab>
                     <Tabs.Tab
-                        value="messages"
+                        p="lg"
+                        color="green"
+                        value="visimisi"
                         leftSection={<IconMessageCircle style={iconStyle} />}
                     >
-                        Messages
+                        Visi & Misi
                     </Tabs.Tab>
                     <Tabs.Tab
-                        value="settings"
+                        p="lg"
+                        color="red"
+                        value="strukturorganisasi"
                         leftSection={<IconSettings style={iconStyle} />}
                     >
-                        Settings
+                        Struktur Organisasi
                     </Tabs.Tab>
                 </Tabs.List>
 
-                <Tabs.Panel mt="xl" value="gallery">
-                    Gallery tab content
+                <Tabs.Panel value="selayangpandang" mt={mobile ? "xl" : null}>
+                    <SelayangPandang />
                 </Tabs.Panel>
 
-                <Tabs.Panel mt="xl" value="messages">
-                    Messages tab content
+                <Tabs.Panel value="visimisi" mt={mobile ? "xl" : null}>
+                    <VisiMisi />
                 </Tabs.Panel>
 
-                <Tabs.Panel mt="xl" value="settings">
-                    Settings tab content
+                <Tabs.Panel
+                    value="strukturorganisasi"
+                    mt={mobile ? "xl" : null}
+                >
+                    <StrukturOrganisasi />
                 </Tabs.Panel>
             </Tabs>
         </Container>

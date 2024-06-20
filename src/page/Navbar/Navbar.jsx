@@ -60,7 +60,7 @@ const dataProfil = [
         title: "Struktur Organisasi",
         description:
             "Struktur Organisasi & Pejabat Biro Adminsistrasi Pembangunan Provinsi Jambi",
-        link: "/profil/struktur",
+        link: "/profil/strukturorganisasi",
     },
 ];
 
