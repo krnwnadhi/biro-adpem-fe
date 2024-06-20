@@ -235,6 +235,8 @@ const Navbar = () => {
                                 radius="md"
                                 shadow="md"
                                 withinPortal
+                                withArrow
+                                offset={20}
                             >
                                 <HoverCard.Target>
                                     <a href="#" className={classes.link}>
@@ -269,6 +271,8 @@ const Navbar = () => {
                                 radius="md"
                                 shadow="md"
                                 withinPortal
+                                withArrow
+                                offset={20}
                             >
                                 <HoverCard.Target>
                                     <a href="#" className={classes.link}>
@@ -303,6 +307,8 @@ const Navbar = () => {
                                 radius="md"
                                 shadow="md"
                                 withinPortal
+                                withArrow
+                                offset={20}
                             >
                                 <HoverCard.Target>
                                     <a href="#" className={classes.link}>
@@ -334,6 +340,14 @@ const Navbar = () => {
                                 <Tooltip
                                     transition="slide-up"
                                     label="Dashboard"
+                                    offset={25}
+                                    withArrow
+                                    arrowOffset={10}
+                                    arrowSize={5}
+                                    transitionProps={{
+                                        transition: "slide-down",
+                                        duration: 300,
+                                    }}
                                 >
                                     <UnstyledButton
                                         component={Link}
@@ -354,7 +368,18 @@ const Navbar = () => {
                             <Divider orientation="vertical" />
 
                             <ActionIcon size="lg" variant="subtle">
-                                <Tooltip transition="slide-up" label="Facebook">
+                                <Tooltip
+                                    transition="slide-up"
+                                    label="Facebook"
+                                    offset={35}
+                                    withArrow
+                                    arrowOffset={10}
+                                    arrowSize={5}
+                                    transitionProps={{
+                                        transition: "slide-down",
+                                        duration: 300,
+                                    }}
+                                >
                                     <IconBrandFacebook size={16} stroke={1.5} />
                                 </Tooltip>
                             </ActionIcon>
@@ -362,16 +387,19 @@ const Navbar = () => {
                                 <Tooltip
                                     transition="slide-up"
                                     label="Instagram"
+                                    offset={35}
+                                    withArrow
+                                    arrowOffset={10}
+                                    arrowSize={5}
+                                    transitionProps={{
+                                        transition: "slide-down",
+                                        duration: 300,
+                                    }}
                                 >
                                     <IconBrandInstagram
                                         size={16}
                                         stroke={1.5}
                                     />
-                                </Tooltip>
-                            </ActionIcon>
-                            <ActionIcon size="lg" variant="subtle">
-                                <Tooltip transition="slide-up" label="Youtube">
-                                    <IconBrandYoutube size={16} stroke={1.5} />
                                 </Tooltip>
                             </ActionIcon>
                         </Group>
@@ -389,9 +417,9 @@ const Navbar = () => {
                 <Drawer
                     opened={drawerOpened}
                     onClose={closeDrawer}
-                    size="80%"
+                    size="75%"
                     padding="md"
-                    title="Biro Adpem"
+                    title="Biro Administrasi Pembangunan"
                     hiddenFrom="sm"
                     zIndex={1000000}
                 >
@@ -417,7 +445,13 @@ const Navbar = () => {
                             </Center>
                         </UnstyledButton>
 
-                        <Collapse in={linksOpened}>{linksProfil}</Collapse>
+                        <Collapse
+                            in={linksOpened}
+                            transitionDuration={300}
+                            transitionTimingFunction="linear"
+                        >
+                            {linksProfil}
+                        </Collapse>
 
                         <UnstyledButton
                             className={classes.link}
@@ -434,7 +468,11 @@ const Navbar = () => {
                             </Center>
                         </UnstyledButton>
 
-                        <Collapse in={linksOpenedTwo}>
+                        <Collapse
+                            in={linksOpenedTwo}
+                            transitionDuration={300}
+                            transitionTimingFunction="linear"
+                        >
                             {linksInformasi}
                         </Collapse>
 
@@ -453,7 +491,11 @@ const Navbar = () => {
                             </Center>
                         </UnstyledButton>
 
-                        <Collapse in={linksOpenedThree}>
+                        <Collapse
+                            in={linksOpenedThree}
+                            transitionDuration={300}
+                            transitionTimingFunction="linear"
+                        >
                             {linksLayanan}
                         </Collapse>
 
@@ -478,11 +520,6 @@ const Navbar = () => {
                                         size={16}
                                         stroke={1.5}
                                     />
-                                </Tooltip>
-                            </ActionIcon>
-                            <ActionIcon size="lg" variant="subtle">
-                                <Tooltip transition="slide-up" label="Youtube">
-                                    <IconBrandYoutube size={16} stroke={1.5} />
                                 </Tooltip>
                             </ActionIcon>
                         </Group>

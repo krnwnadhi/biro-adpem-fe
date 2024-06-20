@@ -1,6 +1,7 @@
 import {
     ActionIcon,
     Group,
+    Tooltip,
     useComputedColorScheme,
     useMantineColorScheme,
 } from "@mantine/core";
@@ -18,7 +19,18 @@ export function DarkButton() {
     const dark = colorScheme === "dark";
 
     return (
-        <Group justify="center">
+        <Tooltip
+            transition="slide-up"
+            label={dark ? "Mode Terang" : "Mode Gelap"}
+            offset={35}
+            withArrow
+            arrowOffset={10}
+            arrowSize={5}
+            transitionProps={{
+                transition: "slide-down",
+                duration: 300,
+            }}
+        >
             <ActionIcon
                 onClick={() =>
                     setColorScheme(
@@ -28,7 +40,6 @@ export function DarkButton() {
                 variant="subtle"
                 size="md"
                 aria-label="Toggle color scheme"
-                title={dark ? "Mode Terang" : "Mode Gelap"}
             >
                 <IconSun
                     className={cx(classes.icon, classes.light)}
@@ -39,6 +50,6 @@ export function DarkButton() {
                     stroke={1.5}
                 />
             </ActionIcon>
-        </Group>
+        </Tooltip>
     );
 }

@@ -3,9 +3,6 @@ import {
     IconBinaryTree,
     IconBuildingArch,
     IconLicense,
-    IconMessageCircle,
-    IconPhoto,
-    IconSettings,
 } from "@tabler/icons-react";
 import { useHistory, useParams } from "react-router-dom";
 
