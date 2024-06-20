@@ -25,7 +25,6 @@ import {
     IconBook,
     IconBrandFacebook,
     IconBrandInstagram,
-    IconBrandYoutube,
     IconBuilding,
     IconBuildingArch,
     IconChevronDown,
