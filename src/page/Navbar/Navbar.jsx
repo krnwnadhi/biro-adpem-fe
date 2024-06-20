@@ -140,7 +140,7 @@ const Navbar = () => {
                         color={theme.colors.blue[6]}
                     />
                 </ThemeIcon>
-                <UnstyledButton component={Link} to={item.link}>
+                <UnstyledButton component="a" href={item.link}>
                     <Text size="sm">{item.title}</Text>
                     <Text size="xs" c="dimmed">
                         {item.description}
@@ -159,7 +159,7 @@ const Navbar = () => {
                         color={theme.colors.blue[6]}
                     />
                 </ThemeIcon>
-                <UnstyledButton component={Link} to={item.link}>
+                <UnstyledButton component="a" href={item.link}>
                     <Text size="sm" weight={500}>
                         {item.title}
                     </Text>
@@ -180,7 +180,7 @@ const Navbar = () => {
                         color={theme.colors.blue[6]}
                     />
                 </ThemeIcon>
-                <UnstyledButton component={Link} to={item.link}>
+                <UnstyledButton component="a" href={item.link}>
                     <Text size="sm" weight={500}>
                         {item.title}
                     </Text>
@@ -195,13 +195,11 @@ const Navbar = () => {
     return (
         <Portal>
             <Box
-                // pb={30}
                 style={{
                     position: "fixed",
                     top: 0,
                     left: 0,
                     right: 0,
-                    // padding: "var(--mantine-spacing-xs)",
                     height: rem(80),
                     zIndex: 1000000,
                     transform: `translate3d(0, ${pinned ? 0 : rem(-110)}, 0)`,
@@ -258,7 +256,7 @@ const Navbar = () => {
                                 <HoverCard.Dropdown
                                     style={{ overflow: "hidden" }}
                                 >
-                                    <SimpleGrid cols={2} spacing={0}>
+                                    <SimpleGrid cols={1}>
                                         {linksProfil}
                                     </SimpleGrid>
                                 </HoverCard.Dropdown>
@@ -292,7 +290,7 @@ const Navbar = () => {
                                 <HoverCard.Dropdown
                                     style={{ overflow: "hidden" }}
                                 >
-                                    <SimpleGrid cols={2} spacing={0}>
+                                    <SimpleGrid cols={1}>
                                         {linksInformasi}
                                     </SimpleGrid>
                                 </HoverCard.Dropdown>
@@ -326,7 +324,7 @@ const Navbar = () => {
                                 <HoverCard.Dropdown
                                     style={{ overflow: "hidden" }}
                                 >
-                                    <SimpleGrid cols={2} spacing={0}>
+                                    <SimpleGrid cols={1}>
                                         {linksLayanan}
                                     </SimpleGrid>
                                 </HoverCard.Dropdown>
@@ -386,7 +384,7 @@ const Navbar = () => {
                     </Group>
                 </header>
 
-                {/* MOBILE */}
+                {/* MOBILE START */}
 
                 <Drawer
                     opened={drawerOpened}
@@ -490,6 +488,8 @@ const Navbar = () => {
                         </Group>
                     </ScrollArea>
                 </Drawer>
+
+                {/* MOBILE END */}
             </Box>
         </Portal>
     );

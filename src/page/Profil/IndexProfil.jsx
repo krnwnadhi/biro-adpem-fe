@@ -1,5 +1,8 @@
 import { Container, Tabs, rem, useMantineTheme } from "@mantine/core";
 import {
+    IconBinaryTree,
+    IconBuildingArch,
+    IconLicense,
     IconMessageCircle,
     IconPhoto,
     IconSettings,
@@ -36,7 +39,7 @@ export function IndexProfil() {
                         <Tabs.Tab
                             p="lg"
                             value="selayangpandang"
-                            leftSection={<IconPhoto style={iconStyle} />}
+                            leftSection={<IconBuildingArch style={iconStyle} />}
                         >
                             Selayang Pandang
                         </Tabs.Tab>
@@ -44,9 +47,7 @@ export function IndexProfil() {
                             p="lg"
                             color="green"
                             value="visimisi"
-                            leftSection={
-                                <IconMessageCircle style={iconStyle} />
-                            }
+                            leftSection={<IconLicense style={iconStyle} />}
                         >
                             Visi & Misi
                         </Tabs.Tab>
@@ -54,7 +55,7 @@ export function IndexProfil() {
                             p="lg"
                             color="red"
                             value="strukturorganisasi"
-                            leftSection={<IconSettings style={iconStyle} />}
+                            leftSection={<IconBinaryTree style={iconStyle} />}
                         >
                             Struktur Organisasi
                         </Tabs.Tab>
