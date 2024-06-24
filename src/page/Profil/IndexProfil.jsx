@@ -37,6 +37,7 @@ export function IndexProfil() {
                             p="lg"
                             value="selayangpandang"
                             leftSection={<IconBuildingArch style={iconStyle} />}
+                            mb="md"
                         >
                             Selayang Pandang
                         </Tabs.Tab>
@@ -45,6 +46,7 @@ export function IndexProfil() {
                             color="green"
                             value="visimisi"
                             leftSection={<IconLicense style={iconStyle} />}
+                            mb="md"
                         >
                             Visi & Misi
                         </Tabs.Tab>
@@ -53,6 +55,7 @@ export function IndexProfil() {
                             color="red"
                             value="strukturorganisasi"
                             leftSection={<IconBinaryTree style={iconStyle} />}
+                            mb="md"
                         >
                             Struktur Organisasi
                         </Tabs.Tab>

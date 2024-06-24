@@ -123,7 +123,6 @@ export function Gallery() {
                 <Carousel
                     classNames={classes}
                     slideSize={{ base: "100%", sm: "50%", md: "33.333333%" }}
-                    // slideGap={{ base: "lg", sm: "xl" }}
                     slideGap="xl"
                     align="start"
                     slidesToScroll={mobile ? 1 : 3}
@@ -131,8 +130,6 @@ export function Gallery() {
                     dragFree
                     getEmblaApi={setEmbla}
                     initialSlide={2}
-                    // withControls
-                    // withIndicators
                     controlsOffset="xl"
                     plugins={[autoplay.current]}
                     onMouseEnter={autoplay.current.stop}
