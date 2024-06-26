@@ -8,6 +8,7 @@ import {
 } from "@mantine/core";
 
 import classes from "./Footer.module.css";
+import { useLocation } from "react-router-dom/cjs/react-router-dom";
 
 const data = [
     {
@@ -49,6 +50,12 @@ export function Footer() {
     const computedColorScheme = useComputedColorScheme("dark", {
         getInitialValueInEffect: true,
     });
+
+    const withoutSidebarRoutes = ["404"];
+
+    const { pathname } = useLocation();
+    if (withoutSidebarRoutes.some((item) => pathname.includes(item)))
+        return null;
 
     const groups = data.map((group) => {
         const links = group.links.map((link, index) => (

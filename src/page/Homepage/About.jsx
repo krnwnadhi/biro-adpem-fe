@@ -34,7 +34,7 @@ const About = () => {
                     spacing={{ base: 10, sm: "xl" }}
                     verticalSpacing={{ base: "xl", md: "md" }}
                 >
-                    <Fade triggerOnce cascade delay={500}>
+                    <Fade triggerOnce cascade >
                         <Paper
                             // withBorder
                             shadow="md"

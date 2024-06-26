@@ -22,7 +22,7 @@ const VisiMisi = () => {
     return (
         <>
             <Container size="xl">
-                <Fade cascade triggerOnce delay={500}>
+                <Fade cascade triggerOnce>
                     <Title my="sm" order={2} align="center">
                         Visi Misi Biro Administrasi Pembangunan Setda Provinsi
                         Jambi
@@ -50,7 +50,7 @@ const VisiMisi = () => {
                     spacing={{ base: 10, sm: "xl" }}
                     verticalSpacing={{ base: "xl", md: "md" }}
                 >
-                    <Slide triggerOnce delay={500}>
+                    <Slide triggerOnce>
                         <Paper withBorder radius="md" className={classes.card}>
                             <Text size="xl" weight={500} mt="md">
                                 Visi
@@ -76,7 +76,7 @@ const VisiMisi = () => {
                         </Paper>
                     </Slide>
 
-                    <Slide triggerOnce direction="right" delay={100}>
+                    <Slide triggerOnce direction="right">
                         <Paper withBorder radius="md" className={classes.card}>
                             <Text size="xl" weight={500} mt="md">
                                 Misi

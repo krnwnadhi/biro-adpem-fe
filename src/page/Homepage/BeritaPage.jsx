@@ -1,22 +1,37 @@
+import "dayjs/locale/id";
+
 import {
     ActionIcon,
+    AspectRatio,
+    Avatar,
     Badge,
     Button,
     Card,
+    Center,
     Container,
     Divider,
     Group,
     Image,
+    Overlay,
     SimpleGrid,
     Space,
+    Stack,
     Text,
+    Title,
+    TypographyStylesProvider,
 } from "@mantine/core";
+import { Fragment, useEffect } from "react";
+import { IconExternalLink, IconHeart, IconShare } from "@tabler/icons-react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { IconHeart } from "@tabler/icons-react";
+import { Link } from "react-router-dom/cjs/react-router-dom";
 import classes from "./BeritaPage.module.css";
+import customParseFormat from "dayjs/plugin/customParseFormat";
+import dayjs from "dayjs";
 import { fetchAllPostAction } from "../../redux/slices/posts/postSlice";
-import { useEffect } from "react";
+import relativeTime from "dayjs/plugin/relativeTime";
+
+// import { relativeTime } from "dayjs/plugin/relativeTime";
 
 const BeritaPage = () => {
     const dispatch = useDispatch();
@@ -25,35 +40,25 @@ const BeritaPage = () => {
         dispatch(fetchAllPostAction(""));
     }, [dispatch]);
 
-    const post = useSelector((state) => state?.post);
-    const { postList } = post;
-    console.log(postList);
+    dayjs.extend(customParseFormat);
+    dayjs.extend(relativeTime);
 
-    // const { result = [] } = postList;
-    // console.log(result);
+    const formatDate = (date) => {
+        const today = dayjs().startOf("day");
+        const targetDate = dayjs(date).startOf("day");
 
-    const mockdata = {
-        image: "https://images.unsplash.com/photo-1437719417032-8595fd9e9dc6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=600&q=80",
-        title: "Verudela Beach",
-        country: "Croatia",
-        description:
-            "Completely renovated for the season 2020, Arena Verudela Bech Apartments are fully equipped and modernly furnished 4-star self-service apartments located on the Adriatic coastline by one of the most beautiful beaches in Pula.",
-        badges: [
-            { emoji: "☀️", label: "Sunny weather" },
-            { emoji: "🦓", label: "Onsite zoo" },
-            { emoji: "🌊", label: "Sea" },
-            { emoji: "🌲", label: "Nature" },
-            { emoji: "🤽", label: "Water sports" },
-        ],
+        if (targetDate.isSame(today, "day")) {
+            return dayjs(date).locale("id").fromNow();
+        } else {
+            return dayjs(date).locale("id").format("DD MMMM YYYY");
+        }
     };
 
-    const { image, title, description, country, badges } = mockdata;
+    const post = useSelector((state) => state?.post);
+    const { postList = [] } = post;
 
-    const features = badges.map((badge) => (
-        <Badge variant="light" key={badge.label} leftSection={badge.emoji}>
-            {badge.label}
-        </Badge>
-    ));
+    const { result = [] } = postList;
+    console.log(result);
 
     return (
         <>
@@ -61,7 +66,7 @@ const BeritaPage = () => {
 
             <Container size="xl">
                 <Divider
-                    my="xl"
+                    mt="xl"
                     labelPosition="left"
                     label={
                         <Text c="blue" fs="italic" fz="h6" fw={700}>
@@ -70,57 +75,122 @@ const BeritaPage = () => {
                     }
                     color="blue"
                 />
+
+                <Group justify="flex-end">
+                    <Button
+                        size="xs"
+                        radius="md"
+                        component={Link}
+                        to={"/berita"}
+                        variant="gradient"
+                        my="xl"
+                        rightSection={
+                            <IconExternalLink size={18} variant="default" />
+                        }
+                    >
+                        LIHAT SEMUA BERITA
+                    </Button>
+                </Group>
+
                 <SimpleGrid
                     cols={{ base: 1, sm: 3 }}
                     spacing={{ base: 10, sm: "xl" }}
                     verticalSpacing={{ base: "xl", md: "md" }}
                 >
-                    <Card
-                        withBorder
-                        radius="md"
-                        p="md"
-                        shadow="lg"
-                        className={classes.card}
-                    >
-                        <Card.Section>
-                            <Image src={image} alt={title} height={180} />
-                        </Card.Section>
+                    {result?.map((item) => {
+                        return (
+                            <Fragment key={item?.id}>
+                                <Card
+                                    withBorder
+                                    radius="md"
+                                    p="md"
+                                    shadow="xl"
+                                    className={classes.card}
+                                >
+                                    <Card.Section>
+                                        <AspectRatio
+                                            ratio={16 / 9}
+                                            pos="relative"
+                                        >
+                                            <Overlay
+                                                color="#000"
+                                                backgroundOpacity={0.35}
+                                            />
+                                            <Image
+                                                src={item?.image}
+                                                alt={item?.title}
+                                                // height={180}
+                                            />
+                                        </AspectRatio>
+                                    </Card.Section>
 
-                        <Card.Section className={classes.section} mt="md">
-                            <Group justify="apart">
-                                <Text fz="lg" fw={500}>
-                                    {title}
-                                </Text>
-                                <Badge size="sm" variant="light">
-                                    {country}
-                                </Badge>
-                            </Group>
-                            <Text fz="sm" mt="xs">
-                                {description}
-                            </Text>
-                        </Card.Section>
+                                    <Stack mt="xl">
+                                        <Badge
+                                            size="xs"
+                                            variant="light"
+                                            fullWidth
+                                        >
+                                            {item?.category}
+                                        </Badge>
 
-                        <Card.Section className={classes.section}>
-                            <Text mt="md" className={classes.label} c="dimmed">
-                                Perfect for you, if you enjoy
-                            </Text>
-                            <Group gap={7} mt={5}>
-                                {features}
-                            </Group>
-                        </Card.Section>
+                                        <Title
+                                            textWrap="wrap"
+                                            order={6}
+                                            lineClamp={1}
+                                        >
+                                            {item?.title}
+                                        </Title>
 
-                        <Group mt="xs">
-                            <Button radius="md" style={{ flex: 1 }}>
-                                Show details
-                            </Button>
-                            <ActionIcon variant="default" radius="md" size={36}>
-                                <IconHeart
-                                    className={classes.like}
-                                    stroke={1.5}
-                                />
-                            </ActionIcon>
-                        </Group>
-                    </Card>
+                                        <TypographyStylesProvider>
+                                            <Text
+                                                lineClamp={2}
+                                                c="dimmed"
+                                                dangerouslySetInnerHTML={{
+                                                    __html: item?.description,
+                                                }}
+                                                size="xs"
+                                                ta="justify"
+                                            />
+                                        </TypographyStylesProvider>
+                                    </Stack>
+
+                                    <Card.Section className={classes.section}>
+                                        <Group justify="space-between" mt="xl">
+                                            <Center>
+                                                <Avatar
+                                                    src={
+                                                        item?.user?.profilePhoto
+                                                    }
+                                                    size={24}
+                                                    radius="xl"
+                                                    mr="xs"
+                                                />
+                                                <Text size="xs" c="dimmed">
+                                                    {item?.user?.fullName}
+                                                </Text>
+                                            </Center>
+
+                                            <Text size="xs" c="dimmed">
+                                                {formatDate(item?.createdAt)}
+                                            </Text>
+                                        </Group>
+                                    </Card.Section>
+
+                                    <Group mt="xs">
+                                        <Button
+                                            radius="md"
+                                            style={{ flex: 1 }}
+                                            component={Link}
+                                            to={"/berita"}
+                                            variant="subtle"
+                                        >
+                                            Baca Selengkapnya
+                                        </Button>
+                                    </Group>
+                                </Card>
+                            </Fragment>
+                        );
+                    })}
                 </SimpleGrid>
             </Container>
         </>
