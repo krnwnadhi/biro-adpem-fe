@@ -5,9 +5,10 @@ import {
     Container,
     CopyButton,
     Divider,
+    Grid,
     Group,
     Overlay,
-    SimpleGrid,
+    Space,
     Text,
     ThemeIcon,
     Title,
@@ -31,6 +32,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { ParallaxBanner } from "react-scroll-parallax";
 import classes from "./DetailBerita.module.css";
 import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 import { useParams } from "react-router-dom/cjs/react-router-dom";
 
 // import { useMediaQuery } from "@mantine/hooks";
@@ -39,6 +41,8 @@ export const DetailBerita = () => {
     const { id } = useParams();
 
     const dispatch = useDispatch();
+
+    dayjs.extend(relativeTime);
 
     // const theme = useMantineTheme();
     // const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.md}px)`);
@@ -68,7 +72,7 @@ export const DetailBerita = () => {
     };
 
     const breadcrumbsItem = [
-        { title: "Home", href: "/" },
+        { title: "Beranda", href: "/" },
         { title: "Informasi", href: "#" },
         { title: "Berita & Kegiatan", href: "/berita" },
         { title: postDetail.title },
@@ -88,134 +92,159 @@ export const DetailBerita = () => {
 
     return (
         <Fragment>
-            <ParallaxBanner
-                layers={[
-                    {
-                        image: postDetail?.image,
-                        amount: 0.5,
-                        speed: -35,
-                        scale: [1, 1.1, "easeInOutBack"],
-                    },
-                ]}
-                className={classes.banner}
-            >
-                <Overlay color="#000" opacity={1} blur={10} zIndex={1} />
-                <div className={classes.wrapper}>
-                    <div className={classes.inner}>
-                        <Container size="lg">
-                            <Breadcrumbs>{breadcrumbsItem}</Breadcrumbs>
+            {/* HEROHEADER */}
+            <div>
+                <ParallaxBanner
+                    layers={[
+                        {
+                            image: postDetail?.image,
+                            amount: 0.5,
+                            speed: -35,
+                            scale: [1, 1.1, "easeInOutBack"],
+                        },
+                    ]}
+                    className={classes.banner}
+                >
+                    <Overlay color="#000" opacity={1} blur={5} zIndex={1} />
 
-                            {/* JUDUL */}
-                            <Title className={classes.title}>
-                                {postDetail?.title}
-                            </Title>
+                    <div className={classes.wrapper}>
+                        <div className={classes.inner}>
+                            <Container size="lg">
+                                <Breadcrumbs>{breadcrumbsItem}</Breadcrumbs>
 
-                            {/* KATEGORI */}
-                            <Text size="xs" my="sm" c="white">
-                                {postDetail?.category}
-                            </Text>
+                                {/* JUDUL */}
+                                <Title className={classes.title}>
+                                    {postDetail?.title}
+                                </Title>
 
-                            {/* GRUP */}
-                            <Text size="xs" className={classes.description}>
-                                <Group justify="space-between" gap="xs">
-                                    {/* GRUP TANGGAL ADMIN */}
-                                    <Group gap="xs">
-                                        <ThemeIcon
-                                            autoContrast
-                                            variant="default"
-                                            size="sm"
-                                        >
-                                            <IconCalendar size={12} />
-                                        </ThemeIcon>
-                                        <Text size="xs">
-                                            {formatDate(postDetail?.createdAt)}
-                                        </Text>
+                                <Space h="md" />
 
-                                        <Divider orientation="vertical" />
+                                {/* KATEGORI */}
+                                <Text size="xs" my="sm" c="white">
+                                    {postDetail?.category}
+                                </Text>
 
-                                        <ThemeIcon
-                                            autoContrast
-                                            variant="default"
-                                            size="sm"
-                                        >
-                                            <IconUser size={12} />
-                                        </ThemeIcon>
-                                        <Text size="xs">
-                                            {postDetail?.user?.fullName}
-                                        </Text>
-                                    </Group>
-
-                                    {/* GRUP DILIHAT COPYURL */}
-                                    <Group>
+                                {/* GRUP */}
+                                <Text size="xs" className={classes.description}>
+                                    <Group justify="space-between" gap="xs">
+                                        {/* GRUP TANGGAL ADMIN */}
                                         <Group gap="xs">
                                             <ThemeIcon
+                                                autoContrast
                                                 variant="default"
                                                 size="sm"
                                             >
-                                                <IconEye size={12} />
+                                                <IconCalendar size={12} />
                                             </ThemeIcon>
-                                            <Text fz="xs">
-                                                {postDetail?.numViews} Kali
+                                            <Text size="xs">
+                                                {formatDate(
+                                                    postDetail?.createdAt
+                                                )}
                                             </Text>
+
+                                            {/* <Divider orientation="vertical" />
+
+                                            <ThemeIcon
+                                                autoContrast
+                                                variant="default"
+                                                size="sm"
+                                            >
+                                                <IconUser size={12} />
+                                            </ThemeIcon>
+                                            <Text size="xs">
+                                                {postDetail?.user?.fullName}
+                                            </Text> */}
                                         </Group>
-                                        <CopyButton
-                                            value={`https://adpem.jambiprov.go.id/berita/${postDetail?.id}`}
-                                            timeout={2000}
-                                        >
-                                            {({ copied, copy }) => (
-                                                <Tooltip
-                                                    label={
-                                                        copied
-                                                            ? "URL disalin"
-                                                            : "Salin URL"
-                                                    }
-                                                    withArrow
-                                                    position="right"
+
+                                        {/* GRUP DILIHAT COPYURL */}
+                                        <Group>
+                                            <Group gap="xs">
+                                                <ThemeIcon
+                                                    variant="default"
+                                                    size="sm"
                                                 >
-                                                    <ActionIcon
-                                                        color={
+                                                    <IconEye size={12} />
+                                                </ThemeIcon>
+                                                <Text fz="xs">
+                                                    {postDetail?.numViews} Kali
+                                                </Text>
+                                            </Group>
+                                            <CopyButton
+                                                value={`https://adpem.jambiprov.go.id/berita/${postDetail?.id}`}
+                                                timeout={2000}
+                                            >
+                                                {({ copied, copy }) => (
+                                                    <Tooltip
+                                                        label={
                                                             copied
-                                                                ? "teal"
-                                                                : "gray"
+                                                                ? "URL disalin"
+                                                                : "Salin URL"
                                                         }
-                                                        onClick={copy}
+                                                        withArrow
+                                                        position="right"
                                                     >
-                                                        {copied ? (
-                                                            <IconCheck
-                                                                size={12}
-                                                            />
-                                                        ) : (
-                                                            <IconCopy
-                                                                size={12}
-                                                            />
-                                                        )}
-                                                    </ActionIcon>
-                                                </Tooltip>
-                                            )}
-                                        </CopyButton>
+                                                        <ActionIcon
+                                                            color={
+                                                                copied
+                                                                    ? "teal"
+                                                                    : "gray"
+                                                            }
+                                                            onClick={copy}
+                                                        >
+                                                            {copied ? (
+                                                                <IconCheck
+                                                                    size={12}
+                                                                />
+                                                            ) : (
+                                                                <IconCopy
+                                                                    size={12}
+                                                                />
+                                                            )}
+                                                        </ActionIcon>
+                                                    </Tooltip>
+                                                )}
+                                            </CopyButton>
+                                        </Group>
                                     </Group>
-                                </Group>
-                            </Text>
-                        </Container>
+                                </Text>
+                            </Container>
+                        </div>
                     </div>
-                </div>
-            </ParallaxBanner>
+                </ParallaxBanner>
+            </div>
 
             {/* ISI BERITA */}
             <Container size="lg" mt="xl">
-                <SimpleGrid
-                    cols={{ base: 1, sm: 2 }}
-                    spacing={{ base: 10, sm: "xl" }}
-                    verticalSpacing={{ base: "xl", md: "md" }}
-                >
-                    <TypographyStylesProvider ta="justify">
-                        <div
+                <Grid gutter={65}>
+                    <Grid.Col span={{ base: 12, xs: 8 }}>
+                        <Text
                             dangerouslySetInnerHTML={{
                                 __html: postDetail?.description,
                             }}
+                            size="sm"
+                            ta="justify"
                         />
-                    </TypographyStylesProvider>
-                </SimpleGrid>
+                    </Grid.Col>
+                    <Grid.Col span={{ base: 12, xs: 4 }}>
+                        <Text fs="italic">BERITA LAINNYA</Text>
+
+                        <Divider my="xs" size="sm" />
+
+                        <Text
+                            c="dimmed"
+                            dangerouslySetInnerHTML={{
+                                __html: postDetail?.description,
+                            }}
+                            size="xs"
+                            ta="justify"
+                        />
+                    </Grid.Col>
+
+                    {/* ERROR */}
+                    <Grid.Col md={4} lg={2} offset={1}>
+                        <Text>{appError || serverError}</Text>
+                    </Grid.Col>
+                </Grid>
             </Container>
         </Fragment>
     );
