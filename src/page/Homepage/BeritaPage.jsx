@@ -1,7 +1,6 @@
 import "dayjs/locale/id";
 
 import {
-    ActionIcon,
     AspectRatio,
     Avatar,
     Badge,
@@ -21,17 +20,15 @@ import {
     TypographyStylesProvider,
 } from "@mantine/core";
 import { Fragment, useEffect } from "react";
-import { IconExternalLink, IconHeart, IconShare } from "@tabler/icons-react";
 import { useDispatch, useSelector } from "react-redux";
 
+import { IconExternalLink } from "@tabler/icons-react";
 import { Link } from "react-router-dom/cjs/react-router-dom";
 import classes from "./BeritaPage.module.css";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 import dayjs from "dayjs";
 import { fetchAllPostAction } from "../../redux/slices/posts/postSlice";
 import relativeTime from "dayjs/plugin/relativeTime";
-
-// import { relativeTime } from "dayjs/plugin/relativeTime";
 
 const BeritaPage = () => {
     const dispatch = useDispatch();
@@ -181,7 +178,7 @@ const BeritaPage = () => {
                                             radius="md"
                                             style={{ flex: 1 }}
                                             component={Link}
-                                            to={"/berita"}
+                                            to={`/berita/${item?.id}`}
                                             variant="subtle"
                                         >
                                             Baca Selengkapnya

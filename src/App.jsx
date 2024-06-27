@@ -1,5 +1,6 @@
 import { Redirect, Route, Switch } from "react-router-dom/cjs/react-router-dom";
 
+import { DetailBerita } from "./page/Berita/DetailBerita";
 // import About from "./page/user/about/About";
 import Error from "./page/Error/Error";
 import { Footer } from "./page/Footer/Footer";
@@ -36,6 +37,8 @@ function App() {
                     component={StrukturOrganisasi}
                 />
                 {/* PROFIL PAGE END */}
+
+                <Route exact path="/berita/:id" component={DetailBerita} />
 
                 <Route exact path="/404" component={Error} />
                 <Route exact path="*">
