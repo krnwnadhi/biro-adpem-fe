@@ -24,7 +24,7 @@ const data = [
             },
             {
                 label: "Struktur Organisasi",
-                link: "/profil/struktur",
+                link: "/profil/strukturorganisasi",
             },
         ],
     },
@@ -79,7 +79,7 @@ export function Footer() {
 
     return (
         <footer className={classes.footer}>
-            <Container className={classes.inner}>
+            <Container size="lg" className={classes.inner}>
                 <div className={classes.logo}>
                     <Image
                         width={250}
@@ -111,7 +111,7 @@ export function Footer() {
 
                 <div className={classes.groups}>{groups}</div>
             </Container>
-            <Container className={classes.afterFooter}>
+            <Container size="lg" className={classes.afterFooter}>
                 <Text c="dimmed" size="sm">
                     Copyright © 2023 Biro Adminitrasi Pembangunan Setda Provinsi
                     Jambi

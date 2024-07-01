@@ -18,7 +18,7 @@ const About = () => {
         <>
             <Space h="xl" />
 
-            <Container size="xl" p="lg">
+            <Container size="lg" p="lg">
                 <Divider
                     my="xl"
                     labelPosition="left"
@@ -34,7 +34,7 @@ const About = () => {
                     spacing={{ base: 10, sm: "xl" }}
                     verticalSpacing={{ base: "xl", md: "md" }}
                 >
-                    <Fade triggerOnce cascade >
+                    <Fade triggerOnce cascade>
                         <Paper
                             // withBorder
                             shadow="md"

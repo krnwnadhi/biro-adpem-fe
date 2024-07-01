@@ -108,7 +108,7 @@ export function Gallery() {
         <>
             <Space h="xl" />
 
-            <Container size="xl">
+            <Container size="lg">
                 <Divider
                     my="xl"
                     labelPosition="left"

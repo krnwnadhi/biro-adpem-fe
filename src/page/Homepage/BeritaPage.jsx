@@ -61,7 +61,7 @@ const BeritaPage = () => {
         <>
             <Space h="xl" />
 
-            <Container size="xl">
+            <Container size="lg">
                 <Divider
                     mt="xl"
                     labelPosition="left"

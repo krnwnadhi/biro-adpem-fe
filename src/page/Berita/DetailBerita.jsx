@@ -245,7 +245,6 @@ export const DetailBerita = () => {
                                     <Fragment key={item.id}>
                                         <Space h="md" />
 
-                                        {/* TODO */}
                                         {id !== item?.id ? (
                                             <DetailBeritaLainnya
                                                 imgSrc={item?.image}
