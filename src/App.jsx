@@ -46,10 +46,12 @@ function App() {
 
                 {/* BERITA END */}
 
+                {/* ERROR PAGE */}
                 <Route exact path="/404" component={Error} />
                 <Route exact path="*">
                     <Redirect to="/404" />
                 </Route>
+                {/* ERROR PAGE END */}
             </Switch>
 
             <Footer />

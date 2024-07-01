@@ -147,19 +147,6 @@ export const DetailBerita = () => {
                                                     postDetail?.createdAt
                                                 )}
                                             </Text>
-
-                                            {/* <Divider orientation="vertical" />
-
-                                            <ThemeIcon
-                                                autoContrast
-                                                variant="default"
-                                                size="sm"
-                                            >
-                                                <IconUser size={12} />
-                                            </ThemeIcon>
-                                            <Text size="xs">
-                                                {postDetail?.user?.fullName}
-                                            </Text> */}
                                         </Group>
 
                                         {/* GRUP DILIHAT COPYURL */}
