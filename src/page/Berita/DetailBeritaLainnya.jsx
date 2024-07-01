@@ -27,7 +27,6 @@ export const DetailBeritaLainnya = ({
 
     return (
         <Card
-            // withBorder
             radius="md"
             p={0}
             className={classes.card}

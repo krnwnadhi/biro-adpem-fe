@@ -239,23 +239,25 @@ export const DetailBerita = () => {
 
                         <Divider my="xs" size="sm" />
 
-                        {result?.map((item) => {
-                            return (
-                                <Fragment key={item.id}>
-                                    <Space h="md" />
+                        {result
+                            ?.map((item) => {
+                                return (
+                                    <Fragment key={item.id}>
+                                        <Space h="md" />
 
-                                    {/* TODO */}
-                                    {id && (
-                                        <DetailBeritaLainnya
-                                            imgSrc={item?.image}
-                                            title={item?.title}
-                                            createdAt={item?.createdAt}
-                                            linkBerita={`/berita/${item?.id}`}
-                                        />
-                                    )}
-                                </Fragment>
-                            );
-                        })}
+                                        {/* TODO */}
+                                        {id !== item?.id ? (
+                                            <DetailBeritaLainnya
+                                                imgSrc={item?.image}
+                                                title={item?.title}
+                                                createdAt={item?.createdAt}
+                                                linkBerita={`/berita/${item?.id}`}
+                                            />
+                                        ) : null}
+                                    </Fragment>
+                                );
+                            })
+                            .slice(0, 5)}
                     </Grid.Col>
 
                     {/* ERROR */}
