@@ -1,5 +1,7 @@
 import { Anchor, Breadcrumbs, Container } from "@mantine/core";
 
+import classes from "./AllBerita.module.css";
+
 export const AllBerita = () => {
     const breadcrumbsItem = [
         { title: "Home", href: "/" },

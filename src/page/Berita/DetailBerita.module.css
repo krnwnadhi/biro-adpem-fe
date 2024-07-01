@@ -1,6 +1,6 @@
 .wrapper {
     position: relative;
-    padding-top: rem(30px);
+    padding-top: rem(20px);
     background-size: cover;
     background-position: center;
 
@@ -14,9 +14,9 @@
     height: 60vh;
     margin-top: rem(80px);
 
-    @media (max-width: $mantine-breakpoint-xs) {
-        height: 65vh;
-    }
+    /* @media (max-width: $mantine-breakpoint-xs) {
+        height: 55vh;
+    } */
 }
 
 .inner {
@@ -30,7 +30,7 @@
     letter-spacing: rem(-1px);
     padding-right: var(--mantine-spacing-md);
     color: var(--mantine-color-white);
-    margin-top: var(--mantine-spacing-lg);
+    margin-top: var(--mantine-spacing-xs);
     margin-bottom: var(--mantine-spacing-xl);
     font-family: Greycliff CF, var(--mantine-font-family);
 
@@ -47,6 +47,7 @@
 .description {
     color: var(--mantine-color-gray-0);
     text-align: center;
+    margin-top: var(--mantine-spacing-xl);
 
     @media (max-width: $mantine-breakpoint-xs) {
         font-size: var(--mantine-font-size-xs);

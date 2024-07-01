@@ -38,7 +38,6 @@ import { useParams } from "react-router-dom/cjs/react-router-dom";
 
 export const DetailBerita = () => {
     const { id } = useParams();
-    console.log(id);
 
     const dispatch = useDispatch();
 
@@ -119,17 +118,17 @@ export const DetailBerita = () => {
                             <Container size="lg">
                                 <Breadcrumbs>{breadcrumbsItem}</Breadcrumbs>
 
+                                {/* KATEGORI */}
+                                <Text size="xs" fs="italic" mt="xl" c="white">
+                                    {postDetail?.category}
+                                </Text>
+
                                 {/* JUDUL */}
                                 <Title className={classes.title}>
                                     {postDetail?.title}
                                 </Title>
 
                                 <Space h="md" />
-
-                                {/* KATEGORI */}
-                                <Text size="xs" my="sm" c="white">
-                                    {postDetail?.category}
-                                </Text>
 
                                 {/* GRUP */}
                                 <Text size="xs" className={classes.description}>

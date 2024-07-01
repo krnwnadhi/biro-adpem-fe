@@ -32,11 +32,10 @@ const About = () => {
                 <SimpleGrid
                     cols={{ base: 1, sm: 2 }}
                     spacing={{ base: 10, sm: "xl" }}
-                    verticalSpacing={{ base: "xl", md: "md" }}
+                    verticalSpacing={{ base: 50, md: "md" }}
                 >
                     <Fade triggerOnce cascade>
                         <Paper
-                            // withBorder
                             shadow="md"
                             p="xl"
                             radius="md"
@@ -56,7 +55,7 @@ const About = () => {
 
                             <Space h="xl" />
 
-                            <Text c="dimmed" ta="justify" size="sm">
+                            <Text c="dimmed" ta="justify" size="xs">
                                 Biro Administrasi Pembangunan merupakan salah
                                 satu Biro pada Sekretariat Daerah Prov Jambi
                                 yang bertugas membantu Asisten Perekonomian dan
