@@ -13,7 +13,6 @@ import {
     ThemeIcon,
     Title,
     Tooltip,
-    TypographyStylesProvider,
 } from "@mantine/core";
 import { Fragment, useEffect } from "react";
 import {
@@ -21,7 +20,6 @@ import {
     IconCheck,
     IconCopy,
     IconEye,
-    IconUser,
 } from "@tabler/icons-react";
 import {
     fetchAllPostAction,
@@ -29,6 +27,7 @@ import {
 } from "../../redux/slices/posts/postSlice";
 import { useDispatch, useSelector } from "react-redux";
 
+import { DetailBeritaLainnya } from "./DetailBeritaLainnya";
 import { ParallaxBanner } from "react-scroll-parallax";
 import classes from "./DetailBerita.module.css";
 import dayjs from "dayjs";
@@ -39,6 +38,7 @@ import { useParams } from "react-router-dom/cjs/react-router-dom";
 
 export const DetailBerita = () => {
     const { id } = useParams();
+    console.log(id);
 
     const dispatch = useDispatch();
 
@@ -56,9 +56,16 @@ export const DetailBerita = () => {
     const post = useSelector((state) => state?.post);
 
     // eslint-disable-next-line no-unused-vars
-    const { appError, loading, postDetail = [], serverError } = post;
+    const {
+        appError,
+        loading,
+        postDetail = [],
+        postList = [],
+        serverError,
+    } = post;
 
-    console.log(postDetail);
+    const { result = [] } = postList;
+    console.log(result);
 
     const formatDate = (date) => {
         const today = dayjs().startOf("day");
@@ -225,19 +232,30 @@ export const DetailBerita = () => {
                             ta="justify"
                         />
                     </Grid.Col>
+
+                    {/* BERITA LAINNYA */}
                     <Grid.Col span={{ base: 12, xs: 4 }}>
                         <Text fs="italic">BERITA LAINNYA</Text>
 
                         <Divider my="xs" size="sm" />
 
-                        <Text
-                            c="dimmed"
-                            dangerouslySetInnerHTML={{
-                                __html: postDetail?.description,
-                            }}
-                            size="xs"
-                            ta="justify"
-                        />
+                        {result?.map((item) => {
+                            return (
+                                <Fragment key={item.id}>
+                                    <Space h="md" />
+
+                                    {/* TODO */}
+                                    {id && (
+                                        <DetailBeritaLainnya
+                                            imgSrc={item?.image}
+                                            title={item?.title}
+                                            createdAt={item?.createdAt}
+                                            linkBerita={`/berita/${item?.id}`}
+                                        />
+                                    )}
+                                </Fragment>
+                            );
+                        })}
                     </Grid.Col>
 
                     {/* ERROR */}

@@ -1,0 +1,22 @@
+.card {
+    background-color: var(--mantine-color-body);
+}
+
+.image {
+    transition: box-shadow 150ms ease, transform 500ms ease;
+
+    @mixin hover {
+        transform: scale(1.02);
+    }
+}
+
+.title {
+    font-weight: bold;
+    font-family: Greycliff CF, var(--mantine-font-family);
+    line-height: 1.4;
+    font-size: small;
+}
+
+.body {
+    padding: var(--mantine-spacing-md);
+}
