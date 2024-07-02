@@ -21,65 +21,60 @@ export function IndexProfil() {
     const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
     return (
-        <>
-            <Container size="xl" mt={100}>
-                <Tabs
-                    variant="pills"
-                    radius="lg"
-                    value={tabValue}
-                    onChange={(value) => history.push(`/profil/${value}`)}
-                    orientation={mobile ? "horizontal" : "vertical"}
-                    keepMounted={false}
-                    loop
-                >
-                    <Tabs.List mr="xl" grow={mobile ? true : false}>
-                        <Tabs.Tab
-                            p="lg"
-                            value="selayangpandang"
-                            leftSection={<IconBuildingArch style={iconStyle} />}
-                            mb="md"
-                        >
-                            Selayang Pandang
-                        </Tabs.Tab>
-                        <Tabs.Tab
-                            p="lg"
-                            color="green"
-                            value="visimisi"
-                            leftSection={<IconLicense style={iconStyle} />}
-                            mb="md"
-                        >
-                            Visi & Misi
-                        </Tabs.Tab>
-                        <Tabs.Tab
-                            p="lg"
-                            color="red"
-                            value="strukturorganisasi"
-                            leftSection={<IconBinaryTree style={iconStyle} />}
-                            mb="md"
-                        >
-                            Struktur Organisasi
-                        </Tabs.Tab>
-                    </Tabs.List>
-
-                    <Tabs.Panel
+        <Container size="lg" mt={100}>
+            <Tabs
+                variant="pills"
+                radius="lg"
+                value={tabValue}
+                onChange={(value) => history.push(`/profil/${value}`)}
+                orientation={mobile ? "horizontal" : "vertical"}
+                keepMounted={false}
+                loop
+            >
+                <Tabs.List mr="xl" grow={mobile ? true : false}>
+                    <Tabs.Tab
+                        p="lg"
                         value="selayangpandang"
-                        mt={mobile ? "xl" : null}
+                        leftSection={<IconBuildingArch style={iconStyle} />}
+                        mb="md"
                     >
-                        <SelayangPandang />
-                    </Tabs.Panel>
-
-                    <Tabs.Panel value="visimisi" mt={mobile ? "xl" : null}>
-                        <VisiMisi />
-                    </Tabs.Panel>
-
-                    <Tabs.Panel
+                        Selayang Pandang
+                    </Tabs.Tab>
+                    <Tabs.Tab
+                        p="lg"
+                        color="green"
+                        value="visimisi"
+                        leftSection={<IconLicense style={iconStyle} />}
+                        mb="md"
+                    >
+                        Visi & Misi
+                    </Tabs.Tab>
+                    <Tabs.Tab
+                        p="lg"
+                        color="red"
                         value="strukturorganisasi"
-                        mt={mobile ? "xl" : null}
+                        leftSection={<IconBinaryTree style={iconStyle} />}
+                        mb="md"
                     >
-                        <StrukturOrganisasi />
-                    </Tabs.Panel>
-                </Tabs>
-            </Container>
-        </>
+                        Struktur Organisasi
+                    </Tabs.Tab>
+                </Tabs.List>
+
+                <Tabs.Panel value="selayangpandang" mt={mobile ? "xl" : null}>
+                    <SelayangPandang />
+                </Tabs.Panel>
+
+                <Tabs.Panel value="visimisi" mt={mobile ? "xl" : null}>
+                    <VisiMisi />
+                </Tabs.Panel>
+
+                <Tabs.Panel
+                    value="strukturorganisasi"
+                    mt={mobile ? "xl" : null}
+                >
+                    <StrukturOrganisasi />
+                </Tabs.Panel>
+            </Tabs>
+        </Container>
     );
 }

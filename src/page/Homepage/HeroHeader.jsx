@@ -18,9 +18,8 @@ const HeroHeader = () => {
             ]}
             style={{ height: "100vh" }}
         >
+            <Overlay color="#000" backgroundOpacity={0.65} zIndex={1} />
             <div className={classes.wrapper}>
-                <Overlay color="#000" backgroundOpacity={0.65} zIndex={1} />
-
                 <div className={classes.inner}>
                     <Fade cascade triggerOnce duration={2000}>
                         <Title className={classes.title}>

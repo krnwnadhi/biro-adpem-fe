@@ -12,3 +12,7 @@ body {
     -webkit-font-smoothing: var(--mantine-webkit-font-smoothing);
     -moz-osx-font-smoothing: var(--mantine-moz-font-smoothing);
 } */
+
+html {
+    overflow-x: hidden;
+}

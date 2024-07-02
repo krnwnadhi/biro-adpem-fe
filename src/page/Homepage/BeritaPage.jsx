@@ -94,100 +94,110 @@ const BeritaPage = () => {
                     spacing={{ base: 10, sm: "xl" }}
                     verticalSpacing={{ base: "xl", md: "md" }}
                 >
-                    {result?.map((item) => {
-                        return (
-                            <Fragment key={item?.id}>
-                                <Card
-                                    withBorder
-                                    radius="md"
-                                    p="md"
-                                    shadow="xl"
-                                    className={classes.card}
-                                >
-                                    <Card.Section>
-                                        <AspectRatio
-                                            ratio={16 / 9}
-                                            pos="relative"
-                                        >
-                                            <Overlay
-                                                color="#000"
-                                                backgroundOpacity={0.35}
-                                            />
-                                            <Image
-                                                src={item?.image}
-                                                alt={item?.title}
-                                                // height={180}
-                                            />
-                                        </AspectRatio>
-                                    </Card.Section>
-
-                                    <Stack mt="xl">
-                                        <Badge
-                                            size="xs"
-                                            variant="light"
-                                            fullWidth
-                                        >
-                                            {item?.category}
-                                        </Badge>
-
-                                        <Title
-                                            textWrap="wrap"
-                                            order={6}
-                                            lineClamp={1}
-                                        >
-                                            {item?.title}
-                                        </Title>
-
-                                        <TypographyStylesProvider>
-                                            <Text
-                                                lineClamp={2}
-                                                c="dimmed"
-                                                dangerouslySetInnerHTML={{
-                                                    __html: item?.description,
-                                                }}
-                                                size="xs"
-                                                ta="justify"
-                                            />
-                                        </TypographyStylesProvider>
-                                    </Stack>
-
-                                    <Card.Section className={classes.section}>
-                                        <Group justify="space-between" mt="xl">
-                                            <Center>
-                                                <Avatar
-                                                    src={
-                                                        item?.user?.profilePhoto
-                                                    }
-                                                    size={24}
-                                                    radius="xl"
-                                                    mr="xs"
+                    {result
+                        ?.map((item) => {
+                            return (
+                                <Fragment key={item?.id}>
+                                    <Card
+                                        withBorder
+                                        radius="md"
+                                        p="md"
+                                        shadow="xl"
+                                        className={classes.card}
+                                    >
+                                        <Card.Section>
+                                            <AspectRatio
+                                                ratio={16 / 9}
+                                                pos="relative"
+                                            >
+                                                <Overlay
+                                                    color="#000"
+                                                    backgroundOpacity={0.35}
                                                 />
-                                                <Text size="xs" c="dimmed">
-                                                    {item?.user?.fullName}
-                                                </Text>
-                                            </Center>
+                                                <Image
+                                                    src={item?.image}
+                                                    alt={item?.title}
+                                                    // height={180}
+                                                />
+                                            </AspectRatio>
+                                        </Card.Section>
 
-                                            <Text size="xs" c="dimmed">
-                                                {formatDate(item?.createdAt)}
-                                            </Text>
-                                        </Group>
-                                    </Card.Section>
+                                        <Stack mt="xl">
+                                            <Badge
+                                                size="xs"
+                                                variant="light"
+                                                fullWidth
+                                            >
+                                                {item?.category}
+                                            </Badge>
 
-                                    <Group mt="xs">
-                                        <Button
-                                            radius="md"
-                                            style={{ flex: 1 }}
-                                            component={Link}
-                                            to={`/berita/${item?.id}`}
-                                            variant="subtle"
+                                            <Title
+                                                textWrap="wrap"
+                                                order={6}
+                                                lineClamp={1}
+                                            >
+                                                {item?.title}
+                                            </Title>
+
+                                            <TypographyStylesProvider>
+                                                <Text
+                                                    lineClamp={2}
+                                                    c="dimmed"
+                                                    dangerouslySetInnerHTML={{
+                                                        __html: item?.description,
+                                                    }}
+                                                    size="xs"
+                                                    ta="justify"
+                                                />
+                                            </TypographyStylesProvider>
+                                        </Stack>
+
+                                        <Card.Section
+                                            className={classes.section}
                                         >
-                                            Baca Selengkapnya
-                                        </Button>
-                                    </Group>
-                                </Card>
-                            </Fragment>
-                        );
-                    })}
+                                            <Group
+                                                justify="space-between"
+                                                mt="xl"
+                                            >
+                                                <Center>
+                                                    <Avatar
+                                                        src={
+                                                            item?.user
+                                                                ?.profilePhoto
+                                                        }
+                                                        size={24}
+                                                        radius="xl"
+                                                        mr="xs"
+                                                    />
+                                                    <Text size="xs" c="dimmed">
+                                                        {item?.user?.fullName}
+                                                    </Text>
+                                                </Center>
+
+                                                <Text size="xs" c="dimmed">
+                                                    {formatDate(
+                                                        item?.createdAt
+                                                    )}
+                                                </Text>
+                                            </Group>
+                                        </Card.Section>
+
+                                        <Group mt="xs">
+                                            <Button
+                                                radius="md"
+                                                style={{ flex: 1 }}
+                                                component={Link}
+                                                to={`/berita/${item?.id}`}
+                                                variant="subtle"
+                                            >
+                                                Baca Selengkapnya
+                                            </Button>
+                                        </Group>
+                                    </Card>
+                                </Fragment>
+                            );
+                        })
+                        .slice(0, 3)}
                 </SimpleGrid>
             </Container>
         </>

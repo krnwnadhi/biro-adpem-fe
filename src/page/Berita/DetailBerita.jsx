@@ -9,6 +9,7 @@ import {
     Group,
     Overlay,
     Space,
+    Stack,
     Text,
     ThemeIcon,
     Title,
@@ -99,7 +100,7 @@ export const DetailBerita = () => {
     return (
         <Fragment>
             {/* HEROHEADER */}
-            <div>
+            <>
                 <ParallaxBanner
                     layers={[
                         {
@@ -128,12 +129,10 @@ export const DetailBerita = () => {
                                     {postDetail?.title}
                                 </Title>
 
-                                <Space h="md" />
-
                                 {/* GRUP */}
                                 <Text size="xs" className={classes.description}>
-                                    <Group justify="space-between" gap="xs">
-                                        {/* GRUP TANGGAL ADMIN */}
+                                    {/* GRUP TANGGAL ADMIN */}
+                                    <Stack>
                                         <Group gap="xs">
                                             <ThemeIcon
                                                 autoContrast
@@ -198,13 +197,13 @@ export const DetailBerita = () => {
                                                 )}
                                             </CopyButton>
                                         </Group>
-                                    </Group>
+                                    </Stack>
                                 </Text>
                             </Container>
                         </div>
                     </div>
                 </ParallaxBanner>
-            </div>
+            </>
 
             {/* ISI BERITA */}
             <Container size="lg" mt="xl">
