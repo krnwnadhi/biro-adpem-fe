@@ -47,8 +47,6 @@ export const AllBerita = () => {
     // eslint-disable-next-line no-unused-vars
     const { appError, loading, postList = [], serverError } = post;
 
-    const { result = [] } = postList;
-
     const [postItem, setPostItem] = useState([postList]);
     const [load, setLoad] = useState(false);
     const [page, setPage] = useState(0);
@@ -58,7 +56,7 @@ export const AllBerita = () => {
     const [keyword, setKeyword] = useState("");
     const [query, setQuery] = useState("");
 
-    console.log(postItem);
+    // console.log(postItem);
 
     useEffect(() => {
         const abortController = new AbortController();

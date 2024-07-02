@@ -14,6 +14,7 @@ import {
     ThemeIcon,
     Title,
     Tooltip,
+    rem,
 } from "@mantine/core";
 import { Fragment, useEffect } from "react";
 import {
@@ -108,9 +109,6 @@ export const DetailBerita = () => {
         <Fragment>
             {/* HEROHEADER */}
 
-            {/* ERROR */}
-            {/* {appError || (serverError && <ErrorNetwork />)} */}
-
             <ParallaxBanner
                 layers={[
                     {
@@ -202,6 +200,8 @@ export const DetailBerita = () => {
                                                 {postDetail?.numViews} Kali
                                             </Text>
                                         </Group>
+
+                                        {/* COPY */}
                                         <CopyButton
                                             value={`https://adpem.jambiprov.go.id/berita/${postDetail?.id}`}
                                             timeout={2000}
@@ -232,14 +232,23 @@ export const DetailBerita = () => {
                                                                 : "gray"
                                                         }
                                                         onClick={copy}
+                                                        size={24}
                                                     >
                                                         {copied ? (
                                                             <IconCheck
-                                                                size={12}
+                                                                style={{
+                                                                    width: rem(
+                                                                        12
+                                                                    ),
+                                                                }}
                                                             />
                                                         ) : (
                                                             <IconCopy
-                                                                size={12}
+                                                                style={{
+                                                                    width: rem(
+                                                                        12
+                                                                    ),
+                                                                }}
                                                             />
                                                         )}
                                                     </ActionIcon>
