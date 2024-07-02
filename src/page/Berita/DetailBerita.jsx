@@ -29,6 +29,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 import { DetailBeritaLainnya } from "./DetailBeritaLainnya";
+import ErrorNetwork from "../Error/ErrorNetwork";
 import { ParallaxBanner } from "react-scroll-parallax";
 import classes from "./DetailBerita.module.css";
 import dayjs from "dayjs";
@@ -97,46 +98,87 @@ export const DetailBerita = () => {
         </Anchor>
     ));
 
+    if (appError || serverError) {
+        return <ErrorNetwork />;
+    } else {
+        null;
+    }
+
     return (
         <Fragment>
             {/* HEROHEADER */}
-            <>
-                <ParallaxBanner
-                    layers={[
-                        {
-                            image: postDetail?.image,
-                            amount: 0.5,
-                            speed: -35,
-                            scale: [1, 1.1, "easeInOutBack"],
-                        },
-                    ]}
-                    className={classes.banner}
-                >
-                    <Overlay color="#000" opacity={1} blur={5} zIndex={1} />
 
-                    <div className={classes.wrapper}>
-                        <div className={classes.inner}>
-                            <Container size="lg">
-                                <Breadcrumbs>{breadcrumbsItem}</Breadcrumbs>
+            {/* ERROR */}
+            {/* {appError || (serverError && <ErrorNetwork />)} */}
 
-                                {/* KATEGORI */}
-                                <Text size="xs" fs="italic" mt="xs" c="white">
-                                    {postDetail?.category}
-                                </Text>
+            <ParallaxBanner
+                layers={[
+                    {
+                        image: postDetail?.image,
+                        amount: 0.5,
+                        speed: -35,
+                        scale: [1, 1.1, "easeInOutBack"],
+                    },
+                ]}
+                className={classes.banner}
+            >
+                <Overlay color="#000" opacity={1} blur={5} zIndex={1} />
 
-                                {/* JUDUL */}
-                                <Title className={classes.title}>
-                                    {postDetail?.title}
-                                </Title>
+                <div className={classes.wrapper}>
+                    <div className={classes.inner}>
+                        <Container size="lg">
+                            <Breadcrumbs>{breadcrumbsItem}</Breadcrumbs>
 
-                                {/* GRUP */}
-                                <Text size="xs" className={classes.description}>
-                                    {/* GRUP TANGGAL ADMIN */}
-                                    <Stack>
+                            {/* KATEGORI */}
+                            <Text size="xs" fs="italic" mt="xs" c="white">
+                                {postDetail?.category}
+                            </Text>
+
+                            {/* JUDUL */}
+                            <Title className={classes.title}>
+                                {postDetail?.title}
+                            </Title>
+
+                            {/* GRUP */}
+                            <Text size="xs" className={classes.description}>
+                                {/* GRUP TANGGAL ADMIN */}
+                                <Stack>
+                                    <Group gap="xs">
+                                        <Tooltip
+                                            transition="slide-up"
+                                            label="Tanggal Upload"
+                                            withArrow
+                                            arrowOffset={10}
+                                            arrowSize={5}
+                                            transitionProps={{
+                                                transition: "slide-down",
+                                                duration: 300,
+                                            }}
+                                            events={{
+                                                hover: true,
+                                                touch: true,
+                                            }}
+                                        >
+                                            <ThemeIcon
+                                                autoContrast
+                                                variant="default"
+                                                size="sm"
+                                            >
+                                                <IconCalendar size={12} />
+                                            </ThemeIcon>
+                                        </Tooltip>
+                                        <Text size="xs">
+                                            {formatDate(postDetail?.createdAt)}
+                                        </Text>
+                                    </Group>
+
+                                    {/* GRUP DILIHAT COPYURL */}
+                                    <Group>
                                         <Group gap="xs">
                                             <Tooltip
+                                                ontouch
                                                 transition="slide-up"
-                                                label="Tanggal Upload"
+                                                label="Dilihat"
                                                 withArrow
                                                 arrowOffset={10}
                                                 arrowSize={5}
@@ -150,30 +192,29 @@ export const DetailBerita = () => {
                                                 }}
                                             >
                                                 <ThemeIcon
-                                                    autoContrast
                                                     variant="default"
                                                     size="sm"
                                                 >
-                                                    <IconCalendar size={12} />
+                                                    <IconEye size={12} />
                                                 </ThemeIcon>
                                             </Tooltip>
-                                            <Text size="xs">
-                                                {formatDate(
-                                                    postDetail?.createdAt
-                                                )}
+                                            <Text fz="xs">
+                                                {postDetail?.numViews} Kali
                                             </Text>
                                         </Group>
-
-                                        {/* GRUP DILIHAT COPYURL */}
-                                        <Group>
-                                            <Group gap="xs">
+                                        <CopyButton
+                                            value={`https://adpem.jambiprov.go.id/berita/${postDetail?.id}`}
+                                            timeout={2000}
+                                        >
+                                            {({ copied, copy }) => (
                                                 <Tooltip
-                                                    ontouch
-                                                    transition="slide-up"
-                                                    label="Dilihat"
+                                                    label={
+                                                        copied
+                                                            ? "URL disalin"
+                                                            : "Salin URL"
+                                                    }
                                                     withArrow
-                                                    arrowOffset={10}
-                                                    arrowSize={5}
+                                                    transition="slide-up"
                                                     transitionProps={{
                                                         transition:
                                                             "slide-down",
@@ -184,69 +225,34 @@ export const DetailBerita = () => {
                                                         touch: true,
                                                     }}
                                                 >
-                                                    <ThemeIcon
-                                                        variant="default"
-                                                        size="sm"
-                                                    >
-                                                        <IconEye size={12} />
-                                                    </ThemeIcon>
-                                                </Tooltip>
-                                                <Text fz="xs">
-                                                    {postDetail?.numViews} Kali
-                                                </Text>
-                                            </Group>
-                                            <CopyButton
-                                                value={`https://adpem.jambiprov.go.id/berita/${postDetail?.id}`}
-                                                timeout={2000}
-                                            >
-                                                {({ copied, copy }) => (
-                                                    <Tooltip
-                                                        label={
+                                                    <ActionIcon
+                                                        color={
                                                             copied
-                                                                ? "URL disalin"
-                                                                : "Salin URL"
+                                                                ? "teal"
+                                                                : "gray"
                                                         }
-                                                        withArrow
-                                                        transition="slide-up"
-                                                        transitionProps={{
-                                                            transition:
-                                                                "slide-down",
-                                                            duration: 300,
-                                                        }}
-                                                        events={{
-                                                            hover: true,
-                                                            touch: true,
-                                                        }}
+                                                        onClick={copy}
                                                     >
-                                                        <ActionIcon
-                                                            color={
-                                                                copied
-                                                                    ? "teal"
-                                                                    : "gray"
-                                                            }
-                                                            onClick={copy}
-                                                        >
-                                                            {copied ? (
-                                                                <IconCheck
-                                                                    size={12}
-                                                                />
-                                                            ) : (
-                                                                <IconCopy
-                                                                    size={12}
-                                                                />
-                                                            )}
-                                                        </ActionIcon>
-                                                    </Tooltip>
-                                                )}
-                                            </CopyButton>
-                                        </Group>
-                                    </Stack>
-                                </Text>
-                            </Container>
-                        </div>
+                                                        {copied ? (
+                                                            <IconCheck
+                                                                size={12}
+                                                            />
+                                                        ) : (
+                                                            <IconCopy
+                                                                size={12}
+                                                            />
+                                                        )}
+                                                    </ActionIcon>
+                                                </Tooltip>
+                                            )}
+                                        </CopyButton>
+                                    </Group>
+                                </Stack>
+                            </Text>
+                        </Container>
                     </div>
-                </ParallaxBanner>
-            </>
+                </div>
+            </ParallaxBanner>
 
             {/* ISI BERITA */}
             <Container size="lg" mt="xl">
@@ -285,11 +291,6 @@ export const DetailBerita = () => {
                                 );
                             })
                             .slice(0, 5)}
-                    </Grid.Col>
-
-                    {/* ERROR */}
-                    <Grid.Col md={4} lg={2} offset={1}>
-                        <Text>{appError || serverError}</Text>
                     </Grid.Col>
                 </Grid>
             </Container>

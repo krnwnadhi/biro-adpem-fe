@@ -22,6 +22,7 @@ import {
 import { Fragment, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import ErrorNetwork from "../Error/ErrorNetwork";
 import { IconExternalLink } from "@tabler/icons-react";
 import { Link } from "react-router-dom/cjs/react-router-dom";
 import classes from "./BeritaPage.module.css";
@@ -52,10 +53,16 @@ const BeritaPage = () => {
     };
 
     const post = useSelector((state) => state?.post);
-    const { postList = [] } = post;
+    const { appError, serverError, postList = [] } = post;
 
     const { result = [] } = postList;
     console.log(result);
+
+    if (appError || serverError) {
+        return <ErrorNetwork />;
+    } else {
+        null;
+    }
 
     return (
         <>

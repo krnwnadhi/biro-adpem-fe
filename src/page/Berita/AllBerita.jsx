@@ -24,6 +24,7 @@ import { IconEye, IconMessageCircle, IconSearch } from "@tabler/icons-react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
+import ErrorNetwork from "../Error/ErrorNetwork";
 import axios from "axios";
 import { basePostURL } from "../../utils/baseURL";
 import classes from "./AllBerita.module.css";
@@ -176,6 +177,12 @@ export const AllBerita = () => {
                 </div>
             </Card>
         ));
+
+    if (appError || serverError) {
+        return <ErrorNetwork />;
+    } else {
+        null;
+    }
 
     return (
         <Container size="lg" mt={100} mih="80vh">
