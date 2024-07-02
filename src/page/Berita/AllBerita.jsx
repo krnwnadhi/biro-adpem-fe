@@ -14,13 +14,14 @@ import {
     Loader,
     Pagination,
     SimpleGrid,
+    Skeleton,
     Space,
     Text,
     TextInput,
     rem,
     useMantineTheme,
 } from "@mantine/core";
-import { IconEye, IconMessageCircle, IconSearch } from "@tabler/icons-react";
+import { IconEye, IconSearch } from "@tabler/icons-react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
@@ -30,6 +31,7 @@ import { basePostURL } from "../../utils/baseURL";
 import classes from "./AllBerita.module.css";
 import dayjs from "dayjs";
 import { fetchAllPostAction } from "../../redux/slices/posts/postSlice";
+import { nprogress } from "@mantine/nprogress";
 import relativeTime from "dayjs/plugin/relativeTime";
 
 export const AllBerita = () => {
@@ -47,6 +49,14 @@ export const AllBerita = () => {
     // eslint-disable-next-line no-unused-vars
     const { appError, loading, postList = [], serverError } = post;
 
+    useEffect(() => {
+        loading ? nprogress.start() : nprogress.complete();
+
+        return () => {
+            nprogress.reset();
+        };
+    }, [loading]);
+
     const [postItem, setPostItem] = useState([postList]);
     const [load, setLoad] = useState(false);
     const [page, setPage] = useState(0);
@@ -62,8 +72,6 @@ export const AllBerita = () => {
         const abortController = new AbortController();
 
         getPost();
-        // window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-        setTimeout(() => setLoad(false), 2000);
 
         return () => {
             abortController.abort();
@@ -74,7 +82,7 @@ export const AllBerita = () => {
         const response = await axios.get(
             `${basePostURL}?search_query=${keyword}&page=${page}&limit=${limit}`
         );
-        // console.log(response);
+
         setPostItem(response.data.result);
         setPage(response.data.page);
         setPages(response.data.totalItem);
@@ -83,7 +91,6 @@ export const AllBerita = () => {
 
     const handlePageChange = (event) => {
         setPage(event);
-        // console.log(event);
     };
 
     const searchData = (e) => {
@@ -101,7 +108,7 @@ export const AllBerita = () => {
     };
 
     const breadcrumbsItem = [
-        { title: "Home", href: "/" },
+        { title: "Beranda", href: "/" },
         { title: "Informasi", href: "#" },
         { title: "Berita & Kegiatan", href: "/berita" },
     ].map((item, index) => (
@@ -132,48 +139,62 @@ export const AllBerita = () => {
     const cards =
         postItem &&
         postItem?.map((item) => (
-            <Card
-                key={item.id}
-                p="lg"
-                shadow="lg"
-                className={classes.card}
-                radius="md"
-                component="a"
-                href={`/berita/${item?.id}`}
-            >
-                <div
-                    className={classes.image}
-                    style={{
-                        backgroundImage: `url(${item.image})`,
-                    }}
-                />
-                <div className={classes.overlay} />
+            <>
+                <Skeleton visible={loading}>
+                    <Card
+                        key={item.id}
+                        p="lg"
+                        shadow="lg"
+                        className={classes.card}
+                        radius="md"
+                        component="a"
+                        href={`/berita/${item?.id}`}
+                    >
+                        <div
+                            className={classes.image}
+                            style={{
+                                backgroundImage: `url(${item.image})`,
+                            }}
+                        />
+                        <div className={classes.overlay} />
 
-                <div className={classes.content}>
-                    <div>
-                        <Text size="lg" className={classes.title} fw={500}>
-                            {item.title}
-                        </Text>
-
-                        <Group justify="space-between" gap="xs">
-                            <Text size="xs" className={classes.author}>
-                                {formatDate(item.createdAt)}
-                            </Text>
-
-                            <Center>
-                                <IconEye
-                                    style={{ width: rem(16), height: rem(16) }}
-                                    stroke={1.5}
-                                    color={theme.colors.dark[2]}
-                                />
-                                <Text size="sm" className={classes.bodyText}>
-                                    {item.numViews}
+                        <div className={classes.content}>
+                            <div>
+                                <Text
+                                    size="lg"
+                                    className={classes.title}
+                                    fw={500}
+                                >
+                                    {item.title}
                                 </Text>
-                            </Center>
-                        </Group>
-                    </div>
-                </div>
-            </Card>
+
+                                <Group justify="space-between" gap="xs">
+                                    <Text size="xs" className={classes.author}>
+                                        {formatDate(item.createdAt)}
+                                    </Text>
+
+                                    <Center>
+                                        <IconEye
+                                            style={{
+                                                width: rem(16),
+                                                height: rem(16),
+                                            }}
+                                            stroke={1.5}
+                                            color={theme.colors.dark[2]}
+                                        />
+                                        <Text
+                                            size="sm"
+                                            className={classes.bodyText}
+                                        >
+                                            {item.numViews}
+                                        </Text>
+                                    </Center>
+                                </Group>
+                            </div>
+                        </div>
+                    </Card>
+                </Skeleton>
+            </>
         ));
 
     if (appError || serverError) {
@@ -183,56 +204,58 @@ export const AllBerita = () => {
     }
 
     return (
-        <Container size="lg" mt={100} mih="80vh">
-            <Breadcrumbs>{breadcrumbsItem}</Breadcrumbs>
+        <>
+            <Container size="lg" mt={100} mih="80vh">
+                <Breadcrumbs>{breadcrumbsItem}</Breadcrumbs>
 
-            <Space h="xl" />
+                <Space h="xl" />
 
-            <TextInput
-                placeholder="Cari..."
-                value={query}
-                onChange={handleTextInput}
-                rightSection={
-                    load ? (
-                        <ActionIcon
-                            loading={
-                                load ? (
-                                    <Loader size="sm" variant="dots" />
-                                ) : null
-                            }
+                <TextInput
+                    placeholder="Cari..."
+                    value={query}
+                    onChange={handleTextInput}
+                    rightSection={
+                        load ? (
+                            <ActionIcon
+                                loading={
+                                    load ? (
+                                        <Loader size="sm" variant="dots" />
+                                    ) : null
+                                }
+                            />
+                        ) : (
+                            <ActionIcon
+                                color="blue"
+                                variant="transparent"
+                                onClick={searchData}
+                            >
+                                <IconSearch size={18} stroke={1.5} />
+                            </ActionIcon>
+                        )
+                    }
+                />
+
+                <Space h="xl" />
+
+                <SimpleGrid
+                    cols={{ base: 1, sm: 2, md: 2 }}
+                    spacing={{ base: "xl", sm: "xl" }}
+                    verticalSpacing={{ base: "xl", md: "xl" }}
+                >
+                    {cards}
+                </SimpleGrid>
+
+                <Center>
+                    <Box p={20} mt="xl">
+                        <Pagination
+                            onChange={handlePageChange}
+                            total={rows}
+                            withControls
+                            withEdges
                         />
-                    ) : (
-                        <ActionIcon
-                            color="blue"
-                            variant="transparent"
-                            onClick={searchData}
-                        >
-                            <IconSearch size={18} stroke={1.5} />
-                        </ActionIcon>
-                    )
-                }
-            />
-
-            <Space h="xl" />
-
-            <SimpleGrid
-                cols={{ base: 1, sm: 2, md: 2 }}
-                spacing={{ base: "xl", sm: "xl" }}
-                verticalSpacing={{ base: "xl", md: "xl" }}
-            >
-                {cards}
-            </SimpleGrid>
-
-            <Center>
-                <Box p={20} mt="xl">
-                    <Pagination
-                        onChange={handlePageChange}
-                        total={rows}
-                        withControls
-                        withEdges
-                    />
-                </Box>
-            </Center>
-        </Container>
+                    </Box>
+                </Center>
+            </Container>
+        </>
     );
 };

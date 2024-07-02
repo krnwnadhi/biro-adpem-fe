@@ -200,7 +200,7 @@ const Navbar = () => {
                 left: 0,
                 right: 0,
                 height: rem(80),
-                zIndex: 1000000,
+                zIndex: 1000,
                 transform: `translate3d(0, ${pinned ? 0 : rem(-110)}, 0)`,
                 transition: "transform 400ms ease",
                 backgroundColor: "var(--mantine-color-body)",

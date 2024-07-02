@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import axios from "axios";
@@ -55,6 +57,8 @@ export const fetchAllPostAction = createAsyncThunk(
                 "Access-Control-Allow-Origin": "*",
             },
         };
+
+        await new Promise((resolve) => setTimeout(resolve, 1500));
 
         try {
             const { data } = await axios.get(

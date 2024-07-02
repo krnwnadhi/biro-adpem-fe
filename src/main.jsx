@@ -2,6 +2,7 @@ import "./main.module.css";
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
 import "@mantine/carousel/styles.css";
+import "@mantine/nprogress/styles.css";
 
 import {
     Loader,
@@ -12,6 +13,7 @@ import {
 
 import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
+import { NavigationProgress } from "@mantine/nprogress";
 import { Notifications } from "@mantine/notifications";
 import { ParallaxProvider } from "react-scroll-parallax";
 import { Provider } from "react-redux";
@@ -43,6 +45,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <BrowserRouter>
                 <ParallaxProvider>
                     <Notifications position="top-right" limit={3} />
+                    <NavigationProgress />
                     <App />
                 </ParallaxProvider>
             </BrowserRouter>
