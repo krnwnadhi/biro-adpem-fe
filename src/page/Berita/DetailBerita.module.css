@@ -47,7 +47,7 @@
 .description {
     color: var(--mantine-color-gray-0);
     text-align: center;
-    /* margin-top: var(--mantine-spacing-xl); */
+    margin-top: var(--mantine-spacing-xl);
 
     @media (max-width: $mantine-breakpoint-xs) {
         font-size: var(--mantine-font-size-xs);

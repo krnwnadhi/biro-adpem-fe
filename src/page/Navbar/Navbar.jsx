@@ -337,6 +337,10 @@ const Navbar = () => {
                                     transition: "slide-down",
                                     duration: 300,
                                 }}
+                                events={{
+                                    hover: true,
+                                    touch: true,
+                                }}
                             >
                                 <UnstyledButton
                                     component={Link}
@@ -368,6 +372,10 @@ const Navbar = () => {
                                     transition: "slide-down",
                                     duration: 300,
                                 }}
+                                events={{
+                                    hover: true,
+                                    touch: true,
+                                }}
                             >
                                 <IconBrandFacebook size={16} stroke={1.5} />
                             </Tooltip>
@@ -383,6 +391,10 @@ const Navbar = () => {
                                 transitionProps={{
                                     transition: "slide-down",
                                     duration: 300,
+                                }}
+                                events={{
+                                    hover: true,
+                                    touch: true,
                                 }}
                             >
                                 <IconBrandInstagram size={16} stroke={1.5} />

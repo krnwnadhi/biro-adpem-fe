@@ -120,7 +120,7 @@ export const DetailBerita = () => {
                                 <Breadcrumbs>{breadcrumbsItem}</Breadcrumbs>
 
                                 {/* KATEGORI */}
-                                <Text size="xs" fs="italic" mt="xl" c="white">
+                                <Text size="xs" fs="italic" mt="xs" c="white">
                                     {postDetail?.category}
                                 </Text>
 
@@ -134,13 +134,29 @@ export const DetailBerita = () => {
                                     {/* GRUP TANGGAL ADMIN */}
                                     <Stack>
                                         <Group gap="xs">
-                                            <ThemeIcon
-                                                autoContrast
-                                                variant="default"
-                                                size="sm"
+                                            <Tooltip
+                                                transition="slide-up"
+                                                label="Tanggal Upload"
+                                                withArrow
+                                                arrowOffset={10}
+                                                arrowSize={5}
+                                                transitionProps={{
+                                                    transition: "slide-down",
+                                                    duration: 300,
+                                                }}
+                                                events={{
+                                                    hover: true,
+                                                    touch: true,
+                                                }}
                                             >
-                                                <IconCalendar size={12} />
-                                            </ThemeIcon>
+                                                <ThemeIcon
+                                                    autoContrast
+                                                    variant="default"
+                                                    size="sm"
+                                                >
+                                                    <IconCalendar size={12} />
+                                                </ThemeIcon>
+                                            </Tooltip>
                                             <Text size="xs">
                                                 {formatDate(
                                                     postDetail?.createdAt
@@ -151,12 +167,30 @@ export const DetailBerita = () => {
                                         {/* GRUP DILIHAT COPYURL */}
                                         <Group>
                                             <Group gap="xs">
-                                                <ThemeIcon
-                                                    variant="default"
-                                                    size="sm"
+                                                <Tooltip
+                                                    ontouch
+                                                    transition="slide-up"
+                                                    label="Dilihat"
+                                                    withArrow
+                                                    arrowOffset={10}
+                                                    arrowSize={5}
+                                                    transitionProps={{
+                                                        transition:
+                                                            "slide-down",
+                                                        duration: 300,
+                                                    }}
+                                                    events={{
+                                                        hover: true,
+                                                        touch: true,
+                                                    }}
                                                 >
-                                                    <IconEye size={12} />
-                                                </ThemeIcon>
+                                                    <ThemeIcon
+                                                        variant="default"
+                                                        size="sm"
+                                                    >
+                                                        <IconEye size={12} />
+                                                    </ThemeIcon>
+                                                </Tooltip>
                                                 <Text fz="xs">
                                                     {postDetail?.numViews} Kali
                                                 </Text>
@@ -173,7 +207,16 @@ export const DetailBerita = () => {
                                                                 : "Salin URL"
                                                         }
                                                         withArrow
-                                                        position="right"
+                                                        transition="slide-up"
+                                                        transitionProps={{
+                                                            transition:
+                                                                "slide-down",
+                                                            duration: 300,
+                                                        }}
+                                                        events={{
+                                                            hover: true,
+                                                            touch: true,
+                                                        }}
                                                     >
                                                         <ActionIcon
                                                             color={

@@ -29,6 +29,10 @@ export function DarkButton() {
                 transition: "slide-down",
                 duration: 300,
             }}
+            events={{
+                hover: true,
+                touch: true,
+            }}
         >
             <ActionIcon
                 onClick={() =>
