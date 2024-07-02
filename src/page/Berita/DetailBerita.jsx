@@ -7,7 +7,9 @@ import {
     Divider,
     Grid,
     Group,
+    LoadingOverlay,
     Overlay,
+    Skeleton,
     Space,
     Stack,
     Text,
@@ -34,6 +36,7 @@ import ErrorNetwork from "../Error/ErrorNetwork";
 import { ParallaxBanner } from "react-scroll-parallax";
 import classes from "./DetailBerita.module.css";
 import dayjs from "dayjs";
+import { nprogress } from "@mantine/nprogress";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useParams } from "react-router-dom/cjs/react-router-dom";
 
@@ -67,7 +70,14 @@ export const DetailBerita = () => {
     } = post;
 
     const { result = [] } = postList;
-    console.log(result);
+
+    useEffect(() => {
+        loading ? nprogress.start() : nprogress.complete();
+
+        return () => {
+            nprogress.reset();
+        };
+    }, [loading]);
 
     const formatDate = (date) => {
         const today = dayjs().startOf("day");
@@ -84,7 +94,7 @@ export const DetailBerita = () => {
         { title: "Beranda", href: "/" },
         { title: "Informasi", href: "#" },
         { title: "Berita & Kegiatan", href: "/berita" },
-        { title: postDetail.title },
+        { title: postDetail?.title },
     ].map((item, index) => (
         <Anchor
             href={item.href}
@@ -107,8 +117,13 @@ export const DetailBerita = () => {
 
     return (
         <Fragment>
-            {/* HEROHEADER */}
+            <LoadingOverlay
+                visible={loading}
+                zIndex={1000}
+                overlayProps={{ radius: "sm", blur: 10 }}
+            />
 
+            {/* HEROHEADER */}
             <ParallaxBanner
                 layers={[
                     {

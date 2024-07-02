@@ -9,7 +9,6 @@ import {
     Group,
     HoverCard,
     Image,
-    Portal,
     ScrollArea,
     SimpleGrid,
     Text,
@@ -417,7 +416,11 @@ const Navbar = () => {
                 onClose={closeDrawer}
                 size="75%"
                 padding="md"
-                title="Biro Administrasi Pembangunan"
+                title={
+                    <Text size="xs" fw={700}>
+                        Biro Administrasi Pembangunan
+                    </Text>
+                }
                 hiddenFrom="sm"
                 zIndex={1000000}
             >
@@ -425,7 +428,7 @@ const Navbar = () => {
                     <Divider my="sm" />
 
                     <a href="/" className={classes.link}>
-                        Home
+                        Beranda
                     </a>
 
                     <UnstyledButton

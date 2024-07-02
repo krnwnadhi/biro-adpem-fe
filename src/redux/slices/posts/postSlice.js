@@ -89,6 +89,8 @@ export const fetchDetailPostAction = createAsyncThunk(
             },
         };
 
+        await new Promise((resolve) => setTimeout(resolve, 1500));
+
         try {
             const { data } = await axios.get(`${basePostURL}/${id}`, config);
             return data;
