@@ -6,6 +6,7 @@ import {
     AspectRatio,
     Box,
     Breadcrumbs,
+    Button,
     Card,
     Center,
     Container,
@@ -22,6 +23,7 @@ import {
     useMantineTheme,
 } from "@mantine/core";
 import { IconEye, IconSearch } from "@tabler/icons-react";
+import { Spotlight, spotlight } from "@mantine/spotlight";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
@@ -33,9 +35,12 @@ import dayjs from "dayjs";
 import { fetchAllPostAction } from "../../redux/slices/posts/postSlice";
 import { nprogress } from "@mantine/nprogress";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 export const AllBerita = () => {
     const dispatch = useDispatch();
+
+    const history = useHistory();
 
     const theme = useMantineTheme();
 
@@ -104,7 +109,8 @@ export const AllBerita = () => {
     };
 
     const handleTextInput = (e) => {
-        setQuery(e.target.value);
+        console.log(e.target);
+        setQuery(e);
     };
 
     const breadcrumbsItem = [
@@ -197,6 +203,40 @@ export const AllBerita = () => {
             </>
         ));
 
+    const items =
+        postItem &&
+        postItem
+            ?.filter((item) =>
+                item?.title?.toLowerCase().includes(query.toLowerCase().trim())
+            )
+            .map((item) => (
+                <Spotlight.Action
+                    key={item?.title}
+                    onClick={() => history.push(`/berita/${item?.id}`)}
+                    highlightQuery
+                    keywords={item?.title}
+                >
+                    <Group wrap="nowrap" w="100%">
+                        {item?.image && (
+                            <Center>
+                                <img
+                                    src={item?.image}
+                                    alt={item?.title}
+                                    width={50}
+                                    height={50}
+                                />
+                            </Center>
+                        )}
+
+                        <div style={{ flex: 1 }}>
+                            <Text size="sm" lineClamp={1}>
+                                {item?.title}
+                            </Text>
+                        </div>
+                    </Group>
+                </Spotlight.Action>
+            ));
+
     if (appError || serverError) {
         return <ErrorNetwork />;
     } else {
@@ -210,7 +250,7 @@ export const AllBerita = () => {
 
                 <Space h="xl" />
 
-                <TextInput
+                {/* <TextInput
                     placeholder="Cari..."
                     value={query}
                     onChange={handleTextInput}
@@ -234,6 +274,33 @@ export const AllBerita = () => {
                         )
                     }
                 />
+                <Space h="xl" /> */}
+
+                <TextInput
+                    onClick={spotlight.open}
+                    placeholder="Cari Berita..."
+                />
+
+                <Spotlight.Root
+                    query={query}
+                    onQueryChange={setQuery}
+                    scrollable
+                    maxHeight={350}
+                >
+                    <Spotlight.Search
+                        placeholder="Judul Berita"
+                        leftSection={<IconSearch stroke={1.5} />}
+                    />
+                    <Spotlight.ActionsList>
+                        {items?.length > 0 ? (
+                            items.slice(0, 5)
+                        ) : (
+                            <Spotlight.Empty>
+                                Berita tidak ditemukan
+                            </Spotlight.Empty>
+                        )}
+                    </Spotlight.ActionsList>
+                </Spotlight.Root>
 
                 <Space h="xl" />
 
@@ -244,7 +311,6 @@ export const AllBerita = () => {
                 >
                     {cards}
                 </SimpleGrid>
-
                 <Center>
                     <Box p={20} mt="xl">
                         <Pagination
