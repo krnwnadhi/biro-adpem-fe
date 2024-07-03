@@ -9,7 +9,6 @@ import {
     Group,
     LoadingOverlay,
     Overlay,
-    Skeleton,
     Space,
     Stack,
     Text,

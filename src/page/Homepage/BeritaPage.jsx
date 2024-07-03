@@ -196,6 +196,7 @@ const BeritaPage = () => {
                                                 component={Link}
                                                 to={`/berita/${item?.id}`}
                                                 variant="subtle"
+                                                size="compact-xs"
                                             >
                                                 Baca Selengkapnya
                                             </Button>
