@@ -7,7 +7,6 @@ import {
     Space,
     Text,
     Title,
-    rem,
     useMantineTheme,
 } from "@mantine/core";
 import { useCallback, useEffect, useRef, useState } from "react";

@@ -12,16 +12,19 @@ import {
     Group,
     Image,
     Overlay,
-    SimpleGrid,
+    Progress,
     Space,
     Stack,
     Text,
     Title,
     TypographyStylesProvider,
+    useMantineTheme,
 } from "@mantine/core";
-import { Fragment, useEffect } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import Autoplay from "embla-carousel-autoplay";
+import { Carousel } from "@mantine/carousel";
 import ErrorNetwork from "../Error/ErrorNetwork";
 import { IconExternalLink } from "@tabler/icons-react";
 import { Link } from "react-router-dom/cjs/react-router-dom";
@@ -30,9 +33,32 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import dayjs from "dayjs";
 import { fetchAllPostAction } from "../../redux/slices/posts/postSlice";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { useMediaQuery } from "@mantine/hooks";
 
 const BeritaPage = () => {
     const dispatch = useDispatch();
+
+    const [scrollProgress, setScrollProgress] = useState(0);
+    const [embla, setEmbla] = useState(null);
+
+    const autoplay = useRef(Autoplay({ delay: 3000 }));
+
+    const handleScroll = useCallback(() => {
+        if (!embla) return;
+        const progress = Math.max(0, Math.min(1, embla.scrollProgress()));
+        setScrollProgress(progress * 100);
+    }, [embla, setScrollProgress]);
+
+    useEffect(() => {
+        if (embla) {
+            embla.on("scroll", handleScroll);
+            handleScroll();
+        }
+        /* eslint-disable */
+    }, [embla]);
+
+    const theme = useMantineTheme();
+    const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
     useEffect(() => {
         dispatch(fetchAllPostAction(""));
@@ -56,13 +82,93 @@ const BeritaPage = () => {
     const { appError, serverError, postList = [] } = post;
 
     const { result = [] } = postList;
-    console.log(result);
 
     if (appError || serverError) {
         return <ErrorNetwork />;
     } else {
         null;
     }
+
+    const slides = result
+        ?.map((item) => {
+            return (
+                <Carousel.Slide key={item.title}>
+                    <Card
+                        withBorder
+                        radius="md"
+                        p="md"
+                        shadow="xl"
+                        className={classes.card}
+                    >
+                        <Card.Section>
+                            <AspectRatio ratio={16 / 9} pos="relative">
+                                <Overlay
+                                    color="#000"
+                                    backgroundOpacity={0.35}
+                                />
+                                <Image src={item?.image} alt={item?.title} />
+                            </AspectRatio>
+                        </Card.Section>
+
+                        <Stack mt="xl">
+                            <Badge size="xs" variant="light" fullWidth>
+                                {item?.category}
+                            </Badge>
+
+                            <Title textWrap="wrap" order={6} lineClamp={1}>
+                                {item?.title}
+                            </Title>
+
+                            <TypographyStylesProvider>
+                                <Text
+                                    lineClamp={2}
+                                    c="dimmed"
+                                    dangerouslySetInnerHTML={{
+                                        __html: item?.description,
+                                    }}
+                                    size="xs"
+                                    ta="justify"
+                                />
+                            </TypographyStylesProvider>
+                        </Stack>
+
+                        <Card.Section className={classes.section}>
+                            <Group justify="space-between" mt="xl">
+                                <Center>
+                                    <Avatar
+                                        src={item?.user?.profilePhoto}
+                                        size={24}
+                                        radius="xl"
+                                        mr="xs"
+                                    />
+                                    <Text size="xs" c="dimmed">
+                                        {item?.user?.fullName}
+                                    </Text>
+                                </Center>
+
+                                <Text size="xs" c="dimmed">
+                                    {formatDate(item?.createdAt)}
+                                </Text>
+                            </Group>
+                        </Card.Section>
+
+                        <Group mt="xs">
+                            <Button
+                                radius="md"
+                                style={{ flex: 1 }}
+                                component={Link}
+                                to={`/berita/${item?.id}`}
+                                variant="subtle"
+                                size="xs"
+                            >
+                                Baca Selengkapnya
+                            </Button>
+                        </Group>
+                    </Card>
+                </Carousel.Slide>
+            );
+        })
+        .slice(0, 9);
 
     return (
         <>
@@ -96,117 +202,33 @@ const BeritaPage = () => {
                     </Button>
                 </Group>
 
-                <SimpleGrid
-                    cols={{ base: 1, sm: 3 }}
-                    spacing={{ base: 10, sm: "xl" }}
-                    verticalSpacing={{ base: "xl", md: "md" }}
+                <Carousel
+                    slideSize={{
+                        base: "100%",
+                        sm: "50%",
+                        md: "33.333333%",
+                    }}
+                    slideGap="xl"
+                    align="start"
+                    slidesToScroll={mobile ? 1 : 3}
+                    loop
+                    dragFree
+                    getEmblaApi={setEmbla}
+                    initialSlide={2}
+                    controlsOffset="xl"
+                    plugins={[autoplay.current]}
+                    onMouseEnter={autoplay.current.stop}
+                    onMouseLeave={autoplay.current.reset}
                 >
-                    {result
-                        ?.map((item) => {
-                            return (
-                                <Fragment key={item?.id}>
-                                    <Card
-                                        withBorder
-                                        radius="md"
-                                        p="md"
-                                        shadow="xl"
-                                        className={classes.card}
-                                    >
-                                        <Card.Section>
-                                            <AspectRatio
-                                                ratio={16 / 9}
-                                                pos="relative"
-                                            >
-                                                <Overlay
-                                                    color="#000"
-                                                    backgroundOpacity={0.35}
-                                                />
-                                                <Image
-                                                    src={item?.image}
-                                                    alt={item?.title}
-                                                    // height={180}
-                                                />
-                                            </AspectRatio>
-                                        </Card.Section>
-
-                                        <Stack mt="xl">
-                                            <Badge
-                                                size="xs"
-                                                variant="light"
-                                                fullWidth
-                                            >
-                                                {item?.category}
-                                            </Badge>
-
-                                            <Title
-                                                textWrap="wrap"
-                                                order={6}
-                                                lineClamp={1}
-                                            >
-                                                {item?.title}
-                                            </Title>
-
-                                            <TypographyStylesProvider>
-                                                <Text
-                                                    lineClamp={2}
-                                                    c="dimmed"
-                                                    dangerouslySetInnerHTML={{
-                                                        __html: item?.description,
-                                                    }}
-                                                    size="xs"
-                                                    ta="justify"
-                                                />
-                                            </TypographyStylesProvider>
-                                        </Stack>
-
-                                        <Card.Section
-                                            className={classes.section}
-                                        >
-                                            <Group
-                                                justify="space-between"
-                                                mt="xl"
-                                            >
-                                                <Center>
-                                                    <Avatar
-                                                        src={
-                                                            item?.user
-                                                                ?.profilePhoto
-                                                        }
-                                                        size={24}
-                                                        radius="xl"
-                                                        mr="xs"
-                                                    />
-                                                    <Text size="xs" c="dimmed">
-                                                        {item?.user?.fullName}
-                                                    </Text>
-                                                </Center>
-
-                                                <Text size="xs" c="dimmed">
-                                                    {formatDate(
-                                                        item?.createdAt
-                                                    )}
-                                                </Text>
-                                            </Group>
-                                        </Card.Section>
-
-                                        <Group mt="xs">
-                                            <Button
-                                                radius="md"
-                                                style={{ flex: 1 }}
-                                                component={Link}
-                                                to={`/berita/${item?.id}`}
-                                                variant="subtle"
-                                                size="xs"
-                                            >
-                                                Baca Selengkapnya
-                                            </Button>
-                                        </Group>
-                                    </Card>
-                                </Fragment>
-                            );
-                        })
-                        .slice(0, 3)}
-                </SimpleGrid>
+                    {slides}
+                </Carousel>
+                <Progress
+                    value={scrollProgress}
+                    maw={320}
+                    size="sm"
+                    mt="xl"
+                    mx="auto"
+                />
             </Container>
         </>
     );

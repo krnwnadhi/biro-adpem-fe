@@ -312,10 +312,11 @@ export const AllBerita = () => {
                                 <Text span fw={700}>
                                     {rows}
                                 </Text>{" "}
-                                dengan total :{" "}
+                                dari total :{" "}
                                 <Text span fw={700}>
-                                    {pages} berita
-                                </Text>
+                                    {pages}
+                                </Text>{" "}
+                                berita
                             </Text>
                         </Center>
                     </Box>
