@@ -7,6 +7,7 @@ import {
     Card,
     Center,
     Container,
+    Divider,
     Group,
     Pagination,
     SimpleGrid,
@@ -301,6 +302,22 @@ export const AllBerita = () => {
                             withControls
                             withEdges
                         />
+                        <Center mt={10}>
+                            <Text size="xs" mt={5}>
+                                Halaman{" "}
+                                <Text span fw={700}>
+                                    {rows ? page : 0}
+                                </Text>{" "}
+                                dari{" "}
+                                <Text span fw={700}>
+                                    {rows}
+                                </Text>{" "}
+                                dengan total :{" "}
+                                <Text span fw={700}>
+                                    {pages} berita
+                                </Text>
+                            </Text>
+                        </Center>
                     </Box>
                 </Center>
             </Container>
