@@ -20,9 +20,7 @@ function App() {
             <Navbar />
             <Switch>
                 <Route exact path="/" component={IndexPage} />
-                {/* <Route path="/about" component={About} /> */}
                 <Route path="/signin" component={SignIn} />
-                {/* <Route path="/profil/selayangpandang" component={IndexProfil} /> */}
 
                 {/* PROFIL PAGE */}
                 <Route exact path="/profil/:tabValue" component={IndexProfil} />
@@ -40,10 +38,8 @@ function App() {
                 {/* PROFIL PAGE END */}
 
                 {/* BERITA */}
-
                 <Route exact path="/berita" component={AllBerita} />
                 <Route exact path="/berita/:id" component={DetailBerita} />
-
                 {/* BERITA END */}
 
                 {/* ERROR PAGE */}

@@ -1,18 +1,13 @@
 /* eslint-disable no-unused-vars */
 
 import {
-    ActionIcon,
     Anchor,
-    AspectRatio,
     Box,
     Breadcrumbs,
-    Button,
     Card,
     Center,
     Container,
     Group,
-    Image,
-    Loader,
     Pagination,
     SimpleGrid,
     Skeleton,
@@ -24,6 +19,10 @@ import {
 } from "@mantine/core";
 import { IconEye, IconSearch } from "@tabler/icons-react";
 import { Spotlight, spotlight } from "@mantine/spotlight";
+import {
+    fetchAllPostAction,
+    fetchPaginationPostAction,
+} from "../../redux/slices/posts/postSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
@@ -32,7 +31,6 @@ import axios from "axios";
 import { basePostURL } from "../../utils/baseURL";
 import classes from "./AllBerita.module.css";
 import dayjs from "dayjs";
-import { fetchAllPostAction } from "../../redux/slices/posts/postSlice";
 import { nprogress } from "@mantine/nprogress";
 import relativeTime from "dayjs/plugin/relativeTime";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
@@ -46,13 +44,23 @@ export const AllBerita = () => {
 
     useEffect(() => {
         dispatch(fetchAllPostAction());
+        dispatch(fetchPaginationPostAction());
         window.scrollTo(0, 0);
     }, [dispatch]);
 
     const post = useSelector((state) => state?.post);
 
     // eslint-disable-next-line no-unused-vars
-    const { appError, loading, postList = [], serverError } = post;
+    const {
+        appError,
+        loading,
+        postList = [],
+        postPagination: postWithoutPagination = [],
+        serverError,
+    } = post;
+
+    const { result } = postWithoutPagination;
+    console.log(result);
 
     useEffect(() => {
         loading ? nprogress.start() : nprogress.complete();
@@ -204,8 +212,8 @@ export const AllBerita = () => {
         ));
 
     const items =
-        postItem &&
-        postItem
+        result &&
+        result
             ?.filter((item) =>
                 item?.title?.toLowerCase().includes(query.toLowerCase().trim())
             )
