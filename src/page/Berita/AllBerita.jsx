@@ -258,32 +258,6 @@ export const AllBerita = () => {
 
                 <Space h="xl" />
 
-                {/* <TextInput
-                    placeholder="Cari..."
-                    value={query}
-                    onChange={handleTextInput}
-                    rightSection={
-                        load ? (
-                            <ActionIcon
-                                loading={
-                                    load ? (
-                                        <Loader size="sm" variant="dots" />
-                                    ) : null
-                                }
-                            />
-                        ) : (
-                            <ActionIcon
-                                color="blue"
-                                variant="transparent"
-                                onClick={searchData}
-                            >
-                                <IconSearch size={18} stroke={1.5} />
-                            </ActionIcon>
-                        )
-                    }
-                />
-                <Space h="xl" /> */}
-
                 <TextInput
                     onClick={spotlight.open}
                     placeholder="Cari Berita..."
