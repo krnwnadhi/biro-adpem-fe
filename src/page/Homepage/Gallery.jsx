@@ -2,6 +2,7 @@ import {
     Button,
     Container,
     Divider,
+    Group,
     Paper,
     Progress,
     Space,
@@ -10,10 +11,14 @@ import {
     useMantineTheme,
 } from "@mantine/core";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import Autoplay from "embla-carousel-autoplay";
 import { Carousel } from "@mantine/carousel";
+import { IconExternalLink } from "@tabler/icons-react";
+import { Link } from "react-router-dom/cjs/react-router-dom";
 import classes from "./Gallery.module.css";
+import { fetchAllGalleryAction } from "../../redux/slices/gallery/gallerySlice";
 import { useMediaQuery } from "@mantine/hooks";
 
 const data = [
@@ -63,23 +68,34 @@ function Card({ image, title, category }) {
                 <Text className={classes.category} size="xs">
                     {category}
                 </Text>
-                <Title order={3} className={classes.title}>
+                {/* <Title order={3} className={classes.title}>
                     {title}
-                </Title>
+                </Title> */}
             </div>
-            <Button variant="white" color="dark">
+            {/* <Button variant="white" color="dark">
                 Read article
-            </Button>
+            </Button> */}
         </Paper>
     );
 }
 
 export function Gallery() {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchAllGalleryAction(""));
+    }, [dispatch]);
+
+    const gallery = useSelector((state) => state?.gallery);
+    const { appError, serverError, galleryList = [], loading } = gallery;
+    const { result = [] } = galleryList;
+    console.log(result);
+
     const theme = useMantineTheme();
     const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
 
-    const slides = data.map((item) => (
-        <Carousel.Slide key={item.title}>
+    const slides = result?.map((item) => (
+        <Carousel.Slide key={item?.id}>
             <Card {...item} />
         </Carousel.Slide>
     ));
@@ -109,7 +125,7 @@ export function Gallery() {
 
             <Container size="lg">
                 <Divider
-                    my="xl"
+                    mt="xl"
                     labelPosition="left"
                     label={
                         <Text c="blue" fs="italic" fz="h6" fw={700}>
@@ -118,6 +134,22 @@ export function Gallery() {
                     }
                     color="blue"
                 />
+
+                <Group justify="flex-end">
+                    <Button
+                        size="xs"
+                        radius="md"
+                        component={Link}
+                        to={"/galeri"}
+                        variant="gradient"
+                        my="xl"
+                        rightSection={
+                            <IconExternalLink size={18} variant="default" />
+                        }
+                    >
+                        LIHAT SEMUA GALERI
+                    </Button>
+                </Group>
 
                 <Carousel
                     classNames={classes}

@@ -1,6 +1,7 @@
 import { Redirect, Route, Switch } from "react-router-dom/cjs/react-router-dom";
 
 import { AllBerita } from "./page/Berita/AllBerita";
+import { AllGallery } from "./page/Galeri/AllGallery";
 import { DetailBerita } from "./page/Berita/DetailBerita";
 import { Dokumen } from "./page/Dokumen/Dokumen";
 // import About from "./page/user/about/About";
@@ -46,6 +47,10 @@ function App() {
                 {/* DOKUMEN */}
                 <Route exact path="/dokumen" component={Dokumen} />
                 {/* DOKUMEN END */}
+
+                {/* GALERI */}
+                <Route exact path="/galeri" component={AllGallery} />
+                {/* GALERI END */}
 
                 {/* ERROR PAGE */}
                 <Route exact path="/404" component={Error} />

@@ -12,6 +12,7 @@ import {
     Text,
     useMantineTheme,
 } from "@mantine/core";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
 import { Fade } from "react-awesome-reveal";
@@ -22,9 +23,9 @@ import classes from "./Dokumen.module.css";
 import dayjs from "dayjs";
 import download from "downloadjs";
 import { fetchAllDocumentAction } from "../../redux/slices/document/documentSlice";
+import { nprogress } from "@mantine/nprogress";
 import pdfIconSVG from "../../assets/pdf-file.svg";
 import relativeTime from "dayjs/plugin/relativeTime";
-import { useDispatch } from "react-redux";
 import { useMediaQuery } from "@mantine/hooks";
 
 export const Dokumen = () => {
@@ -36,6 +37,18 @@ export const Dokumen = () => {
         dispatch(fetchAllDocumentAction());
         window.scrollTo(0, 0);
     }, [dispatch]);
+
+    const document = useSelector((state) => state?.document);
+
+    const { loading } = document;
+
+    useEffect(() => {
+        loading ? nprogress.start() : nprogress.complete();
+
+        return () => {
+            nprogress.reset();
+        };
+    }, [loading]);
 
     const [filesList, setFilesList] = useState([]);
     const [errorMsg, setErrorMsg] = useState("");
@@ -165,7 +178,7 @@ export const Dokumen = () => {
                 </Card>
             ))
         ) : (
-            <Text fw={700} fs="italic">
+            <Text fw={700} fs="italic" mt="xl">
                 Belum ada file. Silahkan tambah file.
             </Text>
         );
