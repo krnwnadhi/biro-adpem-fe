@@ -309,7 +309,11 @@ export const DetailBerita = () => {
                                                 createdAt={item?.createdAt}
                                                 linkBerita={`/berita/${item?.id}`}
                                             />
-                                        ) : null}
+                                        ) : (
+                                            <Text fs="italic" size="xs">
+                                                Belum ada berita lainnya...
+                                            </Text>
+                                        )}
                                     </Fragment>
                                 );
                             })

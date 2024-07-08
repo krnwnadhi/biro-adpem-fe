@@ -1,0 +1,206 @@
+import {
+    ActionIcon,
+    Anchor,
+    Avatar,
+    Box,
+    Breadcrumbs,
+    Card,
+    Center,
+    Container,
+    Group,
+    Pagination,
+    Text,
+    useMantineTheme,
+} from "@mantine/core";
+import { useEffect, useState } from "react";
+
+import { Fade } from "react-awesome-reveal";
+import { IconDownload } from "@tabler/icons-react";
+import axios from "axios";
+import { baseDocumentURL } from "../../utils/baseURL";
+import classes from "./Dokumen.module.css";
+import dayjs from "dayjs";
+import download from "downloadjs";
+import pdfIconSVG from "../../assets/pdf-file.svg";
+import relativeTime from "dayjs/plugin/relativeTime";
+import { useMediaQuery } from "@mantine/hooks";
+
+export const Dokumen = () => {
+    dayjs.extend(relativeTime);
+
+    const [filesList, setFilesList] = useState([]);
+    // console.log(filesList);
+    const [errorMsg, setErrorMsg] = useState("");
+
+    const [page, setPage] = useState(1);
+    const [limit, setLimit] = useState(10);
+    const [pages, setPages] = useState(0);
+    const [rows, setRows] = useState(0);
+    const [keyword, setKeyword] = useState("");
+
+    const theme = useMantineTheme();
+    const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.xs}px)`);
+
+    useEffect(() => {
+        const abortController = new AbortController();
+
+        getFilesList();
+
+        window.scrollTo(0, 0);
+
+        return () => {
+            abortController.abort();
+        };
+    }, [page, keyword]);
+
+    const getFilesList = async () => {
+        try {
+            const response = await axios.get(
+                `${baseDocumentURL}?search_query=${keyword}&page=${page}&limit=${limit}`
+            );
+            setErrorMsg("");
+            setFilesList(response.data.result);
+            setPage(response.data.page);
+            setPages(response.data.totalItem);
+            setRows(response.data.totalPage);
+        } catch (error) {
+            error.response && setErrorMsg(error.response.data);
+        }
+    };
+
+    const handlePageChange = (event) => {
+        console.log(event);
+        setPage(event);
+    };
+
+    const downloadFile = async (id, file_path, mimetype) => {
+        try {
+            const result = await axios.get(`${baseDocumentURL}/${id}`, {
+                responseType: "blob",
+                "Access-Control-Allow-Origin": "*",
+            });
+
+            const split = file_path.split("/");
+            const filename = split[split.length - 1];
+
+            setErrorMsg("");
+
+            return download(result.data, filename, mimetype);
+        } catch (error) {
+            if (error.response && error.response.status === 400) {
+                setErrorMsg("Error ketika mendownload file! Coba lagi nanti!");
+            } else if (error.response.status === 500) {
+                setErrorMsg("File Tidak ditemukan!");
+            }
+        }
+    };
+
+    const formatDate = (date) => {
+        const today = dayjs().startOf("day");
+        const targetDate = dayjs(date).startOf("day");
+
+        if (targetDate.isSame(today, "day")) {
+            return dayjs(date).locale("id").fromNow();
+        } else {
+            return dayjs(date).locale("id").format("DD MMMM YYYY");
+        }
+    };
+
+    const documentContent =
+        filesList?.length > 0 ? (
+            filesList?.map((item) => (
+                <Card
+                    shadow="sm"
+                    padding="lg"
+                    radius="md"
+                    withBorder
+                    mt="lg"
+                    key={item?.id}
+                    className={classes.card}
+                >
+                    <Group wrap="nowrap">
+                        <Avatar src={pdfIconSVG} size={94} />
+                        <div>
+                            <Text fz="lg" fw={500} className={classes.name}>
+                                {item?.title}
+                            </Text>
+
+                            <Text fz="xs" c="dimmed" lineClamp={2}>
+                                {item?.description}
+                            </Text>
+
+                            <Group
+                                justify="space-between"
+                                wrap="nowrap"
+                                gap={10}
+                                mt={5}
+                            >
+                                <Text fz="xs" c="dimmed">
+                                    {formatDate(item?.createdAt)}
+                                </Text>
+
+                                <ActionIcon
+                                    variant="subtle"
+                                    onClick={() =>
+                                        downloadFile(
+                                            item?.id,
+                                            item?.file_path,
+                                            item?.file_mimetype
+                                        )
+                                    }
+                                >
+                                    <IconDownload size="20" />
+                                </ActionIcon>
+                            </Group>
+                        </div>
+                    </Group>
+                </Card>
+            ))
+        ) : (
+            <Text fw={700} fs="italic">
+                Belum ada file. Silahkan tambah file.
+            </Text>
+        );
+
+    const breadcrumbsItem = [
+        { title: "Beranda", href: "/" },
+        { title: "Informasi", href: "#" },
+        { title: "Dokumen", href: "#" },
+    ].map((item, index) => (
+        <Anchor
+            href={item?.href}
+            key={index}
+            size="xs"
+            underline={false}
+            truncate="end"
+        >
+            {item?.title}
+        </Anchor>
+    ));
+
+    return (
+        <Container size="lg" mt={100} mih="80vh">
+            <Breadcrumbs>{breadcrumbsItem}</Breadcrumbs>
+
+            {errorMsg && (
+                <Text c="red" fw={700} mt="md">
+                    {errorMsg}
+                </Text>
+            )}
+
+            <Fade triggerOnce>{documentContent}</Fade>
+
+            {filesList?.length > 0 ? (
+                <Center>
+                    <Box p={20}>
+                        <Pagination
+                            onChange={handlePageChange}
+                            total={rows}
+                            withControls
+                        />
+                    </Box>
+                </Center>
+            ) : null}
+        </Container>
+    );
+};

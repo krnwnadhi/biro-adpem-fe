@@ -114,9 +114,9 @@ export default function SignIn(props) {
             <Text size="sm" align="center">
                 Copyright © 2023{" "}
                 <Anchor
-                    component={Link}
+                    component="a"
                     type="button"
-                    to="https://diskominfo.jambiprov.go.id/"
+                    href="https://diskominfo.jambiprov.go.id/"
                     target="_blank"
                     rel="noopener noreferrer"
                     ta="center"

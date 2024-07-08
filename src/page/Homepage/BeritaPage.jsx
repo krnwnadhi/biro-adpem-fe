@@ -85,8 +85,6 @@ const BeritaPage = () => {
 
     if (appError || serverError) {
         return <ErrorNetwork />;
-    } else {
-        null;
     }
 
     const slides = result
