@@ -97,8 +97,6 @@ export const AllBerita = () => {
             `${basePostURL}?search_query=${keyword}&page=${page}&limit=${limit}`
         );
 
-        console.log(response);
-
         setPostItem(response.data.result);
         setPage(response.data.page);
         setPages(response.data.totalItem);
@@ -297,7 +295,7 @@ export const AllBerita = () => {
                     {cards}
                 </SimpleGrid>
                 <Center>
-                    <Box p={20} mt="xl">
+                    <Box p={20}>
                         <Pagination
                             onChange={handlePageChange}
                             total={rows}

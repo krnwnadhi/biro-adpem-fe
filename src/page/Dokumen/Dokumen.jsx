@@ -21,19 +21,27 @@ import { baseDocumentURL } from "../../utils/baseURL";
 import classes from "./Dokumen.module.css";
 import dayjs from "dayjs";
 import download from "downloadjs";
+import { fetchAllDocumentAction } from "../../redux/slices/document/documentSlice";
 import pdfIconSVG from "../../assets/pdf-file.svg";
 import relativeTime from "dayjs/plugin/relativeTime";
+import { useDispatch } from "react-redux";
 import { useMediaQuery } from "@mantine/hooks";
 
 export const Dokumen = () => {
     dayjs.extend(relativeTime);
 
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(fetchAllDocumentAction());
+        window.scrollTo(0, 0);
+    }, [dispatch]);
+
     const [filesList, setFilesList] = useState([]);
-    // console.log(filesList);
     const [errorMsg, setErrorMsg] = useState("");
 
     const [page, setPage] = useState(1);
-    const [limit, setLimit] = useState(10);
+    const [limit, setLimit] = useState(5);
     const [pages, setPages] = useState(0);
     const [rows, setRows] = useState(0);
     const [keyword, setKeyword] = useState("");
@@ -192,12 +200,30 @@ export const Dokumen = () => {
 
             {filesList?.length > 0 ? (
                 <Center>
-                    <Box p={20}>
+                    <Box p={20} mt="xl">
                         <Pagination
                             onChange={handlePageChange}
                             total={rows}
                             withControls
+                            withEdges
                         />
+                        <Center mt={10}>
+                            <Text size="xs" mt={5}>
+                                Halaman{" "}
+                                <Text span fw={700}>
+                                    {rows ? page : 0}
+                                </Text>{" "}
+                                dari{" "}
+                                <Text span fw={700}>
+                                    {rows}
+                                </Text>{" "}
+                                dari total :{" "}
+                                <Text span fw={700}>
+                                    {pages}
+                                </Text>{" "}
+                                dokumen
+                            </Text>
+                        </Center>
                     </Box>
                 </Center>
             ) : null}
