@@ -90,7 +90,6 @@ export const Dokumen = () => {
     };
 
     const handlePageChange = (event) => {
-        console.log(event);
         setPage(event);
     };
 
