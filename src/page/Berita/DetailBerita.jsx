@@ -30,13 +30,12 @@ import {
 } from "../../redux/slices/posts/postSlice";
 import { useDispatch, useSelector } from "react-redux";
 
+import { DateFormat } from "../../utils/DateFormat";
 import { DetailBeritaLainnya } from "./DetailBeritaLainnya";
 import ErrorNetwork from "../Error/ErrorNetwork";
 import { ParallaxBanner } from "react-scroll-parallax";
 import classes from "./DetailBerita.module.css";
-import dayjs from "dayjs";
 import { nprogress } from "@mantine/nprogress";
-import relativeTime from "dayjs/plugin/relativeTime";
 import { useParams } from "react-router-dom/cjs/react-router-dom";
 
 // import { useMediaQuery } from "@mantine/hooks";
@@ -45,11 +44,6 @@ export const DetailBerita = () => {
     const { id } = useParams();
 
     const dispatch = useDispatch();
-
-    dayjs.extend(relativeTime);
-
-    // const theme = useMantineTheme();
-    // const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.md}px)`);
 
     useEffect(() => {
         dispatch(fetchAllPostAction());
@@ -77,17 +71,6 @@ export const DetailBerita = () => {
             nprogress.reset();
         };
     }, [loading]);
-
-    const formatDate = (date) => {
-        const today = dayjs().startOf("day");
-        const targetDate = dayjs(date).startOf("day");
-
-        if (targetDate.isSame(today, "day")) {
-            return dayjs(date).locale("id").fromNow();
-        } else {
-            return dayjs(date).locale("id").format("DD MMMM YYYY");
-        }
-    };
 
     const breadcrumbsItem = [
         { title: "Beranda", href: "/" },
@@ -180,7 +163,9 @@ export const DetailBerita = () => {
                                             </ThemeIcon>
                                         </Tooltip>
                                         <Text size="xs">
-                                            {formatDate(postDetail?.createdAt)}
+                                            <DateFormat
+                                                date={postDetail?.createdAt}
+                                            />
                                         </Text>
                                     </Group>
 
@@ -309,11 +294,7 @@ export const DetailBerita = () => {
                                                 createdAt={item?.createdAt}
                                                 linkBerita={`/berita/${item?.id}`}
                                             />
-                                        ) : (
-                                            <Text fs="italic" size="xs">
-                                                Belum ada berita lainnya...
-                                            </Text>
-                                        )}
+                                        ) : null}
                                     </Fragment>
                                 );
                             })

@@ -27,13 +27,12 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
+import { DateFormat } from "../../utils/DateFormat";
 import ErrorNetwork from "../Error/ErrorNetwork";
 import axios from "axios";
 import { basePostURL } from "../../utils/baseURL";
 import classes from "./AllBerita.module.css";
-import dayjs from "dayjs";
 import { nprogress } from "@mantine/nprogress";
-import relativeTime from "dayjs/plugin/relativeTime";
 import { useHistory } from "react-router-dom/cjs/react-router-dom";
 
 export const AllBerita = () => {
@@ -138,19 +137,6 @@ export const AllBerita = () => {
         </Anchor>
     ));
 
-    dayjs.extend(relativeTime);
-
-    const formatDate = (date) => {
-        const today = dayjs().startOf("day");
-        const targetDate = dayjs(date).startOf("day");
-
-        if (targetDate.isSame(today, "day")) {
-            return dayjs(date).locale("id").fromNow();
-        } else {
-            return dayjs(date).locale("id").format("DD MMMM YYYY");
-        }
-    };
-
     const cards =
         postItem &&
         postItem?.map((item) => (
@@ -185,7 +171,7 @@ export const AllBerita = () => {
 
                                 <Group justify="space-between" gap="xs">
                                     <Text size="xs" className={classes.author}>
-                                        {formatDate(item.createdAt)}
+                                        <DateFormat date={item?.createdAt} />
                                     </Text>
 
                                     <Center>

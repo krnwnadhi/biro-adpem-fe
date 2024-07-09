@@ -15,22 +15,19 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
+import { DateFormat } from "../../utils/DateFormat";
 import { Fade } from "react-awesome-reveal";
 import { IconDownload } from "@tabler/icons-react";
 import axios from "axios";
 import { baseDocumentURL } from "../../utils/baseURL";
 import classes from "./Dokumen.module.css";
-import dayjs from "dayjs";
 import download from "downloadjs";
 import { fetchAllDocumentAction } from "../../redux/slices/document/documentSlice";
 import { nprogress } from "@mantine/nprogress";
 import pdfIconSVG from "../../assets/pdf-file.svg";
-import relativeTime from "dayjs/plugin/relativeTime";
 import { useMediaQuery } from "@mantine/hooks";
 
 export const Dokumen = () => {
-    dayjs.extend(relativeTime);
-
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -115,17 +112,6 @@ export const Dokumen = () => {
         }
     };
 
-    const formatDate = (date) => {
-        const today = dayjs().startOf("day");
-        const targetDate = dayjs(date).startOf("day");
-
-        if (targetDate.isSame(today, "day")) {
-            return dayjs(date).locale("id").fromNow();
-        } else {
-            return dayjs(date).locale("id").format("DD MMMM YYYY");
-        }
-    };
-
     const documentContent =
         filesList?.length > 0 ? (
             filesList?.map((item) => (
@@ -156,7 +142,7 @@ export const Dokumen = () => {
                                 mt={5}
                             >
                                 <Text fz="xs" c="dimmed">
-                                    {formatDate(item?.createdAt)}
+                                    <DateFormat date={item?.createdAt} />
                                 </Text>
 
                                 <ActionIcon

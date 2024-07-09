@@ -2,9 +2,8 @@
 
 import { Card, Group, Image, Text } from "@mantine/core";
 
+import { DateFormat } from "../../utils/DateFormat";
 import classes from "./DetailBeritaLainnya.module.css";
-import dayjs from "dayjs";
-import relativeTime from "dayjs/plugin/relativeTime";
 
 export const DetailBeritaLainnya = ({
     imgSrc,
@@ -12,19 +11,6 @@ export const DetailBeritaLainnya = ({
     createdAt,
     linkBerita,
 }) => {
-    dayjs.extend(relativeTime);
-
-    const formatDate = (date) => {
-        const today = dayjs().startOf("day");
-        const targetDate = dayjs(date).startOf("day");
-
-        if (targetDate.isSame(today, "day")) {
-            return dayjs(date).locale("id").fromNow();
-        } else {
-            return dayjs(date).locale("id").format("DD MMMM YYYY");
-        }
-    };
-
     return (
         <Card
             radius="md"
@@ -56,7 +42,7 @@ export const DetailBeritaLainnya = ({
 
                     <Group wrap="nowrap" gap="xs">
                         <Text size="10px" c="dimmed">
-                            {formatDate(createdAt)}
+                            <DateFormat date={createdAt} />
                         </Text>
                     </Group>
                 </div>

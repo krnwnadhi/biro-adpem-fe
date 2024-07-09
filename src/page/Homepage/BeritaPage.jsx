@@ -1,5 +1,3 @@
-import "dayjs/locale/id";
-
 import {
     AspectRatio,
     Avatar,
@@ -25,14 +23,12 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Autoplay from "embla-carousel-autoplay";
 import { Carousel } from "@mantine/carousel";
+import { DateFormat } from "../../utils/DateFormat";
 import ErrorNetwork from "../Error/ErrorNetwork";
 import { IconExternalLink } from "@tabler/icons-react";
 import { Link } from "react-router-dom/cjs/react-router-dom";
 import classes from "./BeritaPage.module.css";
-import customParseFormat from "dayjs/plugin/customParseFormat";
-import dayjs from "dayjs";
 import { fetchAllPostAction } from "../../redux/slices/posts/postSlice";
-import relativeTime from "dayjs/plugin/relativeTime";
 import { useMediaQuery } from "@mantine/hooks";
 
 const BeritaPage = () => {
@@ -63,20 +59,6 @@ const BeritaPage = () => {
     useEffect(() => {
         dispatch(fetchAllPostAction(""));
     }, [dispatch]);
-
-    dayjs.extend(customParseFormat);
-    dayjs.extend(relativeTime);
-
-    const formatDate = (date) => {
-        const today = dayjs().startOf("day");
-        const targetDate = dayjs(date).startOf("day");
-
-        if (targetDate.isSame(today, "day")) {
-            return dayjs(date).locale("id").fromNow();
-        } else {
-            return dayjs(date).locale("id").format("DD MMMM YYYY");
-        }
-    };
 
     const post = useSelector((state) => state?.post);
     const { appError, serverError, postList = [] } = post;
@@ -145,7 +127,7 @@ const BeritaPage = () => {
                                 </Center>
 
                                 <Text size="xs" c="dimmed">
-                                    {formatDate(item?.createdAt)}
+                                    <DateFormat date={item?.createdAt} />
                                 </Text>
                             </Group>
                         </Card.Section>
