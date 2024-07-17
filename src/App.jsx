@@ -2,6 +2,7 @@ import { Redirect, Route, Switch } from "react-router-dom/cjs/react-router-dom";
 
 import { AllBerita } from "./page/Berita/AllBerita";
 import { AllGallery } from "./page/Galeri/AllGallery";
+import { Dashboard } from "./Dashboard/Dashboard";
 import { DetailBerita } from "./page/Berita/DetailBerita";
 import { Dokumen } from "./page/Dokumen/Dokumen";
 // import About from "./page/user/about/About";
@@ -51,6 +52,11 @@ function App() {
                 {/* GALERI */}
                 <Route exact path="/galeri" component={AllGallery} />
                 {/* GALERI END */}
+
+                {/* DASHBOARD */}
+                <Route exact path="/dashboard" component={Dashboard} />
+
+                {/* DASHBOARD END */}
 
                 {/* ERROR PAGE */}
                 <Route exact path="/404" component={Error} />

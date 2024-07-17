@@ -51,7 +51,7 @@ export function Footer() {
         getInitialValueInEffect: true,
     });
 
-    const withoutSidebarRoutes = ["404", "/signin"];
+    const withoutSidebarRoutes = ["404", "/signin", "/dashboard"];
 
     const { pathname } = useLocation();
     if (withoutSidebarRoutes.some((item) => pathname.includes(item)))
