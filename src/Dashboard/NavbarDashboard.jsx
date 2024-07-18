@@ -1,15 +1,13 @@
-import { Code, Group, ScrollArea } from "@mantine/core";
 import {
-    IconAdjustments,
-    IconCalendarStats,
-    IconFileAnalytics,
+    IconCategory2,
+    IconFile,
     IconGauge,
-    IconLock,
     IconNotes,
-    IconPresentationAnalytics,
+    IconPhotoSearch,
 } from "@tabler/icons-react";
 
 import { LinksGroup } from "../components/NavbarLinksGroup/NavbarLinksGroup";
+import { ScrollArea } from "@mantine/core";
 import classes from "./NavbarDashboard.module.css";
 
 // import { UserButton } from "../UserButton/UserButton";
@@ -19,35 +17,41 @@ import classes from "./NavbarDashboard.module.css";
 // import { Logo } from "./Logo";
 
 const mockdata = [
-    { label: "Dashboard", icon: IconGauge },
     {
-        label: "Market news",
+        label: "Dashboard",
+        icon: IconGauge,
+        links: [
+            { label: "Beranda", link: "/" },
+            { label: "Dashboard", link: "/dashboard" },
+        ],
+    },
+    {
+        label: "Berita & Kegiatan",
         icon: IconNotes,
-        initiallyOpened: true,
+        links: [{ label: "Tambah", link: "/dashboard/tambah-post" }],
+    },
+    {
+        label: "Kategori",
+        icon: IconCategory2,
         links: [
-            { label: "Overview", link: "/" },
-            { label: "Forecasts", link: "/" },
-            { label: "Outlook", link: "/" },
-            { label: "Real time", link: "/" },
+            { label: "Daftar Kategori", link: "/dashboard/kategori" },
+            { label: "Tambah Kategori", link: "/dashboard/tambah-kategori" },
         ],
     },
     {
-        label: "Releases",
-        icon: IconCalendarStats,
+        label: "Dokumen",
+        icon: IconFile,
         links: [
-            { label: "Upcoming releases", link: "/" },
-            { label: "Previous releases", link: "/" },
-            { label: "Releases schedule", link: "/" },
+            { label: "Daftar Dokumen", link: "/dashboard/documents" },
+            { label: "Tambah Dokumen", link: "/dashboard/tambah-document" },
         ],
     },
-
     {
-        label: "Security",
-        icon: IconLock,
+        label: "Galeri",
+        icon: IconPhotoSearch,
         links: [
-            { label: "Enable 2FA", link: "/" },
-            { label: "Change password", link: "/" },
-            { label: "Recovery codes", link: "/" },
+            { label: "List Gallery", link: "/dashboard/gallery" },
+            { label: "Tambah Galeri", link: "/dashboard/tambah-gallery" },
         ],
     },
 ];
@@ -61,7 +65,6 @@ export function NavbarDashboard() {
         <nav className={classes.navbar}>
             {/* <div className={classes.header}>
                 <Group justify="space-between">
-                    LOGO
                     <Code fw={700}>v3.1.2</Code>
                 </Group>
             </div> */}

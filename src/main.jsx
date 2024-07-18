@@ -14,6 +14,7 @@ import {
 
 import App from "./App.jsx";
 import { BrowserRouter } from "react-router-dom";
+import { ModalsProvider } from "@mantine/modals";
 import { NavigationProgress } from "@mantine/nprogress";
 import { Notifications } from "@mantine/notifications";
 import { ParallaxProvider } from "react-scroll-parallax";
@@ -43,13 +44,15 @@ const theme = createTheme({
 ReactDOM.createRoot(document.getElementById("root")).render(
     <MantineProvider theme={theme} colorSchemeManager={colorSchemeManager}>
         <Provider store={store}>
-            <BrowserRouter>
-                <ParallaxProvider>
-                    <Notifications position="top-right" limit={3} />
-                    <NavigationProgress />
-                    <App />
-                </ParallaxProvider>
-            </BrowserRouter>
+            <ModalsProvider>
+                <BrowserRouter>
+                    <ParallaxProvider>
+                        <Notifications position="top-right" limit={3} />
+                        <NavigationProgress />
+                        <App />
+                    </ParallaxProvider>
+                </BrowserRouter>
+            </ModalsProvider>
         </Provider>
     </MantineProvider>
 );

@@ -1,12 +1,11 @@
 import { AppShell, Burger, Code, Group, ScrollArea, Text } from "@mantine/core";
 
-import { DarkButton } from "../components/DarkButton/DarkButton";
-import { IndexDashboard } from "./IndexDashboard";
+import { DarkButton } from "../../components/DarkButton/DarkButton";
 import { Link } from "react-router-dom/cjs/react-router-dom";
-import { NavbarDashboard } from "./NavbarDashboard";
+import { NavbarDashboard } from "../NavbarDashboard";
 import { useDisclosure } from "@mantine/hooks";
 
-export const Dashboard = () => {
+export const TambahBerita = () => {
     const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
     const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
 
@@ -46,13 +45,12 @@ export const Dashboard = () => {
                 </Group>
             </AppShell.Header>
             <AppShell.Navbar>
+                {/* Navbar */}
                 <AppShell.Section grow component={ScrollArea}>
                     <NavbarDashboard />
                 </AppShell.Section>
             </AppShell.Navbar>
-            <AppShell.Main>
-                <IndexDashboard />
-            </AppShell.Main>
+            <AppShell.Main>Tambah Berita</AppShell.Main>
             <AppShell.Footer p="sm">
                 <Text size="sm" ta="center">
                     Copyright © 2023{" "}

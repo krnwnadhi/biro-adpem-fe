@@ -1,10 +1,8 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { IconCheck } from "@tabler/icons-react";
 import axios from "axios";
 import { baseUserURL } from "../../../utils/baseURL";
 import { notifications } from "@mantine/notifications";
-import { rem } from "@mantine/core";
 import secureLocalStorage from "react-secure-storage";
 
 //register action
@@ -46,7 +44,7 @@ export const loginUserAction = createAsyncThunk(
                 },
             };
 
-            await new Promise((resolve) => setTimeout(resolve, 2000));
+            await new Promise((resolve) => setTimeout(resolve, 1500));
 
             const { data } = await axios.post(
                 `${baseUserURL}/login`,
@@ -128,6 +126,8 @@ const userLoginFormStorage = secureLocalStorage.getItem("logInfo")
 export const logoutUserAction = createAsyncThunk(
     "user/logout",
     async (userData, { rejectWithValue, getState, dispatch }) => {
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+
         try {
             secureLocalStorage.removeItem("logInfo");
             // secureLocalStorage.removeItem("logInfo", JSON.stringify(userData));
@@ -189,7 +189,7 @@ const usersSLices = createSlice({
                 title: "Success",
                 message: "Login berhasil!",
                 color: "green",
-                autoClose: 2000,
+                autoClose: 3000,
             });
         });
         builder.addCase(loginUserAction.rejected, (state, action) => {
@@ -210,17 +210,36 @@ const usersSLices = createSlice({
             state.loading = true;
             state.appError = undefined;
             state.serverError = undefined;
+            notifications.show({
+                loading: true,
+                title: "Loading",
+                message: "Memuat data...",
+                autoClose: 2000,
+            });
         });
         builder.addCase(logoutUserAction.fulfilled, (state, action) => {
             state.userAuth = undefined;
             state.loading = false;
             state.appError = undefined;
             state.serverError = undefined;
+            notifications.show({
+                loading: false,
+                title: "Success",
+                message: "Log Out berhasil!",
+                color: "red",
+                autoClose: 2000,
+            });
         });
         builder.addCase(logoutUserAction.rejected, (state, action) => {
             state.loading = false;
             state.appError = action?.payload?.message;
             state.serverError = action?.error?.message;
+            notifications.show({
+                title: "Error",
+                message: state.appError,
+                color: "red",
+                autoClose: 3000,
+            });
         });
 
         //passwordResetToken

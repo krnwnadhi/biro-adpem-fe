@@ -1,5 +1,6 @@
 import { Redirect, Route, Switch } from "react-router-dom/cjs/react-router-dom";
 
+import AdminRoute from "./page/auth/AdminRoute/AdminRoute";
 import { AllBerita } from "./page/Berita/AllBerita";
 import { AllGallery } from "./page/Galeri/AllGallery";
 import { Dashboard } from "./Dashboard/Dashboard";
@@ -15,6 +16,7 @@ import ScrollToTop from "./page/Homepage/ScrollToTop";
 import SelayangPandang from "./page/Profil/SelayangPandang";
 import SignIn from "./page/auth/signin/SignIn";
 import StrukturOrganisasi from "./page/Profil/StrukturOrganisasi";
+import { TambahBerita } from "./Dashboard/Post/TambahBerita";
 import VisiMisi from "./page/Profil/VisiMisi";
 
 function App() {
@@ -54,7 +56,13 @@ function App() {
                 {/* GALERI END */}
 
                 {/* DASHBOARD */}
-                <Route exact path="/dashboard" component={Dashboard} />
+                <AdminRoute exact path="/dashboard" component={Dashboard} />
+
+                <AdminRoute
+                    exact
+                    path="/dashboard/tambah-post"
+                    component={TambahBerita}
+                />
 
                 {/* DASHBOARD END */}
 
