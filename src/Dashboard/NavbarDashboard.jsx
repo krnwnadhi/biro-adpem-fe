@@ -10,15 +10,10 @@ import { LinksGroup } from "../components/NavbarLinksGroup/NavbarLinksGroup";
 import { ScrollArea } from "@mantine/core";
 import classes from "./NavbarDashboard.module.css";
 
-// import { UserButton } from "../UserButton/UserButton";
-
-// import { LinksGroup } from "../NavbarLinksGroup/NavbarLinksGroup";
-
-// import { Logo } from "./Logo";
-
 const mockdata = [
     {
         label: "Dashboard",
+        initiallyOpened: true,
         icon: IconGauge,
         links: [
             { label: "Beranda", link: "/" },
@@ -28,7 +23,10 @@ const mockdata = [
     {
         label: "Berita & Kegiatan",
         icon: IconNotes,
-        links: [{ label: "Tambah", link: "/dashboard/tambah-post" }],
+        links: [
+            { label: "List Berita", link: "/dashboard/daftar-post" },
+            { label: "Tambah Berita", link: "/dashboard/tambah-post" },
+        ],
     },
     {
         label: "Kategori",
@@ -63,20 +61,9 @@ export function NavbarDashboard() {
 
     return (
         <nav className={classes.navbar}>
-            {/* <div className={classes.header}>
-                <Group justify="space-between">
-                    <Code fw={700}>v3.1.2</Code>
-                </Group>
-            </div> */}
-
             <ScrollArea className={classes.links}>
                 <div className={classes.linksInner}>{links}</div>
             </ScrollArea>
-
-            {/* <div className={classes.footer}>
-                <UserButton />
-                FOOTER
-            </div> */}
         </nav>
     );
 }

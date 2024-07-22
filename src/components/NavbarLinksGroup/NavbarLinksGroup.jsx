@@ -9,17 +9,19 @@ import {
 } from "@mantine/core";
 import { IconCalendarStats, IconChevronRight } from "@tabler/icons-react";
 
+import { Link } from "react-router-dom/cjs/react-router-dom";
 import classes from "./NavbarLinksGroup.module.css";
 import { useState } from "react";
 
+// eslint-disable-next-line react/prop-types
 export function LinksGroup({ icon: Icon, label, initiallyOpened, links }) {
     const hasLinks = Array.isArray(links);
     const [opened, setOpened] = useState(initiallyOpened || false);
     const items = (hasLinks ? links : []).map((link) => (
         <Text
-            component="a"
+            component={Link}
             className={classes.link}
-            href={link.link}
+            to={link.link}
             key={link.label}
         >
             {link.label}

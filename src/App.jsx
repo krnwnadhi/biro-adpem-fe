@@ -3,6 +3,7 @@ import { Redirect, Route, Switch } from "react-router-dom/cjs/react-router-dom";
 import AdminRoute from "./page/auth/AdminRoute/AdminRoute";
 import { AllBerita } from "./page/Berita/AllBerita";
 import { AllGallery } from "./page/Galeri/AllGallery";
+import { DaftarBerita } from "./Dashboard/Post/DaftarBerita";
 import { Dashboard } from "./Dashboard/Dashboard";
 import { DetailBerita } from "./page/Berita/DetailBerita";
 import { Dokumen } from "./page/Dokumen/Dokumen";
@@ -62,6 +63,12 @@ function App() {
                     exact
                     path="/dashboard/tambah-post"
                     component={TambahBerita}
+                />
+
+                <AdminRoute
+                    exact
+                    path="/dashboard/daftar-post"
+                    component={DaftarBerita}
                 />
 
                 {/* DASHBOARD END */}
