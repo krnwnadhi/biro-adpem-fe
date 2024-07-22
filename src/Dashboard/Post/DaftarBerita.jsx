@@ -10,7 +10,9 @@ import {
     Group,
     Image,
     ScrollArea,
+    Stack,
     Text,
+    Title,
     Tooltip,
     useMantineColorScheme,
 } from "@mantine/core";
@@ -39,7 +41,7 @@ export const DaftarBerita = () => {
     }, [dispatch]);
 
     const post = useSelector((state) => state?.post);
-    const { appError, serverError, loading, postPagination = [] } = post;
+    const { loading, postPagination = [] } = post;
 
     const { result = [] } = postPagination;
 
@@ -270,7 +272,12 @@ export const DaftarBerita = () => {
             </AppShell.Navbar>
             <AppShell.Main>
                 <Container size="lg">
-                    <MantineReactTable table={table} enableStickyHeader />
+                    <Stack>
+                        <Title order={4} ta="center">
+                            LIST BERITA
+                        </Title>
+                        <MantineReactTable table={table} enableStickyHeader />
+                    </Stack>
                 </Container>
             </AppShell.Main>
             <AppShell.Footer p="sm">
