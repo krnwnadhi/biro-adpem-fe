@@ -40,7 +40,7 @@ export const TambahBerita = () => {
                     </Group>
                     <Group>
                         <DarkButton />
-                        <DarkButton />
+                        {/* <DarkButton /> */}
                     </Group>
                 </Group>
             </AppShell.Header>

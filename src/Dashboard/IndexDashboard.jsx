@@ -50,7 +50,7 @@ export const IndexDashboard = () => {
     const user = useSelector((state) => state?.users?.userAuth);
 
     const post = useSelector((state) => state?.post);
-    const { loading, postList, postPagination } = post;
+    const { loading, postPagination } = post;
     // console.log(postPagination);
 
     const document = useSelector((state) => state?.document);

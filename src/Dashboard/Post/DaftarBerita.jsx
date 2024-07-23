@@ -260,7 +260,7 @@ export const DaftarBerita = () => {
                     </Group>
                     <Group>
                         <DarkButton />
-                        <DarkButton />
+                        {/* <DarkButton /> */}
                     </Group>
                 </Group>
             </AppShell.Header>

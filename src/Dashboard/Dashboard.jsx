@@ -41,7 +41,7 @@ export const Dashboard = () => {
                     </Group>
                     <Group>
                         <DarkButton />
-                        <DarkButton />
+                        {/* <DarkButton /> */}
                     </Group>
                 </Group>
             </AppShell.Header>

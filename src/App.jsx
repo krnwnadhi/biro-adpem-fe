@@ -46,18 +46,6 @@ function App() {
                 {/* BERITA */}
                 <Route exact path="/berita" component={AllBerita} />
                 <Route exact path="/berita/:id" component={DetailBerita} />
-                {/* BERITA END */}
-
-                {/* DOKUMEN */}
-                <Route exact path="/dokumen" component={Dokumen} />
-                {/* DOKUMEN END */}
-
-                {/* GALERI */}
-                <Route exact path="/galeri" component={AllGallery} />
-                {/* GALERI END */}
-
-                {/* DASHBOARD */}
-                <AdminRoute exact path="/dashboard" component={Dashboard} />
 
                 <AdminRoute
                     exact
@@ -70,7 +58,18 @@ function App() {
                     path="/dashboard/daftar-post"
                     component={DaftarBerita}
                 />
+                {/* BERITA END */}
 
+                {/* DOKUMEN */}
+                <Route exact path="/dokumen" component={Dokumen} />
+                {/* DOKUMEN END */}
+
+                {/* GALERI */}
+                <Route exact path="/galeri" component={AllGallery} />
+                {/* GALERI END */}
+
+                {/* DASHBOARD */}
+                <AdminRoute exact path="/dashboard" component={Dashboard} />
                 {/* DASHBOARD END */}
 
                 {/* ERROR PAGE */}
