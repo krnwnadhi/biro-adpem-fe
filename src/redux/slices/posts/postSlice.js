@@ -4,6 +4,7 @@ import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import axios from "axios";
 import { basePostURL } from "../../../utils/baseURL";
+import { notifications } from "@mantine/notifications";
 
 //action to redirect
 const resetPostAction = createAction("post/add/reset");
@@ -180,6 +181,8 @@ export const deletePostAction = createAsyncThunk(
             },
         };
 
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+
         try {
             const { data } = await axios.delete(
                 `${basePostURL}/${postId}`,
@@ -297,6 +300,12 @@ const postSlices = createSlice({
         //delete post
         builder.addCase(deletePostAction.pending, (state, action) => {
             state.loading = true;
+            notifications.show({
+                loading: true,
+                title: "Loading",
+                message: "Menghapus...",
+                autoClose: 2000,
+            });
         });
         builder.addCase(resetPostDeleteAction, (state, action) => {
             state.isDeleted = true;
@@ -307,6 +316,13 @@ const postSlices = createSlice({
             state.loading = false;
             state.appError = undefined;
             state.serverError = undefined;
+            notifications.show({
+                loading: false,
+                title: "Success",
+                message: "Berhasil menghapus berita",
+                color: "green",
+                autoClose: 3000,
+            });
         });
         builder.addCase(deletePostAction.rejected, (state, action) => {
             state.loading = false;

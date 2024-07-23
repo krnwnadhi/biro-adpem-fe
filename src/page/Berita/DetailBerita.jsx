@@ -2,6 +2,7 @@ import {
     ActionIcon,
     Anchor,
     Breadcrumbs,
+    Button,
     Container,
     CopyButton,
     Divider,
@@ -22,9 +23,13 @@ import {
     IconCalendar,
     IconCheck,
     IconCopy,
+    IconEdit,
     IconEye,
+    IconTrash,
 } from "@tabler/icons-react";
+import { Redirect, useParams } from "react-router-dom/cjs/react-router-dom";
 import {
+    deletePostAction,
     fetchAllPostAction,
     fetchDetailPostAction,
 } from "../../redux/slices/posts/postSlice";
@@ -35,8 +40,8 @@ import { DetailBeritaLainnya } from "./DetailBeritaLainnya";
 import ErrorNetwork from "../Error/ErrorNetwork";
 import { ParallaxBanner } from "react-scroll-parallax";
 import classes from "./DetailBerita.module.css";
+import { modals } from "@mantine/modals";
 import { nprogress } from "@mantine/nprogress";
-import { useParams } from "react-router-dom/cjs/react-router-dom";
 
 // import { useMediaQuery } from "@mantine/hooks";
 
@@ -53,6 +58,10 @@ export const DetailBerita = () => {
 
     const post = useSelector((state) => state?.post);
 
+    //check if user isAdmin
+    const user = useSelector((state) => state?.users);
+    const { userAuth } = user;
+
     // eslint-disable-next-line no-unused-vars
     const {
         appError,
@@ -60,6 +69,7 @@ export const DetailBerita = () => {
         postDetail = [],
         postList = [],
         serverError,
+        isDeleted,
     } = post;
 
     const { result = [] } = postList;
@@ -96,6 +106,23 @@ export const DetailBerita = () => {
     } else {
         null;
     }
+
+    if (isDeleted) return <Redirect to="/dashboard" />;
+
+    const openDeleteModal = () =>
+        modals.openConfirmModal({
+            title: "Hapus Berita",
+            centered: true,
+            children: (
+                <Text size="sm">
+                    Yakin ingin menghapus berita `{postDetail?.title}`?
+                </Text>
+            ),
+            labels: { confirm: "Hapus", cancel: "Batal" },
+            confirmProps: { color: "red" },
+            onCancel: () => console.log("Cancel"),
+            onConfirm: () => dispatch(deletePostAction(postDetail?.id)),
+        });
 
     return (
         <Fragment>
@@ -266,6 +293,33 @@ export const DetailBerita = () => {
             <Container size="lg" mt="xl">
                 <Grid gutter={65}>
                     <Grid.Col span={{ base: 12, xs: 8 }}>
+                        {userAuth?.isAdmin && (
+                            <Group grow>
+                                <Button
+                                    variant="light"
+                                    size="sm"
+                                    leftSection={
+                                        <IconEdit size={16} stroke={1.5} />
+                                    }
+                                    // fullWidth
+                                >
+                                    EDIT
+                                </Button>
+                                <Button
+                                    size="sm"
+                                    color="red"
+                                    variant="outline"
+                                    leftSection={
+                                        <IconTrash size={16} stroke={1.5} />
+                                    }
+                                    onClick={openDeleteModal}
+                                    // fullWidth
+                                >
+                                    HAPUS
+                                </Button>
+                            </Group>
+                        )}
+
                         <Text
                             dangerouslySetInnerHTML={{
                                 __html: postDetail?.description,

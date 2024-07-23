@@ -4,7 +4,7 @@ import "@mantine/notifications/styles.css";
 import "@mantine/carousel/styles.css";
 import "@mantine/nprogress/styles.css";
 import "@mantine/spotlight/styles.css";
-import 'mantine-react-table/styles.css';
+import "mantine-react-table/styles.css";
 
 import {
     Loader,
@@ -48,7 +48,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <ModalsProvider>
                 <BrowserRouter>
                     <ParallaxProvider>
-                        <Notifications position="top-right" limit={3} />
+                        <Notifications
+                            position="bottom-right"
+                            limit={3}
+                            zIndex={9999}
+                        />
                         <NavigationProgress />
                         <App />
                     </ParallaxProvider>

@@ -226,7 +226,7 @@ const usersSLices = createSlice({
                 loading: false,
                 title: "Success",
                 message: "Log Out berhasil!",
-                color: "red",
+                color: "green",
                 autoClose: 2000,
             });
         });

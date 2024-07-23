@@ -13,11 +13,14 @@ import {
     rem,
 } from "@mantine/core";
 import { IconBook, IconFileInfo, IconPhotoCheck } from "@tabler/icons-react";
+import {
+    fetchAllPostAction,
+    fetchPaginationPostAction,
+} from "../redux/slices/posts/postSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 import { fetchAllDocumentAction } from "../redux/slices/document/documentSlice";
 import { fetchAllGalleryAction } from "../redux/slices/gallery/gallerySlice";
-import { fetchAllPostAction } from "../redux/slices/posts/postSlice";
 import { logoutUserAction } from "../redux/slices/users/usersSlices";
 import { modals } from "@mantine/modals";
 import { nprogress } from "@mantine/nprogress";
@@ -39,6 +42,7 @@ export const IndexDashboard = () => {
 
     useEffect(() => {
         dispatch(fetchAllPostAction());
+        dispatch(fetchPaginationPostAction());
         dispatch(fetchAllDocumentAction());
         dispatch(fetchAllGalleryAction());
     }, [dispatch]);
@@ -46,7 +50,8 @@ export const IndexDashboard = () => {
     const user = useSelector((state) => state?.users?.userAuth);
 
     const post = useSelector((state) => state?.post);
-    const { loading, postList } = post;
+    const { loading, postList, postPagination } = post;
+    // console.log(postPagination);
 
     const document = useSelector((state) => state?.document);
     const { documentList } = document;
@@ -71,8 +76,8 @@ export const IndexDashboard = () => {
     const data = [
         {
             label: "Berita",
-            stats: postList?.result?.length,
-            progress: postList?.result?.length,
+            stats: postPagination?.result?.length,
+            progress: postPagination?.result?.length,
             color: "teal",
             icon: "post",
         },
