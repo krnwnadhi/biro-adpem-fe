@@ -28,7 +28,11 @@ import {
     IconEye,
     IconTrash,
 } from "@tabler/icons-react";
-import { Redirect, useParams } from "react-router-dom/cjs/react-router-dom";
+import {
+    Link,
+    Redirect,
+    useParams,
+} from "react-router-dom/cjs/react-router-dom";
 import {
     deletePostAction,
     fetchAllPostAction,
@@ -39,7 +43,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { DateFormat } from "../../utils/DateFormat";
 import { DetailBeritaLainnya } from "./DetailBeritaLainnya";
 import ErrorNetwork from "../Error/ErrorNetwork";
-import { ParallaxBanner } from "react-scroll-parallax";
 import classes from "./DetailBerita.module.css";
 import { modals } from "@mantine/modals";
 import { nprogress } from "@mantine/nprogress";
@@ -287,6 +290,10 @@ export const DetailBerita = () => {
                                     leftSection={
                                         <IconEdit size={16} stroke={1.5} />
                                     }
+                                    component={Link}
+                                    to={`/berita/update/${postDetail?.id}`}
+                                    // component="a"
+                                    // href={`/berita/update/${postDetail?.id}`}
                                 >
                                     EDIT
                                 </Button>
@@ -298,7 +305,6 @@ export const DetailBerita = () => {
                                         <IconTrash size={16} stroke={1.5} />
                                     }
                                     onClick={openDeleteModal}
-                                    // fullWidth
                                 >
                                     HAPUS
                                 </Button>

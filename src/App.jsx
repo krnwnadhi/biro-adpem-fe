@@ -18,6 +18,7 @@ import SelayangPandang from "./page/Profil/SelayangPandang";
 import SignIn from "./page/auth/signin/SignIn";
 import StrukturOrganisasi from "./page/Profil/StrukturOrganisasi";
 import { TambahBerita } from "./Dashboard/Post/TambahBerita";
+import { UpdateBerita } from "./Dashboard/Post/UpdateBerita";
 import VisiMisi from "./page/Profil/VisiMisi";
 
 function App() {
@@ -57,6 +58,12 @@ function App() {
                     exact
                     path="/dashboard/daftar-post"
                     component={DaftarBerita}
+                />
+
+                <AdminRoute
+                    exact
+                    path="/berita/update/:id"
+                    component={UpdateBerita}
                 />
                 {/* BERITA END */}
 

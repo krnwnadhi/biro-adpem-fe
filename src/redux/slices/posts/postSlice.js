@@ -149,6 +149,8 @@ export const updatePostAction = createAsyncThunk(
             },
         };
 
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+
         try {
             const { data } = await axios.put(
                 `${basePostURL}/${post?.id}`,
@@ -299,6 +301,12 @@ const postSlices = createSlice({
         //update post
         builder.addCase(updatePostAction.pending, (state, action) => {
             state.loading = true;
+            notifications.show({
+                loading: true,
+                title: "Loading",
+                message: "Memperbarui Berita...",
+                autoClose: 2000,
+            });
         });
         builder.addCase(resetPostEditAction, (state, action) => {
             state.isUpdated = true;
@@ -309,11 +317,24 @@ const postSlices = createSlice({
             state.loading = false;
             state.appError = undefined;
             state.serverError = undefined;
+            notifications.show({
+                loading: false,
+                title: "Success",
+                message: "Berhasil memperbarui berita",
+                color: "green",
+                autoClose: 2000,
+            });
         });
         builder.addCase(updatePostAction.rejected, (state, action) => {
             state.loading = false;
             state.appError = action?.payload?.message;
             state.serverError = action?.error?.message;
+            notifications.show({
+                title: "Error",
+                message: state.appError,
+                color: "red",
+                autoClose: 3000,
+            });
         });
 
         //delete post
