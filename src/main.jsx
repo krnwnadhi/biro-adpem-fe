@@ -5,6 +5,7 @@ import "@mantine/carousel/styles.css";
 import "@mantine/nprogress/styles.css";
 import "@mantine/spotlight/styles.css";
 import "mantine-react-table/styles.css";
+import "@mantine/dates/styles.css";
 
 import {
     Loader,

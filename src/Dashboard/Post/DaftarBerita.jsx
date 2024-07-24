@@ -113,7 +113,7 @@ export const DaftarBerita = () => {
                 enableGlobalFilter: false,
                 Cell: ({ cell }) => (
                     <Text
-                        lineClamp={3}
+                        lineClamp={1}
                         c="dimmed"
                         dangerouslySetInnerHTML={{
                             __html: cell.getValue(),

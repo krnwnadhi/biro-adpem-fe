@@ -108,7 +108,8 @@ export const DetailBerita = () => {
         null;
     }
 
-    if (isDeleted) return <Redirect to="/dashboard/daftar-post" />;
+    if (isDeleted)
+        return <Redirect to="/dashboard/daftar-post" replace={true} />;
 
     const openDeleteModal = () =>
         modals.openConfirmModal({
@@ -279,14 +280,13 @@ export const DetailBerita = () => {
                 <Grid gutter={65}>
                     <Grid.Col span={{ base: 12, xs: 8 }}>
                         {userAuth?.isAdmin && (
-                            <Group grow>
+                            <Group grow mb="xl">
                                 <Button
                                     variant="light"
                                     size="sm"
                                     leftSection={
                                         <IconEdit size={16} stroke={1.5} />
                                     }
-                                    // fullWidth
                                 >
                                     EDIT
                                 </Button>

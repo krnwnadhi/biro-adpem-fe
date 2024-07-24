@@ -118,12 +118,12 @@ const Navbar = () => {
 
     const withoutSidebarRoutes = [
         "404",
-        // "/signin",
-        // "/register",
-        // "/dashboard",
-        // "/kategori",
-        // "/reset-password",
-        // "/about",
+        "/signin",
+        "/register",
+        "/dashboard",
+        "/kategori",
+        "/reset-password",
+        "/about",
     ];
 
     const { pathname } = useLocation();
@@ -200,7 +200,7 @@ const Navbar = () => {
                     left: 0,
                     right: 0,
                     height: rem(80),
-                    zIndex: 5000,
+                    zIndex: 999,
                     transform: `translate3d(0, ${pinned ? 0 : rem(-110)}, 0)`,
                     transition: "transform 400ms ease",
                     backgroundColor: "var(--mantine-color-body)",
