@@ -1,6 +1,7 @@
 import {
     ActionIcon,
     Anchor,
+    BackgroundImage,
     Breadcrumbs,
     Button,
     Container,
@@ -107,7 +108,7 @@ export const DetailBerita = () => {
         null;
     }
 
-    if (isDeleted) return <Redirect to="/dashboard" />;
+    if (isDeleted) return <Redirect to="/dashboard/daftar-post" />;
 
     const openDeleteModal = () =>
         modals.openConfirmModal({
@@ -133,42 +134,67 @@ export const DetailBerita = () => {
             />
 
             {/* HEROHEADER */}
-            <ParallaxBanner
-                layers={[
-                    {
-                        image: postDetail?.image,
-                        amount: 0.5,
-                        speed: -35,
-                        scale: [1, 1.1, "easeInOutBack"],
-                    },
-                ]}
-                className={classes.banner}
+            <BackgroundImage
+                src={postDetail?.image}
+                className={classes.wrapper}
             >
                 <Overlay color="#000" opacity={1} blur={5} zIndex={1} />
+                <div className={classes.inner}>
+                    <Container size="lg">
+                        <Breadcrumbs>{breadcrumbsItem}</Breadcrumbs>
 
-                <div className={classes.wrapper}>
-                    <div className={classes.inner}>
-                        <Container size="lg">
-                            <Breadcrumbs>{breadcrumbsItem}</Breadcrumbs>
+                        {/* KATEGORI */}
+                        <Text size="xs" fs="italic" mt="xs" c="white">
+                            {postDetail?.category}
+                        </Text>
 
-                            {/* KATEGORI */}
-                            <Text size="xs" fs="italic" mt="xs" c="white">
-                                {postDetail?.category}
-                            </Text>
+                        {/* JUDUL */}
+                        <Title className={classes.title}>
+                            {postDetail?.title}
+                        </Title>
 
-                            {/* JUDUL */}
-                            <Title className={classes.title}>
-                                {postDetail?.title}
-                            </Title>
+                        {/* GRUP */}
+                        <Text size="xs" className={classes.description}>
+                            {/* GRUP TANGGAL ADMIN */}
+                            <Stack>
+                                <Group gap="xs">
+                                    <Tooltip
+                                        transition="slide-up"
+                                        label="Tanggal Upload"
+                                        withArrow
+                                        arrowOffset={10}
+                                        arrowSize={5}
+                                        transitionProps={{
+                                            transition: "slide-down",
+                                            duration: 300,
+                                        }}
+                                        events={{
+                                            hover: true,
+                                            touch: true,
+                                        }}
+                                    >
+                                        <ThemeIcon
+                                            autoContrast
+                                            variant="default"
+                                            size="sm"
+                                        >
+                                            <IconCalendar size={12} />
+                                        </ThemeIcon>
+                                    </Tooltip>
+                                    <Text size="xs">
+                                        <DateFormat
+                                            date={postDetail?.createdAt}
+                                        />
+                                    </Text>
+                                </Group>
 
-                            {/* GRUP */}
-                            <Text size="xs" className={classes.description}>
-                                {/* GRUP TANGGAL ADMIN */}
-                                <Stack>
+                                {/* GRUP DILIHAT COPYURL */}
+                                <Group>
                                     <Group gap="xs">
                                         <Tooltip
+                                            ontouch
                                             transition="slide-up"
-                                            label="Tanggal Upload"
+                                            label="Dilihat"
                                             withArrow
                                             arrowOffset={10}
                                             arrowSize={5}
@@ -182,30 +208,31 @@ export const DetailBerita = () => {
                                             }}
                                         >
                                             <ThemeIcon
-                                                autoContrast
                                                 variant="default"
                                                 size="sm"
                                             >
-                                                <IconCalendar size={12} />
+                                                <IconEye size={12} />
                                             </ThemeIcon>
                                         </Tooltip>
-                                        <Text size="xs">
-                                            <DateFormat
-                                                date={postDetail?.createdAt}
-                                            />
+                                        <Text fz="xs">
+                                            {postDetail?.numViews} Kali
                                         </Text>
                                     </Group>
 
-                                    {/* GRUP DILIHAT COPYURL */}
-                                    <Group>
-                                        <Group gap="xs">
+                                    {/* COPY */}
+                                    <CopyButton
+                                        value={`https://adpem.jambiprov.go.id/berita/${postDetail?.id}`}
+                                        timeout={2000}
+                                    >
+                                        {({ copied, copy }) => (
                                             <Tooltip
-                                                ontouch
-                                                transition="slide-up"
-                                                label="Dilihat"
+                                                label={
+                                                    copied
+                                                        ? "URL disalin"
+                                                        : "Salin URL"
+                                                }
                                                 withArrow
-                                                arrowOffset={10}
-                                                arrowSize={5}
+                                                transition="slide-up"
                                                 transitionProps={{
                                                     transition: "slide-down",
                                                     duration: 300,
@@ -215,79 +242,37 @@ export const DetailBerita = () => {
                                                     touch: true,
                                                 }}
                                             >
-                                                <ThemeIcon
-                                                    variant="default"
-                                                    size="sm"
-                                                >
-                                                    <IconEye size={12} />
-                                                </ThemeIcon>
-                                            </Tooltip>
-                                            <Text fz="xs">
-                                                {postDetail?.numViews} Kali
-                                            </Text>
-                                        </Group>
-
-                                        {/* COPY */}
-                                        <CopyButton
-                                            value={`https://adpem.jambiprov.go.id/berita/${postDetail?.id}`}
-                                            timeout={2000}
-                                        >
-                                            {({ copied, copy }) => (
-                                                <Tooltip
-                                                    label={
-                                                        copied
-                                                            ? "URL disalin"
-                                                            : "Salin URL"
+                                                <ActionIcon
+                                                    color={
+                                                        copied ? "teal" : "gray"
                                                     }
-                                                    withArrow
-                                                    transition="slide-up"
-                                                    transitionProps={{
-                                                        transition:
-                                                            "slide-down",
-                                                        duration: 300,
-                                                    }}
-                                                    events={{
-                                                        hover: true,
-                                                        touch: true,
-                                                    }}
+                                                    onClick={copy}
+                                                    size={24}
                                                 >
-                                                    <ActionIcon
-                                                        color={
-                                                            copied
-                                                                ? "teal"
-                                                                : "gray"
-                                                        }
-                                                        onClick={copy}
-                                                        size={24}
-                                                    >
-                                                        {copied ? (
-                                                            <IconCheck
-                                                                style={{
-                                                                    width: rem(
-                                                                        12
-                                                                    ),
-                                                                }}
-                                                            />
-                                                        ) : (
-                                                            <IconCopy
-                                                                style={{
-                                                                    width: rem(
-                                                                        12
-                                                                    ),
-                                                                }}
-                                                            />
-                                                        )}
-                                                    </ActionIcon>
-                                                </Tooltip>
-                                            )}
-                                        </CopyButton>
-                                    </Group>
-                                </Stack>
-                            </Text>
-                        </Container>
-                    </div>
+                                                    {copied ? (
+                                                        <IconCheck
+                                                            style={{
+                                                                width: rem(12),
+                                                            }}
+                                                        />
+                                                    ) : (
+                                                        <IconCopy
+                                                            style={{
+                                                                width: rem(12),
+                                                            }}
+                                                        />
+                                                    )}
+                                                </ActionIcon>
+                                            </Tooltip>
+                                        )}
+                                    </CopyButton>
+                                </Group>
+                            </Stack>
+                        </Text>
+                    </Container>
                 </div>
-            </ParallaxBanner>
+            </BackgroundImage>
+            {/* </ParallaxBanner> */}
 
             {/* ISI BERITA */}
             <Container size="lg" mt="xl">

@@ -208,6 +208,12 @@ const postSlices = createSlice({
         //create post
         builder.addCase(createPostAction.pending, (state, action) => {
             state.loading = true;
+            notifications.show({
+                loading: true,
+                title: "Loading",
+                message: "Membuat Berita...",
+                autoClose: 2000,
+            });
         });
         ////dispatch action add post
         builder.addCase(resetPostAction, (state, action) => {
@@ -219,11 +225,24 @@ const postSlices = createSlice({
             state.isCreated = false;
             state.appError = undefined;
             state.serverError = undefined;
+            notifications.show({
+                loading: false,
+                title: "Success",
+                message: "Berhasil membuat berita",
+                color: "green",
+                autoClose: 2000,
+            });
         });
         builder.addCase(createPostAction.rejected, (state, action) => {
             state.loading = false;
             state.appError = action?.payload?.message;
             state.serverError = action?.error?.message;
+            notifications.show({
+                title: "Error",
+                message: state.appError,
+                color: "red",
+                autoClose: 3000,
+            });
         });
 
         //fetch all post

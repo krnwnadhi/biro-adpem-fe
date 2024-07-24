@@ -1,12 +1,13 @@
 .wrapper {
     position: relative;
-    padding-top: rem(20px);
+    padding-top: rem(125px);
+    padding-bottom: rem(75px);
     background-size: cover;
     background-position: center;
 
     @media (max-width: $mantine-breakpoint-xs) {
-        padding-top: rem(25px);
-        padding-bottom: rem(50px);
+        padding-top: rem(150px);
+        padding-bottom: rem(75px);
     }
 }
 

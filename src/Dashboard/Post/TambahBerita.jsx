@@ -1,3 +1,5 @@
+import "react-quill/dist/quill.snow.css";
+
 import {
     Alert,
     AppShell,
@@ -22,6 +24,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { DarkButton } from "../../components/DarkButton/DarkButton";
 import { IconAlertCircle } from "@tabler/icons-react";
 import { NavbarDashboard } from "../NavbarDashboard";
+import ReactQuill from "react-quill";
 import { createPostAction } from "../../redux/slices/posts/postSlice";
 import { fetchAllCategoryAction } from "../../redux/slices/category/categorySlice";
 import { useDisclosure } from "@mantine/hooks";
@@ -34,11 +37,9 @@ const ContentTambahBerita = () => {
         dispatch(fetchAllCategoryAction());
     }, [dispatch]);
 
-    //get category data from store
     const category = useSelector((state) => state?.category);
 
     const { categoryList = [], loading, appError, serverError } = category;
-    console.log(categoryList);
 
     const allCategories = categoryList?.map((category) => {
         return {
@@ -46,8 +47,6 @@ const ContentTambahBerita = () => {
             value: category?.title,
         };
     });
-
-    console.log(allCategories);
 
     //get post data
     const post = useSelector((state) => state?.post);
@@ -69,13 +68,33 @@ const ContentTambahBerita = () => {
         },
     });
 
-    const formOnSubmit = form.onSubmit((values) =>
-        // dispatch(createPostAction(values))
-        console.log(values)
+    const modules = {
+        toolbar: [
+            [{ header: "1" }, { header: "2" }, { font: [] }],
+            [{ size: [] }],
+            ["bold", "italic", "underline", "strike", "blockquote"],
+            [
+                { list: "ordered" },
+                { list: "bullet" },
+                { indent: "-1" },
+                { indent: "+1" },
+            ],
+            ["link", "image", "video"],
+            ["clean"],
+        ],
+        clipboard: {
+            // toggle to add extra line breaks when pasting HTML:
+            matchVisual: false,
+        },
+    };
+
+    const formOnSubmit = form.onSubmit(
+        (values) => dispatch(createPostAction(values))
+        // console.log(values)
     );
 
     // Redirect
-    if (isCreated) return <Redirect to="/dashboard" />;
+    if (isCreated) return <Redirect to="/dashboard/daftar-post" />;
 
     return (
         <>
@@ -99,24 +118,34 @@ const ContentTambahBerita = () => {
                         {...form.getInputProps("title")}
                     />
 
-                    <Text mt={10} mb={-20} size={14}>
-                        Deskripsi
-                    </Text>
-                    {/* <Box mt={20}>
-                    <EditorToolbar toolbarId={"t2"} />
-                    <ReactQuill
-                        theme="snow"
-                        // value={userInfo.information}
-                        // onChange={oninformation}
-                        placeholder={"Tulis sesuatu..."}
-                        modules={modules("t2")}
-                        formats={formats}
-                        {...form.getInputProps("description")}
-                    />
-                </Box> */}
+                    <Text>Deskripsi</Text>
+                    <Box>
+                        <ReactQuill
+                            theme="snow"
+                            formats={[
+                                "header",
+                                "font",
+                                "size",
+                                "bold",
+                                "italic",
+                                "underline",
+                                "strike",
+                                "blockquote",
+                                "list",
+                                "bullet",
+                                "indent",
+                                "link",
+                                "image",
+                                "video",
+                            ]}
+                            placeholder="Tulis Berita..."
+                            modules={modules}
+                            {...form.getInputProps("description")}
+                        />
+                    </Box>
 
                     <Select
-                        mt={10}
+                        // mt={20}
                         // required
                         withAsterisk
                         label="Kategori"
@@ -142,18 +171,14 @@ const ContentTambahBerita = () => {
                         required
                         withAsterisk
                         accept="image/png, image/jpeg, image/jpg"
-                        // value={value}
-                        // onChange={handleFileChange}
                         {...form.getInputProps("image")}
                     />
 
-                    <Text size="sm" color="red" ta="center">
+                    <Text size="sm" c="red" ta="center">
                         {appErrorPost
                             ? "File terlalu besar. Upload size kurang dari 1mb."
                             : null}
                     </Text>
-
-                    {/* <Space h="xl" /> */}
 
                     <Group position="apart" mt="xl">
                         {loadingPost ? (
