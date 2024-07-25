@@ -4,6 +4,7 @@ import AdminRoute from "./page/auth/AdminRoute/AdminRoute";
 import { AllBerita } from "./page/Berita/AllBerita";
 import { AllGallery } from "./page/Galeri/AllGallery";
 import { DaftarBerita } from "./Dashboard/Post/DaftarBerita";
+import { DaftarKategori } from "./Dashboard/Kategori/DaftarKategori";
 import { Dashboard } from "./Dashboard/Dashboard";
 import { DetailBerita } from "./page/Berita/DetailBerita";
 import { Dokumen } from "./page/Dokumen/Dokumen";
@@ -66,6 +67,15 @@ function App() {
                     component={UpdateBerita}
                 />
                 {/* BERITA END */}
+
+                {/* KATEGORI */}
+                <AdminRoute
+                    exact
+                    path="/dashboard/kategori"
+                    component={DaftarKategori}
+                />
+
+                {/* KATEGORI END */}
 
                 {/* DOKUMEN */}
                 <Route exact path="/dokumen" component={Dokumen} />

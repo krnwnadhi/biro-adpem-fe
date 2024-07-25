@@ -52,7 +52,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
                         <Notifications
                             position="bottom-right"
                             limit={3}
-                            zIndex={9999}
+                            zIndex={99999}
                         />
                         <NavigationProgress />
                         <App />

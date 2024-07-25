@@ -31,10 +31,7 @@ const mockdata = [
     {
         label: "Kategori",
         icon: IconCategory2,
-        links: [
-            { label: "Daftar Kategori", link: "/dashboard/kategori" },
-            { label: "Tambah Kategori", link: "/dashboard/tambah-kategori" },
-        ],
+        links: [{ label: "Daftar Kategori", link: "/dashboard/kategori" }],
     },
     {
         label: "Dokumen",

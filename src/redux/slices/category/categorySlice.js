@@ -1,7 +1,10 @@
+/* eslint-disable no-unused-vars */
+
 import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import axios from "axios";
 import { baseCategoryURL } from "../../../utils/baseURL";
+import { notifications } from "@mantine/notifications";
 
 baseCategoryURL;
 //action to redirect
@@ -180,11 +183,25 @@ const categorySlices = createSlice({
             state.loading = false;
             state.appError = undefined;
             state.serverError = undefined;
+            notifications.show({
+                loading: false,
+                title: "Success",
+                message:
+                    "Berhasil Membuat Kategori. Harap tunggu 3 Detik, Halaman akan reload secara otomatis.",
+                color: "green",
+                autoClose: 2000,
+            });
         });
         builder.addCase(createCategoryAction.rejected, (state, action) => {
             state.loading = false;
             state.appError = action?.payload?.message;
             state.serverError = action?.error?.message;
+            notifications.show({
+                title: "Error",
+                message: state.appError,
+                color: "red",
+                autoClose: 3000,
+            });
         });
 
         // fetch all categories
@@ -238,11 +255,25 @@ const categorySlices = createSlice({
             state.loading = false;
             state.appError = undefined;
             state.serverError = undefined;
+            notifications.show({
+                loading: false,
+                title: "Success",
+                message:
+                    "Berhasil Menghapus Kategori. Harap tunggu 3 Detik, Halaman akan reload secara otomatis.",
+                color: "green",
+                autoClose: 2000,
+            });
         });
         builder.addCase(deleteCategoryAction.rejected, (state, action) => {
             state.loading = false;
             state.appError = action?.payload?.message;
             state.serverError = action?.error?.message;
+            notifications.show({
+                title: "Error",
+                message: state.appError,
+                color: "red",
+                autoClose: 3000,
+            });
         });
 
         //fetch single category

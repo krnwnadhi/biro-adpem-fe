@@ -2,13 +2,13 @@
 
 import {
     ActionIcon,
-    Anchor,
     AppShell,
     Burger,
+    Button,
     Code,
     Container,
+    Flex,
     Group,
-    Image,
     ScrollArea,
     Stack,
     Text,
@@ -16,34 +16,45 @@ import {
     Tooltip,
     useMantineColorScheme,
 } from "@mantine/core";
-import { MantineReactTable, useMantineReactTable } from "mantine-react-table";
+import {
+    MRT_EditActionButtons,
+    MantineReactTable,
+    useMantineReactTable,
+} from "mantine-react-table";
+import {
+    createCategoryAction,
+    deleteCategoryAction,
+    fetchAllCategoryAction,
+} from "../../redux/slices/category/categorySlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { DarkButton } from "../../components/DarkButton/DarkButton";
-import { IconPencil } from "@tabler/icons-react";
+import { IconTrash } from "@tabler/icons-react";
 import { Link } from "react-router-dom/cjs/react-router-dom";
 import { NavbarDashboard } from "../NavbarDashboard";
-import { fetchPaginationPostAction } from "../../redux/slices/posts/postSlice";
+import { modals } from "@mantine/modals";
 import { nprogress } from "@mantine/nprogress";
 import { useDisclosure } from "@mantine/hooks";
 
-export const DaftarBerita = () => {
+export const DaftarKategori = () => {
     const { colorScheme } = useMantineColorScheme();
 
     const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
     const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
 
+    const [validationErrors, setValidationErrors] = useState({});
+    const [isSaving, setIsSaving] = useState(false);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchPaginationPostAction());
+        dispatch(fetchAllCategoryAction());
     }, [dispatch]);
 
-    const post = useSelector((state) => state?.post);
-    const { loading, postPagination = [] } = post;
+    const category = useSelector((state) => state?.category);
 
-    const { result = [] } = postPagination;
+    const { categoryList = [], loading } = category;
 
     useEffect(() => {
         loading ? nprogress.start() : nprogress.complete();
@@ -53,121 +64,73 @@ export const DaftarBerita = () => {
         };
     }, [loading]);
 
-    const categoriesList = [
-        "BIDANG PENGENDALIAN PEMBANGUNAN WILAYAH",
-        "BIDANG PENGENDALIAN PEMBANGUNAN APBN DAN APBD",
-        "BIDANG PELAPORAN",
-    ];
+    const validateRequired = (value) => value.length > 5;
+
+    const validateTitleCategory = (category) => {
+        return {
+            title: !validateRequired(category.title)
+                ? "Harap Isi Nama Kategori Min. 5 Karakter"
+                : "",
+        };
+    };
+
+    const handleCreateCategory = async ({ values, exitCreatingMode }) => {
+        const newValidationErrors = validateTitleCategory(values);
+        if (Object.values(newValidationErrors).some((error) => error)) {
+            setValidationErrors(newValidationErrors);
+            return;
+        }
+        setValidationErrors({});
+        setIsSaving(true);
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        dispatch(createCategoryAction(values));
+        setIsSaving(false);
+        exitCreatingMode();
+        setTimeout(() => {
+            window.location.reload();
+        }, 3000);
+    };
+
+    const openDeleteConfirmModal = (row) =>
+        modals.openConfirmModal({
+            title: "Hapus kategori?",
+            centered: true,
+            children: (
+                <Text size="xs">
+                    Yakin ingin menghapus Kategori `{row.original.title}`?
+                </Text>
+            ),
+            labels: { confirm: "Hapus", cancel: "Batal" },
+            confirmProps: { color: "red" },
+            onConfirm: async () => {
+                setIsSaving(true);
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+                dispatch(deleteCategoryAction(row.original._id));
+                setIsSaving(false);
+                setTimeout(() => {
+                    window.location.reload();
+                }, 3000);
+            },
+        });
+
+    const data = categoryList;
 
     const columns = useMemo(
         () => [
             {
-                id: "id",
-                header: "Aksi",
-                enableColumnOrdering: false,
-                enableColumnFilterModes: false,
-                enableColumnFilter: false,
-                enableColumnSortModes: false,
-                enableGrouping: false,
-                enableSorting: false,
-                enableColumnActions: false,
-                enableResizing: false,
-                size: 50,
-                Cell: ({ row }) => (
-                    <Tooltip label="Edit">
-                        <ActionIcon
-                            component={Anchor}
-                            href={`/berita/${row.original?.id}`}
-                            color="red"
-                            variant="subtle"
-                        >
-                            <IconPencil size={14} stroke={1.5} />
-                        </ActionIcon>
-                    </Tooltip>
-                ),
-            },
-            {
-                header: "No",
-                id: "no",
-                Cell: ({ row }) => {
-                    return <Text size="xs"> {row.index + 1} </Text>;
-                },
-                enableColumnOrdering: false,
-                enableColumnFilterModes: false,
-                enableColumnFilter: false,
-                enableColumnSortModes: false,
-                enableGrouping: false,
-                enableSorting: false,
-                enableColumnActions: false,
-                enableResizing: false,
-                size: 25,
-            },
-            {
                 accessorKey: "title",
-                header: "Judul Berita",
-                Cell: ({ cell }) => <Text size="xs">{cell.getValue()}</Text>,
-            },
-            {
-                accessorKey: "description",
-                header: "Deskripsi",
-                enableGlobalFilter: false,
-                Cell: ({ cell }) => (
-                    <Text
-                        lineClamp={1}
-                        c="dimmed"
-                        dangerouslySetInnerHTML={{
-                            __html: cell.getValue(),
-                        }}
-                        size="xs"
-                    />
-                ),
-            },
-            {
-                accessorKey: "category",
-                header: "Kategori",
-                Cell: ({ cell }) => <Text size="xs">{cell.getValue()}</Text>,
-                filterVariant: "select",
-                mantineFilterSelectProps: {
-                    data: categoriesList,
+                header: "Nama Kategori",
+                enableColumnOrdering: false,
+                mantineEditTextInputProps: {
+                    type: "email",
+                    required: true,
+                    error: validationErrors?.title,
+                    onFocus: () =>
+                        setValidationErrors({
+                            ...validationErrors,
+                            title: undefined,
+                        }),
                 },
-                size: 400,
-                enableGlobalFilter: false,
-            },
-            {
-                accessorKey: "image",
-                header: "Foto",
-                enableColumnOrdering: false,
-                enableColumnFilterModes: false,
-                enableColumnFilter: false,
-                enableColumnSortModes: false,
-                enableGrouping: false,
-                enableSorting: false,
-                enableColumnActions: false,
-                enableResizing: false,
-                size: 25,
-                Cell: ({ cell }) => (
-                    <Image
-                        radius="md"
-                        h={50}
-                        w="auto"
-                        fit="contain"
-                        src={cell.getValue()}
-                    />
-                ),
-            },
-            {
-                accessorKey: "numViews",
-                header: "Dilihat",
-                enableColumnOrdering: false,
-                enableColumnFilterModes: false,
-                enableColumnFilter: false,
-                enableColumnSortModes: false,
-                enableGrouping: false,
-                enableSorting: false,
-                enableColumnActions: false,
-                enableResizing: false,
-                size: 25,
-                Cell: ({ cell }) => <Text size="xs">{cell.getValue()}</Text>,
             },
             {
                 accessorFn: (row) => {
@@ -180,28 +143,29 @@ export const DaftarBerita = () => {
                 size: 175,
                 enableGrouping: false,
                 id: "createdAt",
-                header: "Tanggal",
+                header: "Tanggal Dibuat",
                 filterVariant: "date-range",
                 sortingFn: "datetime",
                 enableColumnFilterModes: false,
+                enableColumnOrdering: false,
+                enableColumnFilter: false,
+                enableColumnSortModes: false,
+                enableSorting: false,
+                enableColumnActions: false,
+                enableResizing: false,
+                enableEditing: false,
                 Cell: ({ cell }) =>
                     cell.getValue()?.toLocaleDateString("id-ID"),
             },
         ],
-        // eslint-disable-next-line
-        []
+        [validationErrors]
     );
-
-    const data = result;
 
     const table = useMantineReactTable({
         columns,
         data,
         withBorder: colorScheme === "light",
         enableColumnFilterModes: false,
-        enableColumnOrdering: true,
-        enableGrouping: true,
-        enableColumnPinning: true,
         enableFilterMatchHighlighting: true,
         mantineTableProps: {
             striped: "odd",
@@ -216,22 +180,67 @@ export const DaftarBerita = () => {
             rowsPerPageOptions: ["5", "10", "15", "20"],
         },
         mantineSearchTextInputProps: {
-            placeholder: "Cari Judul Berita",
+            placeholder: "Cari Kategori",
         },
         state: {
             showProgressBars: loading,
             isLoading: loading,
+            isSaving: isSaving,
+            showAlertBanner: loading,
         },
-        initialState: {
-            columnPinning: {
-                left: ["id"],
-            },
-        },
+        createDisplayMode: "modal",
+        editDisplayMode: "modal",
+        enableEditing: true,
         mantineTableContainerProps: {
             style: {
                 minHeight: "500px",
             },
         },
+        getRowId: (row) => row.id,
+        onCreatingRowCancel: () => setValidationErrors({}),
+        onCreatingRowSave: handleCreateCategory,
+        renderCreateRowModalContent: ({
+            table,
+            row,
+            internalEditComponents,
+        }) => (
+            <Stack>
+                <Title order={3}>Tambah Kategori</Title>
+                {internalEditComponents}
+                <Flex justify="flex-end" mt="xl">
+                    <MRT_EditActionButtons
+                        variant="text"
+                        table={table}
+                        row={row}
+                    />
+                </Flex>
+            </Stack>
+        ),
+        renderRowActions: ({ row }) => (
+            <Tooltip label="Delete">
+                <ActionIcon
+                    color="red"
+                    variant="subtle"
+                    aria-label="Delete"
+                    radius="xl"
+                    size="sm"
+                    onClick={() => openDeleteConfirmModal(row)}
+                >
+                    <IconTrash />
+                </ActionIcon>
+            </Tooltip>
+        ),
+        renderTopToolbarCustomActions: ({ table }) => (
+            <Button
+                onClick={() => {
+                    table.setCreatingRow(true);
+                }}
+                variant="subtle"
+                size="xs"
+            >
+                Tambah Kategori
+            </Button>
+        ),
     });
 
     return (
@@ -265,7 +274,6 @@ export const DaftarBerita = () => {
                     </Group>
                     <Group>
                         <DarkButton />
-                        {/* <DarkButton /> */}
                     </Group>
                 </Group>
             </AppShell.Header>
@@ -279,7 +287,7 @@ export const DaftarBerita = () => {
                 <Container size="lg">
                     <Stack>
                         <Title order={4} ta="center">
-                            LIST BERITA
+                            LIST KATEGORI
                         </Title>
                         <MantineReactTable table={table} enableStickyHeader />
                     </Stack>
