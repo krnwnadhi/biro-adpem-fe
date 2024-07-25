@@ -229,7 +229,7 @@ const postSlices = createSlice({
             state.serverError = undefined;
             notifications.show({
                 loading: false,
-                title: "Success",
+                title: "Sukses",
                 message: "Berhasil membuat berita",
                 color: "green",
                 autoClose: 2000,
@@ -319,7 +319,7 @@ const postSlices = createSlice({
             state.serverError = undefined;
             notifications.show({
                 loading: false,
-                title: "Success",
+                title: "Sukses",
                 message: "Berhasil memperbarui berita",
                 color: "green",
                 autoClose: 2000,
@@ -358,7 +358,7 @@ const postSlices = createSlice({
             state.serverError = undefined;
             notifications.show({
                 loading: false,
-                title: "Success",
+                title: "Sukses",
                 message: "Berhasil menghapus berita",
                 color: "green",
                 autoClose: 3000,

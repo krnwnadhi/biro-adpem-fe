@@ -186,7 +186,7 @@ const usersSLices = createSlice({
             state.serverError = undefined;
             notifications.show({
                 loading: false,
-                title: "Success",
+                title: "Sukses",
                 message: "Login berhasil!",
                 color: "green",
                 autoClose: 3000,
@@ -224,7 +224,7 @@ const usersSLices = createSlice({
             state.serverError = undefined;
             notifications.show({
                 loading: false,
-                title: "Success",
+                title: "Sukses",
                 message: "Log Out berhasil!",
                 color: "green",
                 autoClose: 2000,

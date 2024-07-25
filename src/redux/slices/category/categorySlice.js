@@ -185,7 +185,7 @@ const categorySlices = createSlice({
             state.serverError = undefined;
             notifications.show({
                 loading: false,
-                title: "Success",
+                title: "Sukses",
                 message:
                     "Berhasil Membuat Kategori. Harap tunggu 3 Detik, Halaman akan reload secara otomatis.",
                 color: "green",
@@ -257,7 +257,7 @@ const categorySlices = createSlice({
             state.serverError = undefined;
             notifications.show({
                 loading: false,
-                title: "Success",
+                title: "Sukses",
                 message:
                     "Berhasil Menghapus Kategori. Harap tunggu 3 Detik, Halaman akan reload secara otomatis.",
                 color: "green",

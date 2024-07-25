@@ -353,8 +353,8 @@ const Navbar = () => {
                                     }}
                                 >
                                     <UnstyledButton
-                                        component={Link}
-                                        to="/dashboard"
+                                        component="a"
+                                        href="/dashboard"
                                         className={classes.link}
                                     >
                                         <ActionIcon variant="transparent">
@@ -513,6 +513,36 @@ const Navbar = () => {
                         >
                             {linksLayanan}
                         </Collapse>
+
+                        {isAdmin && (
+                            <Tooltip
+                                transition="slide-up"
+                                label="Dashboard"
+                                offset={25}
+                                withArrow
+                                arrowOffset={10}
+                                arrowSize={5}
+                                transitionProps={{
+                                    transition: "slide-down",
+                                    duration: 300,
+                                }}
+                                events={{
+                                    hover: true,
+                                    touch: true,
+                                }}
+                            >
+                                <UnstyledButton
+                                    component="a"
+                                    href="/dashboard"
+                                    className={classes.link}
+                                >
+                                    {/* <ActionIcon variant="transparent">
+                                        <IconLayoutDashboard size={18} />
+                                    </ActionIcon> */}
+                                    <Text size="sm">Dashboard</Text>
+                                </UnstyledButton>
+                            </Tooltip>
+                        )}
 
                         <Divider my="sm" />
 
