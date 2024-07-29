@@ -14,10 +14,6 @@ import {
     useMantineColorScheme,
 } from "@mantine/core";
 import { MantineReactTable, useMantineReactTable } from "mantine-react-table";
-import {
-    fetchAllDocumentAction,
-    fetchAllDocumentNoPaginationAction,
-} from "../../redux/slices/document/documentSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo, useState } from "react";
 
@@ -28,6 +24,7 @@ import { NavbarDashboard } from "../NavbarDashboard";
 import axios from "axios";
 import { baseDocumentURL } from "../../utils/baseURL";
 import download from "downloadjs";
+import { fetchAllDocumentNoPaginationAction } from "../../redux/slices/document/documentSlice";
 import { nprogress } from "@mantine/nprogress";
 import { useDisclosure } from "@mantine/hooks";
 

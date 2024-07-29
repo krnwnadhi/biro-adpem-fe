@@ -170,7 +170,7 @@ const TambahDokumenContent = () => {
                             />
                         ),
                         loading: false,
-                        autoClose: 2000,
+                        autoClose: 3000,
                     });
                 }, 3000);
                 setTimeout(() => {
@@ -189,7 +189,7 @@ const TambahDokumenContent = () => {
                             withAsterisk
                             label="Nama Dokumen"
                             aria-label="Nama Dokumen"
-                            placeholder="Min. 3 Huruf"
+                            placeholder="Min. 5 Karakter"
                             {...form.getInputProps("title")}
                         />
 
@@ -197,7 +197,7 @@ const TambahDokumenContent = () => {
                             withAsterisk
                             label="Deskripsi"
                             aria-label="Deskripsi"
-                            placeholder="Deskripsi"
+                            placeholder="Min. 5 Karakter"
                             {...form.getInputProps("description")}
                         />
 
