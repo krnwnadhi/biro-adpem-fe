@@ -1,5 +1,6 @@
 import {
     ActionIcon,
+    Alert,
     Anchor,
     Avatar,
     Box,
@@ -10,14 +11,13 @@ import {
     Group,
     Pagination,
     Text,
-    useMantineTheme,
 } from "@mantine/core";
+import { IconDownload, IconX } from "@tabler/icons-react";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
 import { DateFormat } from "../../utils/DateFormat";
 import { Fade } from "react-awesome-reveal";
-import { IconDownload } from "@tabler/icons-react";
 import axios from "axios";
 import { baseDocumentURL } from "../../utils/baseURL";
 import classes from "./Dokumen.module.css";
@@ -26,7 +26,6 @@ import { fetchAllDocumentAction } from "../../redux/slices/document/documentSlic
 import iconExcel from "../../assets/iconExcel.svg";
 import { nprogress } from "@mantine/nprogress";
 import pdfIconSVG from "../../assets/pdf-file.svg";
-import { useMediaQuery } from "@mantine/hooks";
 
 export const Dokumen = () => {
     const dispatch = useDispatch();
@@ -56,8 +55,6 @@ export const Dokumen = () => {
     const [pages, setPages] = useState(0);
     const [rows, setRows] = useState(0);
     const [keyword, setKeyword] = useState("");
-
-    const theme = useMantineTheme();
 
     useEffect(() => {
         const abortController = new AbortController();
@@ -165,9 +162,25 @@ export const Dokumen = () => {
                 </Card>
             ))
         ) : (
-            <Text fw={700} fs="italic" mt="xl">
-                Belum ada file. Silahkan tambah file.
-            </Text>
+            <Card
+                shadow="sm"
+                padding="lg"
+                radius="md"
+                withBorder
+                mt="lg"
+                className={classes.card}
+            >
+                <Alert
+                    variant="light"
+                    color="red"
+                    title="Tidak ada dokumen"
+                    icon={<IconX />}
+                >
+                    <Text fs="italic" size="sm">
+                        Belum ada dokumen yang diunggah.
+                    </Text>
+                </Alert>
+            </Card>
         );
 
     const breadcrumbsItem = [
