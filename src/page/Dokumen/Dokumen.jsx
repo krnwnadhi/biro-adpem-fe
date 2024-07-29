@@ -23,6 +23,7 @@ import { baseDocumentURL } from "../../utils/baseURL";
 import classes from "./Dokumen.module.css";
 import download from "downloadjs";
 import { fetchAllDocumentAction } from "../../redux/slices/document/documentSlice";
+import iconExcel from "../../assets/iconExcel.svg";
 import { nprogress } from "@mantine/nprogress";
 import pdfIconSVG from "../../assets/pdf-file.svg";
 import { useMediaQuery } from "@mantine/hooks";
@@ -57,7 +58,6 @@ export const Dokumen = () => {
     const [keyword, setKeyword] = useState("");
 
     const theme = useMantineTheme();
-    const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.xs}px)`);
 
     useEffect(() => {
         const abortController = new AbortController();
@@ -125,7 +125,14 @@ export const Dokumen = () => {
                     className={classes.card}
                 >
                     <Group wrap="nowrap">
-                        <Avatar src={pdfIconSVG} size={94} />
+                        <Avatar
+                            src={
+                                item?.file_mimetype === "application/pdf"
+                                    ? pdfIconSVG
+                                    : iconExcel
+                            }
+                            size={80}
+                        />
                         <div>
                             <Text fz="lg" fw={500} className={classes.name}>
                                 {item?.title}
@@ -135,12 +142,7 @@ export const Dokumen = () => {
                                 {item?.description}
                             </Text>
 
-                            <Group
-                                justify="space-between"
-                                wrap="nowrap"
-                                gap={10}
-                                mt={5}
-                            >
+                            <Group wrap="nowrap" gap={10} mt={5}>
                                 <Text fz="xs" c="dimmed">
                                     <DateFormat date={item?.createdAt} />
                                 </Text>

@@ -536,9 +536,6 @@ const Navbar = () => {
                                     href="/dashboard"
                                     className={classes.link}
                                 >
-                                    {/* <ActionIcon variant="transparent">
-                                        <IconLayoutDashboard size={18} />
-                                    </ActionIcon> */}
                                     <Text size="sm">Dashboard</Text>
                                 </UnstyledButton>
                             </Tooltip>

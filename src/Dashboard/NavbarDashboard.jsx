@@ -37,8 +37,8 @@ const mockdata = [
         label: "Dokumen",
         icon: IconFile,
         links: [
-            { label: "Daftar Dokumen", link: "/dashboard/documents" },
-            { label: "Tambah Dokumen", link: "/dashboard/tambah-document" },
+            { label: "Daftar Dokumen", link: "/dashboard/dokumen" },
+            { label: "Tambah Dokumen", link: "/dashboard/tambah-dokumen" },
         ],
     },
     {

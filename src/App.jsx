@@ -4,6 +4,7 @@ import AdminRoute from "./page/auth/AdminRoute/AdminRoute";
 import { AllBerita } from "./page/Berita/AllBerita";
 import { AllGallery } from "./page/Galeri/AllGallery";
 import { DaftarBerita } from "./Dashboard/Post/DaftarBerita";
+import { DaftarDokumen } from "./Dashboard/Dokumen/DaftarDokumen";
 import { DaftarKategori } from "./Dashboard/Kategori/DaftarKategori";
 import { Dashboard } from "./Dashboard/Dashboard";
 import { DetailBerita } from "./page/Berita/DetailBerita";
@@ -19,6 +20,7 @@ import SelayangPandang from "./page/Profil/SelayangPandang";
 import SignIn from "./page/auth/signin/SignIn";
 import StrukturOrganisasi from "./page/Profil/StrukturOrganisasi";
 import { TambahBerita } from "./Dashboard/Post/TambahBerita";
+import { TambahDokumen } from "./Dashboard/Dokumen/TambahDokumen";
 import { UpdateBerita } from "./Dashboard/Post/UpdateBerita";
 import VisiMisi from "./page/Profil/VisiMisi";
 
@@ -48,7 +50,20 @@ function App() {
                 {/* BERITA */}
                 <Route exact path="/berita" component={AllBerita} />
                 <Route exact path="/berita/:id" component={DetailBerita} />
+                {/* BERITA END */}
 
+                {/*----- DASHBOARD START----- */}
+                <AdminRoute exact path="/dashboard" component={Dashboard} />
+
+                {/* DASHBOARD KATEGORI */}
+                <AdminRoute
+                    exact
+                    path="/dashboard/kategori"
+                    component={DaftarKategori}
+                />
+                {/* DASHBOARD KATEGORI END */}
+
+                {/* DASHBOARD POST */}
                 <AdminRoute
                     exact
                     path="/dashboard/tambah-post"
@@ -66,16 +81,22 @@ function App() {
                     path="/berita/update/:id"
                     component={UpdateBerita}
                 />
-                {/* BERITA END */}
+                {/* DASHBOARD POST END */}
 
-                {/* KATEGORI */}
+                {/* DASHBOARD DOKUMEN START */}
                 <AdminRoute
                     exact
-                    path="/dashboard/kategori"
-                    component={DaftarKategori}
+                    path="/dashboard/dokumen"
+                    component={DaftarDokumen}
                 />
+                <AdminRoute
+                    exact
+                    path="/dashboard/tambah-dokumen"
+                    component={TambahDokumen}
+                />
+                {/* DASHBOARD DOKUMEN END */}
 
-                {/* KATEGORI END */}
+                {/*----- DASHBOARD END----- */}
 
                 {/* DOKUMEN */}
                 <Route exact path="/dokumen" component={Dokumen} />
@@ -84,10 +105,6 @@ function App() {
                 {/* GALERI */}
                 <Route exact path="/galeri" component={AllGallery} />
                 {/* GALERI END */}
-
-                {/* DASHBOARD */}
-                <AdminRoute exact path="/dashboard" component={Dashboard} />
-                {/* DASHBOARD END */}
 
                 {/* ERROR PAGE */}
                 <Route exact path="/404" component={Error} />
