@@ -1,6 +1,7 @@
 /* eslint-disable react/prop-types */
 
 import {
+    ActionIcon,
     AppShell,
     Burger,
     Code,
@@ -11,21 +12,29 @@ import {
     Stack,
     Text,
     Title,
+    Tooltip,
     useMantineColorScheme,
 } from "@mantine/core";
 import { MantineReactTable, useMantineReactTable } from "mantine-react-table";
+import {
+    deleteGalleryAction,
+    fetchAllGalleryAction,
+} from "../../redux/slices/gallery/gallerySlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { DarkButton } from "../../components/DarkButton/DarkButton";
+import { IconTrash } from "@tabler/icons-react";
 import { Link } from "react-router-dom/cjs/react-router-dom";
 import { NavbarDashboard } from "../NavbarDashboard";
-import { fetchAllGalleryAction } from "../../redux/slices/gallery/gallerySlice";
+import { modals } from "@mantine/modals";
 import { nprogress } from "@mantine/nprogress";
 import { useDisclosure } from "@mantine/hooks";
 
 export const DaftarGaleri = () => {
     const dispatch = useDispatch();
+
+    const [isSaving, setIsSaving] = useState(false);
 
     const { colorScheme } = useMantineColorScheme();
 
@@ -38,11 +47,9 @@ export const DaftarGaleri = () => {
     }, [dispatch]);
 
     const gallery = useSelector((state) => state?.gallery);
-    const { galleryList = [], appError, serverError, loading } = gallery;
-    // console.log(galleryList);
+    const { galleryList = [], loading } = gallery;
 
     const { result = [] } = galleryList;
-    console.log(result);
 
     useEffect(() => {
         loading ? nprogress.start() : nprogress.complete();
@@ -51,6 +58,37 @@ export const DaftarGaleri = () => {
             nprogress.reset();
         };
     }, [loading]);
+
+    const openDeleteConfirmModal = (row) =>
+        modals.openConfirmModal({
+            title: "Hapus Foto?",
+            centered: true,
+            children: (
+                <Stack gap="md">
+                    <Text size="xs">
+                        Yakin ingin menghapus Foto `{row.original.title}`?
+                    </Text>
+                    <Image
+                        radius="md"
+                        h={50}
+                        w="auto"
+                        fit="contain"
+                        src={row.original.image}
+                    />
+                </Stack>
+            ),
+            labels: { confirm: "Hapus", cancel: "Batal" },
+            confirmProps: { color: "red" },
+            onConfirm: async () => {
+                setIsSaving(true);
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+                dispatch(deleteGalleryAction(row.original._id));
+                setIsSaving(false);
+                setTimeout(() => {
+                    window.location.reload();
+                }, 2000);
+            },
+        });
 
     const data = result;
 
@@ -130,6 +168,22 @@ export const DaftarGaleri = () => {
             },
         },
         enableRowNumbers: true,
+        enableEditing: true,
+        getRowId: (row) => row.id,
+        renderRowActions: ({ row }) => (
+            <Tooltip label="Hapus">
+                <ActionIcon
+                    color="red"
+                    variant="subtle"
+                    aria-label="Hapus"
+                    radius="xl"
+                    size="sm"
+                    onClick={() => openDeleteConfirmModal(row)}
+                >
+                    <IconTrash />
+                </ActionIcon>
+            </Tooltip>
+        ),
     });
 
     return (
