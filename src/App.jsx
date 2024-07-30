@@ -5,6 +5,7 @@ import { AllBerita } from "./page/Berita/AllBerita";
 import { AllGallery } from "./page/Galeri/AllGallery";
 import { DaftarBerita } from "./Dashboard/Post/DaftarBerita";
 import { DaftarDokumen } from "./Dashboard/Dokumen/DaftarDokumen";
+import { DaftarGaleri } from "./Dashboard/Galeri/DaftarGaleri";
 import { DaftarKategori } from "./Dashboard/Kategori/DaftarKategori";
 import { Dashboard } from "./Dashboard/Dashboard";
 import { DetailBerita } from "./page/Berita/DetailBerita";
@@ -21,6 +22,7 @@ import SignIn from "./page/auth/signin/SignIn";
 import StrukturOrganisasi from "./page/Profil/StrukturOrganisasi";
 import { TambahBerita } from "./Dashboard/Post/TambahBerita";
 import { TambahDokumen } from "./Dashboard/Dokumen/TambahDokumen";
+import { TambahGaleri } from "./Dashboard/Galeri/TambahGaleri";
 import { UpdateBerita } from "./Dashboard/Post/UpdateBerita";
 import VisiMisi from "./page/Profil/VisiMisi";
 
@@ -95,6 +97,19 @@ function App() {
                     component={TambahDokumen}
                 />
                 {/* DASHBOARD DOKUMEN END */}
+
+                {/* DASHBOARD GALERI START */}
+                <AdminRoute
+                    exact
+                    path="/dashboard/galeri"
+                    component={DaftarGaleri}
+                />
+                <AdminRoute
+                    exact
+                    path="/dashboard/tambah-galeri"
+                    component={TambahGaleri}
+                />
+                {/* DASHBOARD GALERI END */}
 
                 {/*----- DASHBOARD END----- */}
 

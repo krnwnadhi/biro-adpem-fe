@@ -1,9 +1,10 @@
 import "photoswipe/dist/photoswipe.css";
 
-import { Container, Image, SimpleGrid } from "@mantine/core";
+import { Alert, Card, Container, Image, SimpleGrid, Text } from "@mantine/core";
 import { Gallery, Item } from "react-photoswipe-gallery";
 import { useDispatch, useSelector } from "react-redux";
 
+import { IconX } from "@tabler/icons-react";
 import { fetchAllGalleryAction } from "../../redux/slices/gallery/gallerySlice";
 import { nprogress } from "@mantine/nprogress";
 import { useEffect } from "react";
@@ -17,7 +18,7 @@ export const AllGallery = () => {
     }, [dispatch]);
 
     const gallery = useSelector((state) => state?.gallery);
-    const { galleryList = [], appError, serverError, loading } = gallery;
+    const { galleryList = [], loading } = gallery;
 
     const { result } = galleryList;
 
@@ -41,6 +42,49 @@ export const AllGallery = () => {
         padding: { top: 20, bottom: 40, left: 100, right: 100 },
     };
 
+    const galleryContent =
+        result?.length > 0 ? (
+            result?.map((item) => {
+                return (
+                    <Item
+                        key={item?.id}
+                        id={item?.id}
+                        original={item?.image}
+                        thumbnail={item?.image}
+                        width="1500"
+                        height="1500"
+                        caption={item?.title}
+                    >
+                        {({ ref, open }) => (
+                            <Image
+                                ref={ref}
+                                onClick={open}
+                                src={item?.image}
+                                radius="md"
+                                h={250}
+                                w="auto"
+                                fit="contain"
+                                style={{ cursor: "pointer" }}
+                            />
+                        )}
+                    </Item>
+                );
+            })
+        ) : (
+            <Card shadow="sm" padding="lg" radius="md" withBorder mt="lg">
+                <Alert
+                    variant="light"
+                    color="red"
+                    title="Tidak ada foto"
+                    icon={<IconX />}
+                >
+                    <Text fs="italic" size="sm">
+                        Belum ada foto/galeri yang diunggah.
+                    </Text>
+                </Alert>
+            </Card>
+        );
+
     return (
         <Container size="lg" mt={100}>
             <SimpleGrid
@@ -49,32 +93,7 @@ export const AllGallery = () => {
                 verticalSpacing={{ base: "md", sm: "xl" }}
             >
                 <Gallery withCaption options={options}>
-                    {result?.map((item) => {
-                        return (
-                            <Item
-                                key={item?.id}
-                                id={item?.id}
-                                original={item?.image}
-                                thumbnail={item?.image}
-                                width="1500"
-                                height="1500"
-                                caption={item?.title}
-                            >
-                                {({ ref, open }) => (
-                                    <Image
-                                        ref={ref}
-                                        onClick={open}
-                                        src={item?.image}
-                                        radius="md"
-                                        h={250}
-                                        w="auto"
-                                        fit="contain"
-                                        style={{ cursor: "pointer" }}
-                                    />
-                                )}
-                            </Item>
-                        );
-                    })}
+                    {galleryContent}
                 </Gallery>
             </SimpleGrid>
         </Container>

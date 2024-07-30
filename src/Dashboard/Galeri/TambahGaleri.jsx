@@ -2,6 +2,7 @@
 
 import {
     AppShell,
+    Box,
     Burger,
     Button,
     Code,
@@ -9,6 +10,7 @@ import {
     Fieldset,
     FileInput,
     Group,
+    Image,
     Pill,
     ScrollArea,
     Stack,
@@ -17,30 +19,69 @@ import {
     Title,
     rem,
 } from "@mantine/core";
-import { IconCheck, IconUpload, IconX } from "@tabler/icons-react";
-import { Link, useHistory } from "react-router-dom/cjs/react-router-dom";
+import { IconUpload, IconX } from "@tabler/icons-react";
+import { Link, Redirect } from "react-router-dom/cjs/react-router-dom";
 import { hasLength, isNotEmpty, useForm } from "@mantine/form";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 import { DarkButton } from "../../components/DarkButton/DarkButton";
 import { NavbarDashboard } from "../NavbarDashboard";
-import axios from "axios";
-import { baseDocumentURL } from "../../utils/baseURL";
+import { createGalleryAction } from "../../redux/slices/gallery/gallerySlice";
 import { notifications } from "@mantine/notifications";
+import { nprogress } from "@mantine/nprogress";
 import { useDisclosure } from "@mantine/hooks";
-import { useSelector } from "react-redux";
 
-const TambahDokumenContent = () => {
-    const history = useHistory();
+const TambahGaleriContent = () => {
+    const dispatch = useDispatch();
+
+    const [preview, setPreview] = useState(null);
 
     const icon = (
         <IconUpload style={{ width: rem(14), height: rem(14) }} stroke={1.5} />
     );
 
-    //get document data
-    const document = useSelector((state) => state?.document);
-    const { loading } = document;
+    const gallery = useSelector((state) => state.gallery);
+
+    const { appError, loading, serverError, isCreated } = gallery;
+
+    useEffect(() => {
+        loading ? nprogress.start() : nprogress.complete();
+
+        return () => {
+            nprogress.reset();
+        };
+    }, [loading]);
+
+    const form = useForm({
+        initialValues: {
+            title: "",
+            image: null,
+        },
+
+        validate: {
+            title: hasLength({ min: 5 }, "Terlalu pendek. Min. 5 huruf"),
+            image: isNotEmpty("Tidak boleh kosong"),
+        },
+    });
+
+    useEffect(() => {
+        if (form.values.image) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreview(reader.result);
+            };
+            reader.readAsDataURL(form.values.image);
+        } else {
+            setPreview(null);
+        }
+    }, [form.values.image]);
 
     const ValueComponent = ({ value }) => {
+        if (value === null) {
+            return null;
+        }
+
         const formatBytes = (bytes, decimals = 2) => {
             if (!+bytes) return "0 Bytes";
 
@@ -65,10 +106,6 @@ const TambahDokumenContent = () => {
             }`;
         };
 
-        if (value === null) {
-            return null;
-        }
-
         if (Array.isArray(value)) {
             return (
                 <Pill.Group>
@@ -86,71 +123,14 @@ const TambahDokumenContent = () => {
         );
     };
 
-    const form = useForm({
-        initialValues: {
-            title: "",
-            description: "",
-            files: null,
-        },
-
-        validate: {
-            title: hasLength({ min: 5 }, "Terlalu pendek. Minimal 5 huruf."),
-            description: hasLength(
-                { min: 5 },
-                "Terlalu pendek. Minimal 5 huruf."
-            ),
-            files: isNotEmpty("Silahkan upload dokumen"),
-        },
-    });
-
-    const handleSubmit = async (values) => {
-        const formData = new FormData();
-        formData.append("title", values.title);
-        formData.append("description", values.description);
-        formData.append("files", values.files);
-
+    const formOnSubmit = form.onSubmit((values) => {
         try {
-            await axios.post(`${baseDocumentURL}`, formData, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    "Access-Control-Allow-Origin": "*",
-                },
-            });
-
-            const id = notifications.show({
-                loading: true,
-                title: "Loading...",
-                message: "Mengunggah Dokumen",
-                autoClose: false,
-                withCloseButton: false,
-            });
-
-            setTimeout(() => {
-                notifications.update({
-                    id,
-                    color: "teal",
-                    title: "Berhasil",
-                    message: "Dokumen berhasil diunggah",
-                    icon: (
-                        <IconCheck
-                            style={{ width: rem(18), height: rem(18) }}
-                        />
-                    ),
-                    loading: false,
-                    autoClose: 2000,
-                });
-            }, 3000);
-
-            setTimeout(() => {
-                history.push("/dashboard/dokumen");
-            }, 3000);
-        } catch (error) {
-            console.log(error.response.data.message);
-            if (error.response.data) {
+            dispatch(createGalleryAction(values));
+            if (appError || serverError) {
                 const id = notifications.show({
                     loading: true,
                     title: "Loading...",
-                    message: "Mengunggah Dokumen",
+                    message: "Mengunggah Foto",
                     autoClose: false,
                     withCloseButton: false,
                 });
@@ -159,9 +139,9 @@ const TambahDokumenContent = () => {
                     notifications.update({
                         id,
                         color: "red",
-                        title: "Gagal",
+                        title: serverError,
                         message:
-                            error.response.data.message === "File too large"
+                            appError === "File too large"
                                 ? "File terlalu besar! Harap unggah file dibawah 1MB (Halaman akan reload secara otomatis)"
                                 : null,
                         icon: (
@@ -173,56 +153,70 @@ const TambahDokumenContent = () => {
                         autoClose: 3000,
                     });
                 }, 3000);
+
                 setTimeout(() => {
                     window.location.reload();
                 }, 7000);
             }
+        } catch (error) {
+            console.log(error);
         }
-    };
+    });
+
+    if (isCreated) return <Redirect to="/dashboard/galeri" />;
 
     return (
         <>
-            <form onSubmit={form.onSubmit(handleSubmit)}>
+            <form onSubmit={formOnSubmit}>
                 <Fieldset disabled={loading}>
-                    <Stack>
+                    <Stack mih={350} m="xl">
                         <TextInput
+                            mb={20}
                             withAsterisk
-                            label="Nama Dokumen"
-                            aria-label="Nama Dokumen"
-                            placeholder="Min. 5 Karakter"
+                            label="Judul Gambar"
+                            aria-label="My input"
+                            placeholder="Min. 5 Huruf"
                             {...form.getInputProps("title")}
                         />
 
-                        <TextInput
-                            withAsterisk
-                            label="Deskripsi"
-                            aria-label="Deskripsi"
-                            placeholder="Min. 5 Karakter"
-                            {...form.getInputProps("description")}
-                        />
-
                         <FileInput
-                            label="Files"
-                            description="Input file berekstensi pdf/excel berukuran kurang dari 1MB!"
-                            placeholder="Silahkan Pilih Files"
+                            label="Gambar"
+                            description="Input gambar berekstensi jpg, jpeg, atau png & berukuran < 1Mb."
+                            placeholder="Silahkan Pilih 1 Gambar"
                             clearable
                             required
                             withAsterisk
-                            accept=".pdf, .xls, .xlsx"
+                            accept="image/png, image/jpeg, image/jpg"
                             leftSection={icon}
                             valueComponent={ValueComponent}
-                            {...form.getInputProps("files")}
+                            value={form.values.image}
+                            onChange={(file) =>
+                                form.setFieldValue("image", file)
+                            }
+                            {...form.getInputProps("image")}
                         />
 
-                        <Group position="center" mt="xl">
-                            <Button
-                                disabled={!form.isValid()}
-                                type="submit"
-                                fullWidth
-                            >
-                                Tambah
-                            </Button>
-                        </Group>
+                        {preview && (
+                            <Box my="lg">
+                                <Image
+                                    src={preview}
+                                    alt="Image Preview"
+                                    radius="md"
+                                    h={200}
+                                    w="auto"
+                                    fit="contain"
+                                />
+                            </Box>
+                        )}
+
+                        <Button
+                            disabled={!form.isValid() || loading}
+                            type="submit"
+                            fullWidth
+                            mt="xl"
+                        >
+                            Tambah
+                        </Button>
                     </Stack>
                 </Fieldset>
             </form>
@@ -230,7 +224,7 @@ const TambahDokumenContent = () => {
     );
 };
 
-export const TambahDokumen = () => {
+export const TambahGaleri = () => {
     const [mobileOpened, { toggle: toggleMobile }] = useDisclosure();
     const [desktopOpened, { toggle: toggleDesktop }] = useDisclosure(true);
 
@@ -265,6 +259,7 @@ export const TambahDokumen = () => {
                     </Group>
                     <Group>
                         <DarkButton />
+                        {/* <DarkButton /> */}
                     </Group>
                 </Group>
             </AppShell.Header>
@@ -278,9 +273,9 @@ export const TambahDokumen = () => {
                 <Container size="lg">
                     <Stack>
                         <Title order={4} ta="center">
-                            TAMBAH DOKUMEN
+                            TAMBAH GALERI
                         </Title>
-                        {<TambahDokumenContent />}
+                        {<TambahGaleriContent />}
                     </Stack>
                 </Container>
             </AppShell.Main>

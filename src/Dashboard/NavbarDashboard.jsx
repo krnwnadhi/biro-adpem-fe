@@ -24,7 +24,7 @@ const mockdata = [
         label: "Berita & Kegiatan",
         icon: IconNotes,
         links: [
-            { label: "List Berita", link: "/dashboard/daftar-post" },
+            { label: "Daftar Berita", link: "/dashboard/daftar-post" },
             { label: "Tambah Berita", link: "/dashboard/tambah-post" },
         ],
     },
@@ -45,8 +45,8 @@ const mockdata = [
         label: "Galeri",
         icon: IconPhotoSearch,
         links: [
-            { label: "List Gallery", link: "/dashboard/gallery" },
-            { label: "Tambah Galeri", link: "/dashboard/tambah-gallery" },
+            { label: "Daftar Gallery", link: "/dashboard/galeri" },
+            { label: "Tambah Galeri", link: "/dashboard/tambah-galeri" },
         ],
     },
 ];
