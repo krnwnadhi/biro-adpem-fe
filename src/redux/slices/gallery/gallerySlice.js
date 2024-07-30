@@ -1,7 +1,10 @@
+/* eslint-disable no-unused-vars */
+
 import { createAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import axios from "axios";
 import { baseGalleryURL } from "../../../utils/baseURL";
+import { notifications } from "@mantine/notifications";
 
 //action to redirect
 const resetGalleryAction = createAction("gallery/add/reset");
@@ -59,6 +62,8 @@ export const fetchAllGalleryAction = createAsyncThunk(
                 Authorization: `Bearer ${userAuth?.token}`,
             },
         };
+
+        await new Promise((resolve) => setTimeout(resolve, 1500));
 
         try {
             const { data } = await axios.get(`${baseGalleryURL}`, config);
@@ -167,6 +172,12 @@ const gallerySlices = createSlice({
     extraReducers: (builder) => {
         builder.addCase(createGalleryAction.pending, (state, action) => {
             state.loading = true;
+            notifications.show({
+                loading: true,
+                title: "Loading",
+                message: "Mengunggah Foto...",
+                autoClose: 2000,
+            });
         });
         ////dispatch action add post
         builder.addCase(resetGalleryAction, (state, action) => {
@@ -178,11 +189,24 @@ const gallerySlices = createSlice({
             state.isCreated = false;
             state.appError = undefined;
             state.serverError = undefined;
+            notifications.show({
+                loading: false,
+                title: "Sukses",
+                message: "Berhasil mengunggah foto",
+                color: "green",
+                autoClose: 2000,
+            });
         });
         builder.addCase(createGalleryAction.rejected, (state, action) => {
             state.loading = false;
             state.appError = action?.payload?.message;
             state.serverError = action?.error?.message;
+            notifications.show({
+                title: "Error",
+                message: state.appError,
+                color: "red",
+                autoClose: 3000,
+            });
         });
 
         //fetch all gallery
@@ -231,11 +255,24 @@ const gallerySlices = createSlice({
             state.loading = false;
             state.appError = undefined;
             state.serverError = undefined;
+            notifications.show({
+                loading: false,
+                title: "Sukses",
+                message: "Judul berhasil diperbarui",
+                color: "green",
+                autoClose: 2000,
+            });
         });
         builder.addCase(updateGalleryAction.rejected, (state, action) => {
             state.loading = false;
             state.appError = action?.payload?.message;
             state.serverError = action?.error?.message;
+            notifications.show({
+                title: "Error",
+                message: state.appError,
+                color: "red",
+                autoClose: 3000,
+            });
         });
 
         //delete gallery
@@ -251,11 +288,24 @@ const gallerySlices = createSlice({
             state.loading = false;
             state.appError = undefined;
             state.serverError = undefined;
+            notifications.show({
+                loading: false,
+                title: "Sukses",
+                message: "Berhasil menghapus foto",
+                color: "green",
+                autoClose: 2000,
+            });
         });
         builder.addCase(deleteGalleryAction.rejected, (state, action) => {
             state.loading = false;
             state.appError = action?.payload?.message;
             state.serverError = action?.error?.message;
+            notifications.show({
+                title: "Error",
+                message: state.appError,
+                color: "red",
+                autoClose: 3000,
+            });
         });
     },
 });
