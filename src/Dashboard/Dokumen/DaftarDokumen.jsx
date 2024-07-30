@@ -6,25 +6,31 @@ import {
     Burger,
     Code,
     Container,
+    Flex,
     Group,
     ScrollArea,
     Stack,
     Text,
     Title,
+    Tooltip,
     useMantineColorScheme,
 } from "@mantine/core";
+import { IconDownload, IconTrash } from "@tabler/icons-react";
 import { MantineReactTable, useMantineReactTable } from "mantine-react-table";
+import {
+    deleteDocumentAction,
+    fetchAllDocumentNoPaginationAction,
+} from "../../redux/slices/document/documentSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo, useState } from "react";
 
 import { DarkButton } from "../../components/DarkButton/DarkButton";
-import { IconDownload } from "@tabler/icons-react";
 import { Link } from "react-router-dom/cjs/react-router-dom";
 import { NavbarDashboard } from "../NavbarDashboard";
 import axios from "axios";
 import { baseDocumentURL } from "../../utils/baseURL";
 import download from "downloadjs";
-import { fetchAllDocumentNoPaginationAction } from "../../redux/slices/document/documentSlice";
+import { modals } from "@mantine/modals";
 import { nprogress } from "@mantine/nprogress";
 import { useDisclosure } from "@mantine/hooks";
 
@@ -56,6 +62,26 @@ export const DaftarDokumen = () => {
         };
     }, [loading]);
 
+    const openDeleteConfirmModal = (row) =>
+        modals.openConfirmModal({
+            title: "Hapus Dokumen?",
+            centered: true,
+            children: (
+                <Text size="xs">
+                    Yakin ingin menghapus Dokumen `{row.original.title}`?
+                </Text>
+            ),
+            labels: { confirm: "Hapus", cancel: "Batal" },
+            confirmProps: { color: "red" },
+            onConfirm: async () => {
+                await new Promise((resolve) => setTimeout(resolve, 1000));
+                dispatch(deleteDocumentAction(row.original._id));
+                setTimeout(() => {
+                    window.location.reload();
+                }, 3000);
+            },
+        });
+
     const downloadFile = async (id, file_path, mimetype) => {
         try {
             const result = await axios.get(`${baseDocumentURL}/${id}`, {
@@ -82,6 +108,52 @@ export const DaftarDokumen = () => {
 
     const columns = useMemo(
         () => [
+            {
+                id: "id",
+                header: "Aksi",
+                enableColumnOrdering: false,
+                enableColumnFilterModes: false,
+                enableColumnFilter: false,
+                enableColumnSortModes: false,
+                enableGrouping: false,
+                enableSorting: false,
+                enableColumnActions: false,
+                enableResizing: false,
+                size: 50,
+                Cell: ({ row }) => (
+                    <Flex gap="md">
+                        <Tooltip label="Download">
+                            <ActionIcon
+                                variant="subtle"
+                                aria-label="Download"
+                                radius="xl"
+                                size="sm"
+                                onClick={() =>
+                                    downloadFile(
+                                        row?.original?.id,
+                                        row?.original?.file_path,
+                                        row?.original?.file_mimetype
+                                    )
+                                }
+                            >
+                                <IconDownload />
+                            </ActionIcon>
+                        </Tooltip>
+                        <Tooltip label="Hapus">
+                            <ActionIcon
+                                color="red"
+                                variant="subtle"
+                                aria-label="Delete"
+                                radius="xl"
+                                size="sm"
+                                onClick={() => openDeleteConfirmModal(row)}
+                            >
+                                <IconTrash />
+                            </ActionIcon>
+                        </Tooltip>
+                    </Flex>
+                ),
+            },
             {
                 header: "No",
                 id: "no",
@@ -144,34 +216,8 @@ export const DaftarDokumen = () => {
                 Cell: ({ cell }) =>
                     cell.getValue()?.toLocaleDateString("id-ID"),
             },
-            {
-                accessorKey: "file_path",
-                header: "Download",
-                enableColumnOrdering: false,
-                enableColumnFilterModes: false,
-                enableColumnFilter: false,
-                enableColumnSortModes: false,
-                enableGrouping: false,
-                enableSorting: false,
-                enableColumnActions: false,
-                enableResizing: false,
-                Cell: ({ row }) => (
-                    <ActionIcon
-                        variant="subtle"
-                        onClick={() =>
-                            downloadFile(
-                                row?.original?.id,
-                                row?.original?.file_path,
-                                row?.original?.file_mimetype
-                            )
-                        }
-                    >
-                        <IconDownload size="20" />
-                    </ActionIcon>
-                ),
-            },
         ],
-        []
+        [openDeleteConfirmModal]
     );
 
     const table = useMantineReactTable({
@@ -204,7 +250,7 @@ export const DaftarDokumen = () => {
         },
         mantineTableContainerProps: {
             style: {
-                minHeight: "500px",
+                minHeight: "400px",
             },
         },
     });

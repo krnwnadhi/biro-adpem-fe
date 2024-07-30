@@ -215,8 +215,8 @@ export const DaftarKategori = () => {
             isSaving: isSaving,
             showAlertBanner: loading,
             columnVisibility: {
-                _id: false, //hide firstName column by default
-                "mrt-row-expand": false, //hide row expand column by default
+                _id: false,
+                "mrt-row-expand": false,
             },
         },
         createDisplayMode: "modal",
@@ -224,7 +224,7 @@ export const DaftarKategori = () => {
         enableEditing: true,
         mantineTableContainerProps: {
             style: {
-                minHeight: "500px",
+                minHeight: "400px",
             },
         },
         getRowId: (row) => row.id,
