@@ -16,6 +16,7 @@ import {
     Tooltip,
     useMantineColorScheme,
 } from "@mantine/core";
+import { IconEdit, IconTrash } from "@tabler/icons-react";
 import {
     MRT_EditActionButtons,
     MantineReactTable,
@@ -25,12 +26,12 @@ import {
     createCategoryAction,
     deleteCategoryAction,
     fetchAllCategoryAction,
+    updateCategoryAction,
 } from "../../redux/slices/category/categorySlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useMemo, useState } from "react";
 
 import { DarkButton } from "../../components/DarkButton/DarkButton";
-import { IconTrash } from "@tabler/icons-react";
 import { Link } from "react-router-dom/cjs/react-router-dom";
 import { NavbarDashboard } from "../NavbarDashboard";
 import { modals } from "@mantine/modals";
@@ -72,6 +73,20 @@ export const DaftarKategori = () => {
                 ? "Harap Isi Nama Kategori Min. 5 Karakter"
                 : "",
         };
+    };
+
+    const handleEditCategory = async ({ values, table }) => {
+        const newValidationErrors = validateTitleCategory(values);
+        if (Object.values(newValidationErrors).some((error) => error)) {
+            setValidationErrors(newValidationErrors);
+            return;
+        }
+        setValidationErrors({});
+        setIsSaving(true);
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+        dispatch(updateCategoryAction(values));
+        setIsSaving(false);
+        table.setEditingRow(null);
     };
 
     const handleCreateCategory = async ({ values, exitCreatingMode }) => {
@@ -117,6 +132,12 @@ export const DaftarKategori = () => {
 
     const columns = useMemo(
         () => [
+            {
+                accessorKey: "_id",
+                header: "ID",
+                size: 10,
+                enableEditing: false,
+            },
             {
                 accessorKey: "title",
                 header: "Nama Kategori",
@@ -182,11 +203,21 @@ export const DaftarKategori = () => {
         mantineSearchTextInputProps: {
             placeholder: "Cari Kategori",
         },
+        displayColumnDefOptions: {
+            "mrt-row-actions": {
+                header: "Aksi",
+                size: 50,
+            },
+        },
         state: {
             showProgressBars: loading,
             isLoading: loading,
             isSaving: isSaving,
             showAlertBanner: loading,
+            columnVisibility: {
+                _id: false, //hide firstName column by default
+                "mrt-row-expand": false, //hide row expand column by default
+            },
         },
         createDisplayMode: "modal",
         editDisplayMode: "modal",
@@ -197,8 +228,23 @@ export const DaftarKategori = () => {
             },
         },
         getRowId: (row) => row.id,
+        onEditingRowCancel: () => setValidationErrors({}),
+        onEditingRowSave: handleEditCategory,
         onCreatingRowCancel: () => setValidationErrors({}),
         onCreatingRowSave: handleCreateCategory,
+        renderEditRowModalContent: ({ table, row, internalEditComponents }) => (
+            <Stack>
+                <Title order={3}>Edit Kategori</Title>
+                {internalEditComponents}
+                <Flex justify="flex-end" mt="xl">
+                    <MRT_EditActionButtons
+                        variant="text"
+                        table={table}
+                        row={row}
+                    />
+                </Flex>
+            </Stack>
+        ),
         renderCreateRowModalContent: ({
             table,
             row,
@@ -217,18 +263,31 @@ export const DaftarKategori = () => {
             </Stack>
         ),
         renderRowActions: ({ row }) => (
-            <Tooltip label="Delete">
-                <ActionIcon
-                    color="red"
-                    variant="subtle"
-                    aria-label="Delete"
-                    radius="xl"
-                    size="sm"
-                    onClick={() => openDeleteConfirmModal(row)}
-                >
-                    <IconTrash />
-                </ActionIcon>
-            </Tooltip>
+            <Flex gap="md">
+                <Tooltip label="Edit">
+                    <ActionIcon
+                        variant="subtle"
+                        aria-label="Edit"
+                        radius="xl"
+                        size="sm"
+                        onClick={() => table.setEditingRow(row)}
+                    >
+                        <IconEdit />
+                    </ActionIcon>
+                </Tooltip>
+                <Tooltip label="Hapus">
+                    <ActionIcon
+                        color="red"
+                        variant="subtle"
+                        aria-label="Delete"
+                        radius="xl"
+                        size="sm"
+                        onClick={() => openDeleteConfirmModal(row)}
+                    >
+                        <IconTrash />
+                    </ActionIcon>
+                </Tooltip>
+            </Flex>
         ),
         renderTopToolbarCustomActions: ({ table }) => (
             <Button

@@ -88,7 +88,7 @@ export const updateCategoryAction = createAsyncThunk(
 
         try {
             const { data } = await axios.put(
-                `${baseCategoryURL}/${category?.id}`,
+                `${baseCategoryURL}/${category?._id}`,
                 { title: category?.title },
                 config
             );

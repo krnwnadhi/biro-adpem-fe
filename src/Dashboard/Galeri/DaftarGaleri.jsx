@@ -77,7 +77,6 @@ export const DaftarGaleri = () => {
     };
 
     const handleEditGallery = async ({ values, table }) => {
-        console.log(values, table);
         const newValidationErrors = validateTitleGallery(values);
         if (Object.values(newValidationErrors).some((error) => error)) {
             setValidationErrors(newValidationErrors);
@@ -88,7 +87,7 @@ export const DaftarGaleri = () => {
         await new Promise((resolve) => setTimeout(resolve, 1000));
         dispatch(updateGalleryAction(values));
         setIsSaving(false);
-        table.setEditingRow(null); //exit editing mode
+        table.setEditingRow(null);
     };
 
     const openDeleteConfirmModal = (row) =>
@@ -137,6 +136,16 @@ export const DaftarGaleri = () => {
                 header: "Judul Galeri",
                 size: 10,
                 Cell: ({ cell }) => <Text size="xs">{cell.getValue()}</Text>,
+                mantineEditTextInputProps: {
+                    type: "email",
+                    required: true,
+                    error: validationErrors?.title,
+                    onFocus: () =>
+                        setValidationErrors({
+                            ...validationErrors,
+                            title: undefined,
+                        }),
+                },
             },
             {
                 accessorKey: "image",
@@ -220,14 +229,19 @@ export const DaftarGaleri = () => {
         state: {
             showProgressBars: loading,
             isLoading: loading,
-            isSaving: loading,
+            isSaving: isSaving,
             showAlertBanner: loading,
             columnVisibility: {
-                id: false, //hide firstName column by default
-                "mrt-row-expand": false, //hide row expand column by default
+                id: false,
+                "mrt-row-expand": false,
             },
         },
-
+        displayColumnDefOptions: {
+            "mrt-row-actions": {
+                header: "Aksi",
+                size: 50,
+            },
+        },
         mantineTableContainerProps: {
             style: {
                 minHeight: "500px",
@@ -253,7 +267,6 @@ export const DaftarGaleri = () => {
                 </Flex>
             </Stack>
         ),
-
         renderRowActions: ({ row, table }) => (
             <Flex gap="md">
                 <Tooltip label="Edit">

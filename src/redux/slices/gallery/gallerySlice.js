@@ -172,12 +172,6 @@ const gallerySlices = createSlice({
     extraReducers: (builder) => {
         builder.addCase(createGalleryAction.pending, (state, action) => {
             state.loading = true;
-            notifications.show({
-                loading: true,
-                title: "Loading",
-                message: "Mengunggah Foto...",
-                autoClose: 2000,
-            });
         });
         ////dispatch action add post
         builder.addCase(resetGalleryAction, (state, action) => {
