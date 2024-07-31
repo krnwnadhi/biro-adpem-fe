@@ -15,7 +15,6 @@ import {
 } from "@mantine/core";
 import { useDispatch, useSelector } from "react-redux";
 
-import { DarkButton } from "../../../components/DarkButton/DarkButton";
 import { Redirect } from "react-router-dom/cjs/react-router-dom";
 import classes from "./SignIn.module.css";
 import { loginUserAction } from "../../../redux/slices/users/usersSlices";
