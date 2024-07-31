@@ -1,7 +1,7 @@
 import {
     Anchor,
     Button,
-    Center,
+    Checkbox,
     Container,
     Fieldset,
     Group,
@@ -16,7 +16,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 import { DarkButton } from "../../../components/DarkButton/DarkButton";
-import { Link } from "react-router-dom";
 import { Redirect } from "react-router-dom/cjs/react-router-dom";
 import classes from "./SignIn.module.css";
 import { loginUserAction } from "../../../redux/slices/users/usersSlices";
@@ -56,7 +55,10 @@ export default function SignIn(props) {
     return (
         <div className={classes.wrapper}>
             <Paper className={classes.form} radius={0} p={30}>
-                <Container size={450} pt={100}>
+                <Container size={450} mt={65}>
+                    <Title order={4} ta="center" className={classes.title}>
+                        SELAMAT DATANG DI WEBSITE
+                    </Title>
                     <Title order={4} ta="center" className={classes.title}>
                         BIRO ADMINISTRASI PEMBANGUNAN SETDA PROVINSI JAMBI
                     </Title>
@@ -108,7 +110,7 @@ export default function SignIn(props) {
                                 </Stack>
 
                                 <Group justify="space-between" mt="xl">
-                                    <DarkButton />
+                                    <Checkbox label="Ingat Saya" />
                                     <Button
                                         size="xs"
                                         type="submit"
