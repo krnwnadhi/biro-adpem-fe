@@ -1,6 +1,14 @@
 import "photoswipe/dist/photoswipe.css";
 
-import { Alert, Card, Container, Image, SimpleGrid, Text } from "@mantine/core";
+import {
+    Alert,
+    Card,
+    Container,
+    Image,
+    LoadingOverlay,
+    SimpleGrid,
+    Text,
+} from "@mantine/core";
 import { Gallery, Item } from "react-photoswipe-gallery";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -87,6 +95,11 @@ export const AllGallery = () => {
 
     return (
         <Container size="lg" mt={100}>
+            <LoadingOverlay
+                visible={loading}
+                zIndex={1000}
+                overlayProps={{ radius: "sm", blur: 15 }}
+            />
             <SimpleGrid
                 cols={{ base: 1, sm: 2, lg: 4 }}
                 spacing={{ base: 10, sm: "xl" }}

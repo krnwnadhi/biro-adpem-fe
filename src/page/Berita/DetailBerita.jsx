@@ -326,24 +326,30 @@ export const DetailBerita = () => {
 
                         <Divider my="xs" size="sm" />
 
-                        {result
-                            ?.map((item) => {
-                                return (
-                                    <Fragment key={item.id}>
-                                        <Space h="md" />
+                        {result?.length > 1 ? (
+                            result
+                                ?.map((item) => {
+                                    return (
+                                        <Fragment key={item.id}>
+                                            <Space h="md" />
 
-                                        {id !== item?.id ? (
-                                            <DetailBeritaLainnya
-                                                imgSrc={item?.image}
-                                                title={item?.title}
-                                                createdAt={item?.createdAt}
-                                                linkBerita={`/berita/${item?.id}`}
-                                            />
-                                        ) : null}
-                                    </Fragment>
-                                );
-                            })
-                            .slice(0, 5)}
+                                            {id !== item?.id ? (
+                                                <DetailBeritaLainnya
+                                                    imgSrc={item?.image}
+                                                    title={item?.title}
+                                                    createdAt={item?.createdAt}
+                                                    linkBerita={`/berita/${item?.id}`}
+                                                />
+                                            ) : null}
+                                        </Fragment>
+                                    );
+                                })
+                                .slice(0, 5)
+                        ) : (
+                            <Text c="dimmed" fs="italic" size="sm">
+                                Tidak ada berita lainnya
+                            </Text>
+                        )}
                     </Grid.Col>
                 </Grid>
             </Container>

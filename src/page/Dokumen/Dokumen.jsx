@@ -212,7 +212,7 @@ export const Dokumen = () => {
             <Fade triggerOnce>{documentContent}</Fade>
 
             {filesList?.length > 0 ? (
-                <Center>
+                <Center mt="xl">
                     <Box p={20} mt="xl">
                         <Pagination
                             onChange={handlePageChange}

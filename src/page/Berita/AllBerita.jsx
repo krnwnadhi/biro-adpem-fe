@@ -7,8 +7,8 @@ import {
     Card,
     Center,
     Container,
-    Divider,
     Group,
+    LoadingOverlay,
     Pagination,
     SimpleGrid,
     Skeleton,
@@ -240,6 +240,11 @@ export const AllBerita = () => {
     return (
         <>
             <Container size="lg" mt={100} mih="80vh">
+                <LoadingOverlay
+                    visible={loading}
+                    zIndex={1000}
+                    overlayProps={{ radius: "sm", blur: 15 }}
+                />
                 <Breadcrumbs>{breadcrumbsItem}</Breadcrumbs>
 
                 <Space h="xl" />
@@ -276,7 +281,7 @@ export const AllBerita = () => {
                     cols={{ base: 1, sm: 2, md: 2 }}
                     spacing={{ base: "xl", sm: "xl" }}
                     verticalSpacing={{ base: "xl", md: "xl" }}
-                    mih="150dvh"
+                    mih="100vh"
                 >
                     {cards}
                 </SimpleGrid>
