@@ -11,6 +11,7 @@ import {
     Fieldset,
     FileInput,
     Group,
+    Image,
     ScrollArea,
     Select,
     Stack,
@@ -21,6 +22,7 @@ import {
 import { Link, Redirect } from "react-router-dom/cjs/react-router-dom";
 import { hasLength, isNotEmpty, useForm } from "@mantine/form";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 
 import { DarkButton } from "../../components/DarkButton/DarkButton";
 import { IconAlertCircle } from "@tabler/icons-react";
@@ -29,10 +31,11 @@ import ReactQuill from "react-quill";
 import { createPostAction } from "../../redux/slices/posts/postSlice";
 import { fetchAllCategoryAction } from "../../redux/slices/category/categorySlice";
 import { useDisclosure } from "@mantine/hooks";
-import { useEffect } from "react";
 
 const ContentTambahBerita = () => {
     const dispatch = useDispatch();
+
+    const [preview, setPreview] = useState(null);
 
     useEffect(() => {
         dispatch(fetchAllCategoryAction());
@@ -69,6 +72,18 @@ const ContentTambahBerita = () => {
         },
     });
 
+    useEffect(() => {
+        if (form.values.image) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreview(reader.result);
+            };
+            reader.readAsDataURL(form.values.image);
+        } else {
+            setPreview(null);
+        }
+    }, [form.values.image]);
+
     const modules = {
         toolbar: [
             [{ header: "1" }, { header: "2" }, { font: [] }],
@@ -84,14 +99,12 @@ const ContentTambahBerita = () => {
             ["clean"],
         ],
         clipboard: {
-            // toggle to add extra line breaks when pasting HTML:
             matchVisual: false,
         },
     };
 
-    const formOnSubmit = form.onSubmit(
-        (values) => dispatch(createPostAction(values))
-        // console.log(values)
+    const formOnSubmit = form.onSubmit((values) =>
+        dispatch(createPostAction(values))
     );
 
     // Redirect
@@ -146,8 +159,6 @@ const ContentTambahBerita = () => {
                         />
 
                         <Select
-                            // mt={20}
-                            // required
                             withAsterisk
                             label="Kategori"
                             placeholder="Pilih Kategori"
@@ -162,7 +173,6 @@ const ContentTambahBerita = () => {
                             maxDropdownHeight={120}
                             {...form.getInputProps("category")}
                         />
-                        {/* )} */}
 
                         <FileInput
                             label="Gambar Carousel"
@@ -172,6 +182,10 @@ const ContentTambahBerita = () => {
                             required
                             withAsterisk
                             accept="image/png, image/jpeg, image/jpg"
+                            value={form.values.image}
+                            onChange={(file) =>
+                                form.setFieldValue("image", file)
+                            }
                             {...form.getInputProps("image")}
                         />
 
@@ -180,6 +194,19 @@ const ContentTambahBerita = () => {
                                 ? "File terlalu besar. Upload size kurang dari 1mb."
                                 : null}
                         </Text>
+
+                        {preview && (
+                            <Box my="lg">
+                                <Image
+                                    src={preview}
+                                    alt="Image Preview"
+                                    radius="md"
+                                    h={200}
+                                    w="auto"
+                                    fit="contain"
+                                />
+                            </Box>
+                        )}
 
                         <Group position="apart" mt="xl">
                             {loadingPost ? (
