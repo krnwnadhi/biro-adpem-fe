@@ -13,7 +13,7 @@ const store = configureStore({
         document: documentReducer,
         gallery: galleryReducer,
     },
-    // devTools: false,
+    devTools: false,
 });
 
 export default store;

@@ -60,7 +60,6 @@ export const AllBerita = () => {
     } = post;
 
     const { result } = postWithoutPagination;
-    console.log(result);
 
     useEffect(() => {
         loading ? nprogress.start() : nprogress.complete();
@@ -277,6 +276,7 @@ export const AllBerita = () => {
                     cols={{ base: 1, sm: 2, md: 2 }}
                     spacing={{ base: "xl", sm: "xl" }}
                     verticalSpacing={{ base: "xl", md: "xl" }}
+                    mih="150dvh"
                 >
                     {cards}
                 </SimpleGrid>
