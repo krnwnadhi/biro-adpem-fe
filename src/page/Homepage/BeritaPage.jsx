@@ -154,7 +154,7 @@ const BeritaPage = () => {
         <>
             <Space h="xl" />
 
-            <Container size="lg">
+            <Container size="lg" p="sm">
                 <Divider
                     mt="xl"
                     labelPosition="left"
@@ -202,6 +202,7 @@ const BeritaPage = () => {
                 >
                     {slides}
                 </Carousel>
+
                 <Progress
                     value={scrollProgress}
                     maw={320}
