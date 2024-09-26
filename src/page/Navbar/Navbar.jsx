@@ -89,7 +89,7 @@ const dataLayanan = [
         icon: IconBuildingArch,
         title: "SIMANTAP",
         description: "SIMANTAP Biro Adminsistrasi Pembangunan Provinsi Jambi",
-        link: "#",
+        link: "https://simantap.jambiprov.go.id",
     },
 ];
 
@@ -179,7 +179,12 @@ const Navbar = () => {
                         color={theme.colors.blue[6]}
                     />
                 </ThemeIcon>
-                <UnstyledButton component="a" href={item.link}>
+                <UnstyledButton
+                    component="a"
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
                     <Text size="sm" weight={500}>
                         {item.title}
                     </Text>

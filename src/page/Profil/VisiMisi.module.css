@@ -18,6 +18,7 @@
     overflow: hidden;
     padding: var(--mantine-spacing-xl);
     padding-left: calc(var(--mantine-spacing-xl) * 2);
+    min-height: 40svh;
 
     background-color: light-dark(
         var(--mantine-color-gray-0),

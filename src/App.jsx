@@ -10,7 +10,6 @@ import { DaftarKategori } from "./Dashboard/Kategori/DaftarKategori";
 import { Dashboard } from "./Dashboard/Dashboard";
 import { DetailBerita } from "./page/Berita/DetailBerita";
 import { Dokumen } from "./page/Dokumen/Dokumen";
-// import About from "./page/user/about/About";
 import Error from "./page/Error/Error";
 import { Footer } from "./page/Footer/Footer";
 import IndexPage from "./page/Homepage/IndexPage";
