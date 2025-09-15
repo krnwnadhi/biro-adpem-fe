@@ -25,6 +25,7 @@ import {
     IconBook,
     IconBrandFacebook,
     IconBrandInstagram,
+    IconBrandYoutube,
     IconBuilding,
     IconBuildingArch,
     IconChevronDown,
@@ -375,27 +376,15 @@ const Navbar = () => {
 
                             <Divider orientation="vertical" />
 
-                            <ActionIcon size="lg" variant="subtle">
-                                <Tooltip
-                                    transition="slide-up"
-                                    label="Facebook"
-                                    offset={35}
-                                    withArrow
-                                    arrowOffset={10}
-                                    arrowSize={5}
-                                    transitionProps={{
-                                        transition: "slide-down",
-                                        duration: 300,
-                                    }}
-                                    events={{
-                                        hover: true,
-                                        touch: true,
-                                    }}
-                                >
-                                    <IconBrandFacebook size={16} stroke={1.5} />
-                                </Tooltip>
-                            </ActionIcon>
-                            <ActionIcon size="lg" variant="subtle">
+                            <ActionIcon
+                                size="lg"
+                                variant="subtle"
+                                component="a"
+                                href="https://www.instagram.com/biro.adpem?igsh=MTZtNmw1ODJ1ODBjbw%3D%3D"
+                                aria-label="Instagram Biro Adpem  Pemprov Jambi"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
                                 <Tooltip
                                     transition="slide-up"
                                     label="Instagram"
@@ -416,6 +405,64 @@ const Navbar = () => {
                                         size={16}
                                         stroke={1.5}
                                     />
+                                </Tooltip>
+                            </ActionIcon>
+
+                            <ActionIcon
+                                size="lg"
+                                variant="subtle"
+                                component="a"
+                                href="https://www.facebook.com/profile.php?id=61579983357718&mibextid=wwXIfr&rdid=8kDJQN0K4YQ9Gg4Z&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F16mfpBSFQU%2F%3Fmibextid%3DwwXIfr#"
+                                aria-label="Facebook Biro Adpem Pemprov Jambi"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <Tooltip
+                                    transition="slide-up"
+                                    label="Facebook"
+                                    offset={35}
+                                    withArrow
+                                    arrowOffset={10}
+                                    arrowSize={5}
+                                    transitionProps={{
+                                        transition: "slide-down",
+                                        duration: 300,
+                                    }}
+                                    events={{
+                                        hover: true,
+                                        touch: true,
+                                    }}
+                                >
+                                    <IconBrandFacebook size={16} stroke={1.5} />
+                                </Tooltip>
+                            </ActionIcon>
+
+                            <ActionIcon
+                                size="lg"
+                                variant="subtle"
+                                component="a"
+                                href="https://www.youtube.com/@biroadministrasipembangunanset"
+                                aria-label="Youtube Biro Adpem  Pemprov Jambi"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <Tooltip
+                                    transition="slide-up"
+                                    label="Youtube"
+                                    offset={35}
+                                    withArrow
+                                    arrowOffset={10}
+                                    arrowSize={5}
+                                    transitionProps={{
+                                        transition: "slide-down",
+                                        duration: 300,
+                                    }}
+                                    events={{
+                                        hover: true,
+                                        touch: true,
+                                    }}
+                                >
+                                    <IconBrandYoutube size={16} stroke={1.5} />
                                 </Tooltip>
                             </ActionIcon>
                         </Group>
@@ -553,12 +600,15 @@ const Navbar = () => {
 
                             <Divider orientation="vertical" />
 
-                            <ActionIcon size="lg" variant="subtle">
-                                <Tooltip transition="slide-up" label="Facebook">
-                                    <IconBrandFacebook size={16} stroke={1.5} />
-                                </Tooltip>
-                            </ActionIcon>
-                            <ActionIcon size="lg" variant="subtle">
+                            <ActionIcon
+                                size="lg"
+                                variant="subtle"
+                                component="a"
+                                href="https://www.instagram.com/biro.adpem?igsh=MTZtNmw1ODJ1ODBjbw%3D%3D"
+                                aria-label="Instagram Biro Adpem  Pemprov Jambi"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
                                 <Tooltip
                                     transition="slide-up"
                                     label="Instagram"
@@ -567,6 +617,34 @@ const Navbar = () => {
                                         size={16}
                                         stroke={1.5}
                                     />
+                                </Tooltip>
+                            </ActionIcon>
+
+                            <ActionIcon
+                                size="lg"
+                                variant="subtle"
+                                component="a"
+                                href="https://www.facebook.com/profile.php?id=61579983357718&mibextid=wwXIfr&rdid=8kDJQN0K4YQ9Gg4Z&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F16mfpBSFQU%2F%3Fmibextid%3DwwXIfr#"
+                                aria-label="Facebook Biro Adpem Pemprov Jambi"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <Tooltip transition="slide-up" label="Facebook">
+                                    <IconBrandFacebook size={16} stroke={1.5} />
+                                </Tooltip>
+                            </ActionIcon>
+
+                            <ActionIcon
+                                size="lg"
+                                variant="subtle"
+                                component="a"
+                                href="https://www.youtube.com/@biroadministrasipembangunanset"
+                                aria-label="Youtube Biro Adpem  Pemprov Jambi"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <Tooltip transition="slide-up" label="Youtube">
+                                    <IconBrandYoutube size={16} stroke={1.5} />
                                 </Tooltip>
                             </ActionIcon>
                         </Group>

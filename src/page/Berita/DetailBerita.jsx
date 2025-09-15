@@ -105,10 +105,8 @@ export const DetailBerita = () => {
         </Anchor>
     ));
 
-    if (appError || serverError) {
-        return <ErrorNetwork />;
-    } else {
-        null;
+    if (appError) {
+        return <Redirect to="/404" replace={true} />;
     }
 
     if (isDeleted)
