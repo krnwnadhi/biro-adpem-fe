@@ -50,3 +50,28 @@
     color: #333;
     border-radius: 999px; /* Membuat link aktif berbentuk pil */
 }
+
+.linkMobile {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding-left: var(--mantine-spacing-md);
+    padding-right: var(--mantine-spacing-md);
+    text-decoration: none;
+    color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+    font-weight: 500;
+    font-size: var(--mantine-font-size-sm);
+    border-radius: var(--mantine-font-size-md);
+
+    @media (max-width: $mantine-breakpoint-sm) {
+        height: rem(42px);
+        width: 100%;
+    }
+
+    @mixin hover {
+        background-color: light-dark(
+            var(--mantine-color-gray-3),
+            var(--mantine-color-dark-6)
+        );
+    }
+}
