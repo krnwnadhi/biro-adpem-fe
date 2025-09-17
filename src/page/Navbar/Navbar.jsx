@@ -214,20 +214,32 @@ const Navbar = () => {
             >
                 <header className={classes.header}>
                     <Group justify="space-between" h="100%">
-                        <Image
-                            className={classes.image}
-                            height={80}
-                            src={
-                                computedColorScheme === "dark"
-                                    ? "https://res.cloudinary.com/degzbxlnx/image/upload/v1690361888/biro-administrasi-pembangunan-setda-provinsi-jambi_wnnxqw.png"
-                                    : "https://res.cloudinary.com/degzbxlnx/image/upload/v1690361888/biro-administrasi-pembangunan-setda-provinsi-jambi_1_obbwwu.png"
-                            }
-                            fallbackSrc={
-                                computedColorScheme === "dark"
-                                    ? "https://placehold.co/250x65/242424/FFF?text=Biro+Administrasi+Pembangunan+Setda\nProvinsi+Jambi"
-                                    : "https://placehold.co/250x65/FFF/000000?text=Biro+Administrasi+Pembangunan+Setda\nProvinsi+Jambi"
-                            }
-                        />
+                        <Group>
+                            <Image
+                                className={classes.image}
+                                height={80}
+                                src={
+                                    computedColorScheme === "dark"
+                                        ? "https://res.cloudinary.com/degzbxlnx/image/upload/v1690361888/biro-administrasi-pembangunan-setda-provinsi-jambi_wnnxqw.png"
+                                        : "https://res.cloudinary.com/degzbxlnx/image/upload/v1690361888/biro-administrasi-pembangunan-setda-provinsi-jambi_1_obbwwu.png"
+                                }
+                                fallbackSrc={
+                                    computedColorScheme === "dark"
+                                        ? "https://placehold.co/250x65/242424/FFF?text=Biro+Administrasi+Pembangunan+Setda\nProvinsi+Jambi"
+                                        : "https://placehold.co/250x65/FFF/000000?text=Biro+Administrasi+Pembangunan+Setda\nProvinsi+Jambi"
+                                }
+                            />
+                            <Image
+                                className={classes.image}
+                                height={80}
+                                src={
+                                    computedColorScheme === "dark"
+                                        ? "https://res.cloudinary.com/degzbxlnx/image/upload/v1757907964/jm_4_rhrxaa.png"
+                                        : "https://res.cloudinary.com/degzbxlnx/image/upload/v1757907964/jm_4_rhrxaa.png"
+                                }
+                            />
+                        </Group>
+
                         <Group h="100%" gap={0} visibleFrom="sm">
                             <Link to="/" className={classes.link}>
                                 Beranda

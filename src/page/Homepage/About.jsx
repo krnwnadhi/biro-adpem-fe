@@ -24,7 +24,7 @@ const About = () => {
                     labelPosition="left"
                     label={
                         <Text c="blue" fs="italic" fz="h6" fw={700}>
-                            TENTANG
+                            TENTANG KAMI
                         </Text>
                     }
                     color="blue"

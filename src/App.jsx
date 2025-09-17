@@ -15,6 +15,7 @@ import { Footer } from "./page/Footer/Footer";
 import IndexPage from "./page/Homepage/IndexPage";
 import { IndexProfil } from "./page/Profil/IndexProfil";
 import Navbar from "./page/Navbar/Navbar";
+import { NavbarNew } from "./page/Navbar/NavbarNew";
 import ScrollToTop from "./page/Homepage/ScrollToTop";
 import SelayangPandang from "./page/Profil/SelayangPandang";
 import SignIn from "./page/auth/signin/SignIn";
@@ -28,7 +29,16 @@ import VisiMisi from "./page/Profil/VisiMisi";
 function App() {
     return (
         <div>
-            <Navbar />
+            {/* <Navbar /> */}
+            {/* <div
+                style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    // padding: "50px",
+                }}
+            > */}
+            <NavbarNew />
+            {/* </div> */}
             <Switch>
                 <Route exact path="/" component={IndexPage} />
                 <Route path="/signin" component={SignIn} />
@@ -121,10 +131,10 @@ function App() {
                 {/* GALERI END */}
 
                 {/* ERROR PAGE */}
-                <Route exact path="/404" component={Error} />
+                {/* <Route exact path="/404" component={Error} />
                 <Route exact path="*">
                     <Redirect to="/404" />
-                </Route>
+                </Route> */}
                 {/* ERROR PAGE END */}
             </Switch>
 

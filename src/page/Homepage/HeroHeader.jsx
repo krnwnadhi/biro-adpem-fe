@@ -1,4 +1,4 @@
-import { Container, Overlay, Text, Title } from "@mantine/core";
+import { Overlay, Text, Title } from "@mantine/core";
 
 import { Fade } from "react-awesome-reveal";
 import { ParallaxBanner } from "react-scroll-parallax";
