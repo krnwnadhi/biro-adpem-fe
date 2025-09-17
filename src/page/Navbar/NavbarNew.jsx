@@ -42,7 +42,6 @@ const links = [
 ];
 
 export function NavbarNew() {
-    const [opened, { toggle }] = useDisclosure(false);
     const [drawerOpened, { toggle: toggleDrawer, close: closeDrawer }] =
         useDisclosure(false);
 

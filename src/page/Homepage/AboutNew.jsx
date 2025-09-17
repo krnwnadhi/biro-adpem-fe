@@ -19,22 +19,17 @@ const AboutNew = () => {
         </Carousel.Slide>
     ));
 
-    const autoplay = useRef(Autoplay({ delay: 3000 }));
+    const autoplay = useRef(Autoplay({ delay: 2500 }));
 
     return (
         <>
             <Space h="xl" />
+
             <Container size="lg" p="lg">
                 <Carousel
                     classNames={classes}
                     withIndicators
-                    // height={200}
-                    // slideSize={{ base: "100%", sm: "50%", md: "33.333333%" }}
-                    // slideGap={{ base: 0, sm: "md" }}
                     loop
-                    // align="start"
-                    // slidesToScroll={3}
-                    dragFree
                     plugins={[autoplay.current]}
                     onMouseEnter={autoplay.current.stop}
                     onMouseLeave={autoplay.current.reset}
