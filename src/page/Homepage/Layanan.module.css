@@ -1,0 +1,85 @@
+.wrapper {
+    min-height: 100vh;
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+}
+
+.title {
+    color: #bdedff;
+    font-size: 3.5rem;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+/* Kontainer dengan efek kaca (glassmorphism) */
+.glassContainer {
+    background: #9ebcd699;
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px); /* For Safari */
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+    width: 90%;
+    max-width: 1200px;
+}
+
+/* Styling dasar untuk setiap kartu */
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transisi untuk hover */
+}
+
+/* Efek hover pada kartu */
+.card:hover {
+    transform: translateY(-5px); /* Sedikit terangkat saat dihover */
+    box-shadow: 0 8px 30px #228be699; /* Bayangan biru */
+}
+
+/* Kolom grid yang membungkus kartu */
+.gridCol {
+    transition: transform 0.3s ease;
+}
+
+/* Styling khusus untuk kolom kartu yang di tengah (featured) */
+.featuredCol {
+    transform: scale(1.05);
+    z-index: 10;
+    margin-bottom: 80px;
+}
+
+/* Kotak biru di belakang ikon */
+.iconWrapper {
+    padding: 1rem;
+    border-radius: 0.75rem;
+}
+
+/* Media Query untuk Tampilan Mobile */
+@media (max-width: 768px) {
+    /* breakpoint 'md' Mantine */
+    .title {
+        font-size: 2rem;
+    }
+
+    .glassContainer {
+        padding: 1.5rem;
+    }
+
+    /* Hilangkan efek 'featured' di mobile agar layout tidak rusak */
+    .featuredCol {
+        transform: scale(1);
+        margin: 1.5rem 0; /* Beri jarak atas-bawah di mobile */
+    }
+}
