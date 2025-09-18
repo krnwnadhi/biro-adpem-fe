@@ -10,42 +10,6 @@ import {
 import classes from "./Footer.module.css";
 import { useLocation } from "react-router-dom/cjs/react-router-dom";
 
-const data = [
-    {
-        title: "Profil",
-        links: [
-            {
-                label: "Selayang Pandang",
-                link: "/profil/selayangpandang",
-            },
-            {
-                label: "Visi & Misi",
-                link: "/profil/visimisi",
-            },
-            {
-                label: "Struktur Organisasi",
-                link: "/profil/strukturorganisasi",
-            },
-        ],
-    },
-    {
-        title: "Layanan",
-        links: [
-            {
-                label: "SIMANTAP",
-            },
-        ],
-    },
-    {
-        title: "Kontak",
-        links: [
-            {
-                label: "(0741) 66269",
-            },
-        ],
-    },
-];
-
 export function Footer() {
     const computedColorScheme = useComputedColorScheme("dark", {
         getInitialValueInEffect: true,
@@ -56,26 +20,6 @@ export function Footer() {
     const { pathname } = useLocation();
     if (withoutSidebarRoutes.some((item) => pathname.includes(item)))
         return null;
-
-    const groups = data.map((group) => {
-        const links = group.links.map((link, index) => (
-            <Text
-                key={index}
-                className={classes.link}
-                component="a"
-                href={link.link}
-            >
-                {link.label}
-            </Text>
-        ));
-
-        return (
-            <div className={classes.wrapper} key={group.title}>
-                <Text className={classes.title}>{group.title}</Text>
-                {links}
-            </div>
-        );
-    });
 
     return (
         <footer className={classes.footer}>
@@ -108,8 +52,6 @@ export function Footer() {
                         Telanaipura, Kota Jambi, Jambi 36128
                     </Text>
                 </div>
-
-                <div className={classes.groups}>{groups}</div>
             </Container>
             <Container size="lg" className={classes.afterFooter}>
                 <Text c="dimmed" size="sm">
