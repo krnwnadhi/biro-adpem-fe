@@ -31,7 +31,7 @@ const servicesData = [
         title: "VIRTUAL TOUR",
         description:
             "Jelajahi lokasi secara virtual dengan pengalaman interaktif",
-        isFeatured: true, // Menandai kartu tengah
+        isFeatured: true,
         link: "#",
     },
     {
