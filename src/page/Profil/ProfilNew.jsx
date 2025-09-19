@@ -17,6 +17,7 @@ import {
 } from "@mantine/core";
 
 import { BagianBiroAdpem } from "./BagianBiroAdpem";
+import { SubBagianBiroAdpem } from "./SubBagianBiroAdpem";
 import classes from "./ProfilNew.module.css"; // Kita akan buat file CSS ini nanti
 
 // Data untuk tombol dan target scroll
@@ -310,9 +311,9 @@ const sectionsData = [
         title: "Sub-Bagian Biro ADPEM",
         imageFirstOnDesktop: true,
         content: (
-            <Text>
-                Sub-Bagian Biro ADPEM perusahaan akan ditampilkan di sini...
-            </Text>
+            <>
+                <SubBagianBiroAdpem />
+            </>
         ),
     },
 ];
