@@ -7,6 +7,7 @@ import {
     useComputedColorScheme,
 } from "@mantine/core";
 
+import { MapEmbedded } from "./MapEmbedded";
 import classes from "./Footer.module.css";
 import { useLocation } from "react-router-dom/cjs/react-router-dom";
 
@@ -23,6 +24,8 @@ export function Footer() {
 
     return (
         <footer className={classes.footer}>
+            <MapEmbedded />
+
             <Container size="lg" className={classes.inner}>
                 <div className={classes.logo}>
                     <Image

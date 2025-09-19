@@ -5,7 +5,6 @@ import BeritaPage from "./BeritaPage";
 import { Gallery } from "./Gallery";
 import HeroHeader from "./HeroHeader";
 import Layanan from "./Layanan";
-import { MapEmbedded } from "./MapEmbedded";
 
 const IndexPage = () => {
     return (
@@ -16,7 +15,6 @@ const IndexPage = () => {
             <Layanan />
             <BeritaPage />
             <Gallery />
-            <MapEmbedded />
         </>
     );
 };
