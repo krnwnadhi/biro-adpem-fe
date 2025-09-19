@@ -1,0 +1,49 @@
+.heroWrapper {
+    position: relative;
+    padding-top: rem(120px);
+    padding-bottom: rem(120px);
+    background-size: cover;
+    background-position: center;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.65); /* Overlay gelap */
+    z-index: 1;
+}
+
+.inner {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+}
+
+.title {
+    font-family: "Greycliff CF", var(--mantine-font-family);
+    font-size: rem(40px);
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--mantine-color-white);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5); /* Bayangan teks */
+}
+
+.subtitle {
+    color: var(--mantine-color-white);
+    font-size: rem(20px);
+    font-weight: 500;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.button {
+    font-weight: 600;
+    transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.button:hover {
+    transform: scale(1.03);
+    box-shadow: var(--mantine-shadow-md);
+}

@@ -275,7 +275,7 @@ export function NavbarNew() {
                     <a href="/" className={classes.linkMobile}>
                         BERANDA
                     </a>
-                    <a href="/profile" className={classes.linkMobile}>
+                    <a href="/profil" className={classes.linkMobile}>
                         PROFIL
                     </a>
                     <a href="/berita" className={classes.linkMobile}>

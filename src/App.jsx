@@ -16,6 +16,7 @@ import IndexPage from "./page/Homepage/IndexPage";
 import { IndexProfil } from "./page/Profil/IndexProfil";
 import Navbar from "./page/Navbar/Navbar";
 import { NavbarNew } from "./page/Navbar/NavbarNew";
+import ProfilNew from "./page/Profil/ProfilNew";
 import ScrollToTop from "./page/Homepage/ScrollToTop";
 import SelayangPandang from "./page/Profil/SelayangPandang";
 import SignIn from "./page/auth/signin/SignIn";
@@ -44,7 +45,7 @@ function App() {
                 <Route path="/signin" component={SignIn} />
 
                 {/* PROFIL PAGE */}
-                <Route exact path="/profil/:tabValue" component={IndexProfil} />
+                {/* <Route exact path="/profil/:tabValue" component={IndexProfil} />
                 <Route
                     exact
                     path="/selayangpandang"
@@ -55,7 +56,9 @@ function App() {
                     exact
                     path="/strukturorganisasi"
                     component={StrukturOrganisasi}
-                />
+                /> */}
+
+                <Route exact path="/profil" component={ProfilNew} />
                 {/* PROFIL PAGE END */}
 
                 {/* BERITA */}
