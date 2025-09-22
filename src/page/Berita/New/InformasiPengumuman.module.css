@@ -1,0 +1,17 @@
+.wrapper {
+    background-size: cover;
+    background-position: center;
+    border-radius: var(--mantine-radius-sm);
+    margin-top: var(--mantine-spacing-xl);
+}
+
+.overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 60px 0;
+}
+
+.cardWrapper {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: var(--mantine-spacing-md);
+    border-radius: var(--mantine-radius-md);
+}

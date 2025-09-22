@@ -2,7 +2,6 @@ import {
     BackgroundImage,
     Box,
     Button,
-    Center,
     Container,
     Divider,
     Grid,
@@ -17,6 +16,7 @@ import {
 } from "@mantine/core";
 
 import { BagianBiroAdpem } from "./BagianBiroAdpem";
+import { Fade } from "react-awesome-reveal";
 import { SubBagianBiroAdpem } from "./SubBagianBiroAdpem";
 import classes from "./ProfilNew.module.css"; // Kita akan buat file CSS ini nanti
 
@@ -38,8 +38,8 @@ const sectionsData = [
         id: "selayang-pandang",
         title: "Selayang Pandang",
         imageSrc:
-            "https://res.cloudinary.com/degzbxlnx/image/upload/v1690966461/Untitled_design_3_g4c2d0.png", // Ganti dengan path gambar
-        imageAlt: "Pimpinan Biro Administrasi Pembangunan",
+            "https://res.cloudinary.com/degzbxlnx/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1758507154/33haris-sani-2021-1_1_pbi25i.jpg",
+        imageAlt: "GUbernur dan Wakil Gubernur Provinsi Jambi",
         // 'imageFirst: false' berarti gambar akan ada di sebelah kanan pada layar besar
         imageFirstOnDesktop: false,
         content: (
@@ -148,7 +148,7 @@ const sectionsData = [
         id: "profil-adpem",
         title: "Profil Biro ADPEM",
         imageSrc:
-            "https://res.cloudinary.com/degzbxlnx/image/upload/v1758170164/4_i6glez.png", // Ganti dengan path gambar
+            "https://res.cloudinary.com/degzbxlnx/image/upload/v1758170164/4_i6glez.png",
         imageAlt: "Pimpinan Biro Administrasi Pembangunan",
         // 'imageFirst: false' berarti gambar akan ada di sebelah kanan pada layar besar
         imageFirstOnDesktop: false,
@@ -373,61 +373,65 @@ export function ProfilNew() {
 
             {sectionsData.map((section) => (
                 <Paper key={section.id} id={section.id} p="xl">
-                    <Container>
-                        <Container size="md">
-                            <Divider
-                                my="xl"
-                                size="sm"
-                                label={
-                                    <Title c="#E67E22" order={1}>
-                                        {section.title}
-                                    </Title>
-                                }
-                                labelPosition={
-                                    section.imageFirstOnDesktop
-                                        ? "right"
-                                        : "left"
-                                }
-                                color="#E67E22"
-                            />
-                        </Container>
+                    <Fade triggerOnce>
+                        <Container>
+                            <Container size="md">
+                                <Divider
+                                    my="xl"
+                                    size="sm"
+                                    label={
+                                        <Title c="#E67E22" order={1}>
+                                            {section.title}
+                                        </Title>
+                                    }
+                                    labelPosition={
+                                        section.imageFirstOnDesktop
+                                            ? "right"
+                                            : "left"
+                                    }
+                                    color="#E67E22"
+                                />
+                            </Container>
 
-                        <Grid gutter="xl">
-                            {/* Kolom Gambar (jika ada) */}
-                            {section.imageSrc && (
+                            <Grid gutter="xl">
+                                {/* Kolom Gambar (jika ada) */}
+                                {section.imageSrc && (
+                                    <Grid.Col
+                                        span={{ base: 12, md: 4 }}
+                                        order={{
+                                            base: 1,
+                                            md: section.imageFirstOnDesktop
+                                                ? 1
+                                                : 2,
+                                        }}
+                                    >
+                                        <Image
+                                            radius="md"
+                                            src={section.imageSrc}
+                                            alt={section.imageAlt}
+                                        />
+                                        {section.imageCaption}
+                                    </Grid.Col>
+                                )}
+
+                                {/* Kolom Teks Konten */}
                                 <Grid.Col
-                                    span={{ base: 12, md: 4 }}
+                                    span={{
+                                        base: 12,
+                                        md: section.imageSrc ? 8 : 12,
+                                    }}
                                     order={{
-                                        base: 1,
-                                        md: section.imageFirstOnDesktop ? 1 : 2,
+                                        base: 2,
+                                        md: section.imageFirstOnDesktop ? 2 : 1,
                                     }}
                                 >
-                                    <Image
-                                        radius="md"
-                                        src={section.imageSrc}
-                                        alt={section.imageAlt}
-                                    />
-                                    {section.imageCaption}
+                                    <Box style={{ textAlign: "justify" }}>
+                                        {section.content}
+                                    </Box>
                                 </Grid.Col>
-                            )}
-
-                            {/* Kolom Teks Konten */}
-                            <Grid.Col
-                                span={{
-                                    base: 12,
-                                    md: section.imageSrc ? 8 : 12,
-                                }}
-                                order={{
-                                    base: 2,
-                                    md: section.imageFirstOnDesktop ? 2 : 1,
-                                }}
-                            >
-                                <Box style={{ textAlign: "justify" }}>
-                                    {section.content}
-                                </Box>
-                            </Grid.Col>
-                        </Grid>
-                    </Container>
+                            </Grid>
+                        </Container>
+                    </Fade>
                 </Paper>
             ))}
         </>
