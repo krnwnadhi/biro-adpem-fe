@@ -30,7 +30,8 @@ const mockNewsData = [
         date: "Published by admin on Jul 8, 2024",
         image: "https://res.cloudinary.com/degzbxlnx/image/upload/v1703003802/y7ahqvtu2jjgjcyrsgkq.jpg",
         description:
-            "Senin, 12/07/2024 – Pelaksanaan apel rutin pada lingkungan Biro Pengembangan Infrastruktur Wilayah dan Pembiayaan Pembangunan (PIWP2)...",
+            "Senin, 12/07/2024 – Pelaksanaan apel rutin pada lingkungan Biro Pengembangan Infrastruktur Wilayah dan Pembiayaan Pembangunan (PIWP2).",
+        slug: "6581c69a1467a0eb187dd839",
     },
     {
         title: "Apel Tematik: Upaya Pencegahan Penggunaan Narkotika",
@@ -158,7 +159,7 @@ export default function AllBeritaNew() {
                                 total={totalPages}
                                 value={activePage}
                                 onChange={setPage}
-                                color="red"
+                                size="sm"
                             />
                         </Flex>
                     )}

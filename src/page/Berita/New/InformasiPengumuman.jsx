@@ -63,8 +63,6 @@ function InfoCard({ title, date }) {
 }
 
 export default function InformasiPengumuman() {
-    const theme = useMantineTheme();
-
     return (
         <BackgroundImage
             src="https://res.cloudinary.com/degzbxlnx/image/upload/v1757909501/WhatsApp_Image_2025-09-04_at_15.06.51_xjjv2k.jpg"

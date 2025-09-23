@@ -15,6 +15,7 @@ import { Footer } from "./page/Footer/Footer";
 import IndexPage from "./page/Homepage/IndexPage";
 import { IndexProfil } from "./page/Profil/IndexProfil";
 import IndexPublikasi from "./page/Berita/New/IndexPublikasi";
+import LayananPublik from "./page/LayananPublik/LayananPublik";
 import Navbar from "./page/Navbar/Navbar";
 import { NavbarNew } from "./page/Navbar/NavbarNew";
 import ProfilNew from "./page/Profil/ProfilNew";
@@ -67,6 +68,10 @@ function App() {
                 <Route exact path="/berita" component={IndexPublikasi} />
                 <Route exact path="/berita/:id" component={DetailBerita} />
                 {/* BERITA END */}
+
+                {/* LAYANAN PUBLIK */}
+                <Route exact path="/layananpublik" component={LayananPublik} />
+                {/* LAYANAN PUBLIK END */}
 
                 {/*----- DASHBOARD START----- */}
                 <AdminRoute exact path="/dashboard" component={Dashboard} />

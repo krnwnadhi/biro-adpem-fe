@@ -12,7 +12,7 @@ export const Dashboard = () => {
 
     return (
         <AppShell
-            header={{ height: 60 }}
+            header={{ height: 80 }}
             footer={{ height: 60 }}
             navbar={{
                 width: 300,

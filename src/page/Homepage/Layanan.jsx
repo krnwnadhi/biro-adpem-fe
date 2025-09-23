@@ -98,7 +98,7 @@ function ServiceCard({
 export function Layanan() {
     return (
         <>
-            <Space h="xl" />
+            {/* <Space h="xl" /> */}
 
             <Box
                 className={classes.wrapper}
