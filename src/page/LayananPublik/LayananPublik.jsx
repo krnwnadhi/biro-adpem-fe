@@ -21,15 +21,73 @@ import { Link } from "react-router-dom/cjs/react-router-dom";
 import classes from "./LayananPublik.module.css";
 import { randomId } from "@mantine/hooks";
 import { useForm } from "@mantine/form";
+import { useState } from "react";
 
 const LayananPublik = () => {
+    const [isLoading, setIsLoading] = useState(false);
+
+    // Inisialisasi form dengan mantine hook
     const form = useForm({
-        mode: "uncontrolled",
         initialValues: {
-            name: "",
-            email: "",
+            nama: "",
+            kontak: "",
+            jenis: "",
+            pesan: "",
+        },
+        validate: {
+            nama: (value) =>
+                value.trim().length < 2 ? "Nama lengkap harus diisi" : null,
+            jenis: (value) =>
+                value === "" ? "Silakan pilih jenis masukan" : null,
+            pesan: (value) =>
+                value.trim().length < 10 ? "Pesan minimal 10 karakter" : null,
         },
     });
+
+    // Fungsi yang dijalankan saat tombol submit diklik
+    const handleSubmit = (values) => {
+        setIsLoading(true);
+
+        const templateParams = {
+            nama: values.nama,
+            kontak: values.kontak || "Tidak diisi", // fallback jika kontak kosong
+            jenis: values.jenis,
+            pesan: values.pesan,
+        };
+
+        // Kirim email menggunakan EmailJS
+        emailjs
+            .send(
+                "YOUR_SERVICE_ID", // <-- GANTI DENGAN SERVICE ID ANDA
+                "YOUR_TEMPLATE_ID", // <-- GANTI DENGAN TEMPLATE ID ANDA
+                templateParams,
+                "YOUR_PUBLIC_KEY" // <-- GANTI DENGAN PUBLIC KEY ANDA
+            )
+            .then(
+                (response) => {
+                    console.log("SUCCESS!", response.status, response.text);
+                    notifications.show({
+                        title: "Berhasil Terkirim",
+                        message: "Terima kasih atas masukan Anda! 🙏",
+                        color: "teal",
+                        icon: <IconCheck size="1.1rem" />,
+                    });
+                    form.reset(); // Kosongkan form setelah berhasil
+                },
+                (error) => {
+                    console.log("FAILED...", error);
+                    notifications.show({
+                        title: "Gagal Mengirim",
+                        message: "Terjadi kesalahan. Silakan coba lagi nanti.",
+                        color: "red",
+                        icon: <IconX size="1.1rem" />,
+                    });
+                }
+            )
+            .finally(() => {
+                setIsLoading(false);
+            });
+    };
 
     const BACKGROUND_IMAGE_URL =
         "https://res.cloudinary.com/degzbxlnx/image/upload/v1757909502/wisata_jambi_disbudpar_pemprov_jambi_r8o75i.jpg";
