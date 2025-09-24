@@ -6,25 +6,29 @@ import {
     Center,
     Container,
     Divider,
-    Group,
     Image,
-    Input,
-    Overlay,
     Paper,
+    Select,
+    Stack,
     Text,
     TextInput,
+    Textarea,
     Title,
 } from "@mantine/core";
+import { IconCheck, IconX } from "@tabler/icons-react";
+import { useRef, useState } from "react";
 
 import Layanan from "../Homepage/Layanan";
 import { Link } from "react-router-dom/cjs/react-router-dom";
+import ReCAPTCHA from "react-google-recaptcha";
 import classes from "./LayananPublik.module.css";
-import { randomId } from "@mantine/hooks";
+import emailjs from "@emailjs/browser";
+import { notifications } from "@mantine/notifications";
 import { useForm } from "@mantine/form";
-import { useState } from "react";
 
 const LayananPublik = () => {
     const [isLoading, setIsLoading] = useState(false);
+    const captchaRef = useRef(null); // Buat ref untuk ReCAPTCHA
 
     // Inisialisasi form dengan mantine hook
     const form = useForm({
@@ -46,22 +50,37 @@ const LayananPublik = () => {
 
     // Fungsi yang dijalankan saat tombol submit diklik
     const handleSubmit = (values) => {
+        // 1. Dapatkan token dari reCAPTCHA
+        const token = captchaRef.current.getValue();
+
+        // 2. Validasi token
+        if (!token) {
+            notifications.show({
+                title: "Verifikasi Gagal",
+                message: 'Harap centang kotak "I\'m not a robot".',
+                color: "red",
+                icon: <IconX size="1.1rem" />,
+            });
+            return; // Hentikan proses jika captcha belum diverifikasi
+        }
+
         setIsLoading(true);
 
         const templateParams = {
             nama: values.nama,
-            kontak: values.kontak || "Tidak diisi", // fallback jika kontak kosong
+            kontak: values.kontak || "Username", // fallback jika kontak kosong
             jenis: values.jenis,
             pesan: values.pesan,
+            "g-recaptcha-response": token, // EmailJS otomatis mendeteksi field ini
         };
 
         // Kirim email menggunakan EmailJS
         emailjs
             .send(
-                "YOUR_SERVICE_ID", // <-- GANTI DENGAN SERVICE ID ANDA
-                "YOUR_TEMPLATE_ID", // <-- GANTI DENGAN TEMPLATE ID ANDA
+                "service_eno5bvi", // <-- GANTI DENGAN SERVICE ID ANDA
+                "template_a97zhj8", // <-- GANTI DENGAN TEMPLATE ID ANDA
                 templateParams,
-                "YOUR_PUBLIC_KEY" // <-- GANTI DENGAN PUBLIC KEY ANDA
+                "7DfdVwnlxW9u5xCae" // <-- GANTI DENGAN PUBLIC KEY ANDA
             )
             .then(
                 (response) => {
@@ -73,12 +92,14 @@ const LayananPublik = () => {
                         icon: <IconCheck size="1.1rem" />,
                     });
                     form.reset(); // Kosongkan form setelah berhasil
+                    captchaRef.current.reset(); // 3. Reset CAPTCHA setelah berhasil
                 },
                 (error) => {
                     console.log("FAILED...", error);
                     notifications.show({
                         title: "Gagal Mengirim",
-                        message: "Terjadi kesalahan. Silakan coba lagi nanti.",
+                        message:
+                            "Terjadi kesalahan atau verifikasi captcha gagal.",
                         color: "red",
                         icon: <IconX size="1.1rem" />,
                     });
@@ -178,7 +199,7 @@ const LayananPublik = () => {
 
             {/* KRITIK DAN SARAN */}
 
-            <Container size="md" my="xl">
+            <Container size="md" my={100}>
                 <Center>
                     <Title order={2} ta="center">
                         KRITIK DAN SARAN
@@ -191,32 +212,50 @@ const LayananPublik = () => {
                     </Text>
                 </Center>
 
-                <TextInput
-                    label="Name"
-                    placeholder="Name"
-                    key={form.key("name")}
-                    {...form.getInputProps("name")}
-                />
-                <TextInput
-                    mt="md"
-                    label="Email"
-                    placeholder="Email"
-                    key={form.key("email")}
-                    {...form.getInputProps("email")}
-                />
+                <form onSubmit={form.onSubmit(handleSubmit)}>
+                    <Stack mt="md">
+                        <TextInput
+                            withAsterisk
+                            label="Nama Lengkap"
+                            placeholder="Masukkan nama lengkap Anda"
+                            {...form.getInputProps("nama")}
+                        />
+                        <TextInput
+                            label="Email/No. HP (Opsional)"
+                            placeholder="contoh@email.com atau 0812..."
+                            {...form.getInputProps("kontak")}
+                        />
+                        <Select
+                            withAsterisk
+                            label="Jenis Masukan"
+                            placeholder="Pilih salah satu"
+                            data={["Kritik", "Saran", "Apresiasi", "Lainnya"]}
+                            {...form.getInputProps("jenis")}
+                        />
+                        <Textarea
+                            withAsterisk
+                            label="Pesan Anda"
+                            placeholder="Tuliskan pesan, kritik, atau saran Anda di sini..."
+                            minRows={4}
+                            {...form.getInputProps("pesan")}
+                        />
 
-                <Group justify="center" mt="xl">
-                    <Button
-                        onClick={() =>
-                            form.setValues({
-                                name: randomId(),
-                                email: `${randomId()}@test.com`,
-                            })
-                        }
-                    >
-                        Set random values
-                    </Button>
-                </Group>
+                        {/* Tambahkan komponen ReCAPTCHA di sini */}
+                        <ReCAPTCHA
+                            ref={captchaRef}
+                            sitekey="6LdvM9MrAAAAADd7MNt-6g89dQihMaZt8d-zNqkV" // <-- GANTI DENGAN SITE KEY ANDA
+                        />
+
+                        <Button
+                            type="submit"
+                            fullWidth
+                            mt="md"
+                            loading={isLoading}
+                        >
+                            Kirim Masukan
+                        </Button>
+                    </Stack>
+                </form>
             </Container>
         </>
     );
