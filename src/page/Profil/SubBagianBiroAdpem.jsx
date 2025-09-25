@@ -22,10 +22,10 @@ import { useState } from "react";
 const cardData = [
     {
         title: "SUB - Bagian Pengendalian Administrasi Pelaksanaan Pembangunan Daerah",
-        image: "https://res.cloudinary.com/degzbxlnx/image/upload/v1757909502/WhatsApp_Image_2025-09-04_at_15.18.49_oqaxoc.jpg",
+        image: "https://res.cloudinary.com/degzbxlnx/image/upload/v1758699621/masjid_1000_tiang_sa1ilu.png",
         modalContent: {
             background:
-                "https://res.cloudinary.com/degzbxlnx/image/upload/v1757909502/WhatsApp_Image_2025-09-04_at_15.18.49_oqaxoc.jpg",
+                "https://res.cloudinary.com/degzbxlnx/image/upload/v1758699621/masjid_1000_tiang_sa1ilu.png",
             description:
                 "Bagian Pengendalian Administrasi Pelaksanaan Pembangunan Daerah.",
             scope: [
@@ -37,10 +37,10 @@ const cardData = [
     },
     {
         title: "SUB - Bagian Pengendalian Administrasi Pelaksanaan Pembangunan Wilayah",
-        image: "https://res.cloudinary.com/degzbxlnx/image/upload/v1757909502/WhatsApp_Image_2025-09-04_at_15.18.22_1_g3jzkg.jpg",
+        image: "https://res.cloudinary.com/degzbxlnx/image/upload/v1758699617/taman_pinang_masak_ynzflu.jpg",
         modalContent: {
             background:
-                "https://res.cloudinary.com/degzbxlnx/image/upload/v1757909502/WhatsApp_Image_2025-09-04_at_15.18.22_1_g3jzkg.jpg",
+                "https://res.cloudinary.com/degzbxlnx/image/upload/v1758699617/taman_pinang_masak_ynzflu.jpg",
             description:
                 "Bagian Pengendalian Administrasi Pelaksanaan Pembangunan Wilayah.",
             scope: [
@@ -52,10 +52,10 @@ const cardData = [
     },
     {
         title: "SUB - Bagian Pelaporan Pelaksanaan Pembangunan",
-        image: "https://res.cloudinary.com/degzbxlnx/image/upload/v1757909503/WhatsApp_Image_2025-09-04_at_15.14.40_rrncl4.jpg",
+        image: "https://res.cloudinary.com/degzbxlnx/image/upload/v1758699616/Rumah-adat-jambi-700x454_su4ogy.jpg",
         modalContent: {
             background:
-                "https://res.cloudinary.com/degzbxlnx/image/upload/v1757909503/WhatsApp_Image_2025-09-04_at_15.14.40_rrncl4.jpg",
+                "https://res.cloudinary.com/degzbxlnx/image/upload/v1758699616/Rumah-adat-jambi-700x454_su4ogy.jpg",
             description: "Bagian Pelaporan Pelaksanaan Pembangunan",
             scope: [
                 "Sub Bagian Pelaporan Pelaksanaan Pembangunan Daerah : Bertugas menyusun laporan pelaksanaan pembangunan daerah secara periodik.",

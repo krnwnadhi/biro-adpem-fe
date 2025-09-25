@@ -7,7 +7,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin: 50px 0px;
+    /* margin: 50px 0px; */
 }
 
 .overlay {
@@ -27,8 +27,8 @@
 /* Kontainer dengan efek kaca (glassmorphism) */
 .glassContainer {
     background: #9ebcd699;
-    backdrop-filter: blur(2px);
-    -webkit-backdrop-filter: blur(2px); /* For Safari */
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px); /* For Safari */
     border-radius: 1.5rem;
     padding: 1.5rem;
     border: 1px solid rgba(255, 255, 255, 0.25);

@@ -47,7 +47,7 @@ const servicesData = [
 
 // URL Gambar Latar Belakang yang mirip
 const BACKGROUND_IMAGE_URL =
-    "https://res.cloudinary.com/degzbxlnx/image/upload/v1757909502/wisata_jambi_disbudpar_pemprov_jambi_r8o75i.jpg";
+    "https://res.cloudinary.com/degzbxlnx/image/upload/v1758699617/taman_pinang_masak_ynzflu.jpg";
 
 // Komponen untuk satu kartu layanan
 function ServiceCard({

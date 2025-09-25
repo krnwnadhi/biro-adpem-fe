@@ -350,7 +350,7 @@ export function ProfilNew() {
         <>
             {/* Bagian Hero dengan Background Image */}
             <BackgroundImage
-                src="https://res.cloudinary.com/degzbxlnx/image/upload/v1757909503/WhatsApp_Image_2025-09-04_at_15.14.40_rrncl4.jpg"
+                src="https://res.cloudinary.com/degzbxlnx/image/upload/v1758699620/islamic_center_cdu0t2.png"
                 radius="xs"
                 className={classes.heroWrapper}
             >
