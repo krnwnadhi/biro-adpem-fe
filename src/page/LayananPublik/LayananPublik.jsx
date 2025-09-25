@@ -162,7 +162,8 @@ const LayananPublik = () => {
                                     ta="center"
                                 >
                                     <Text fw={700}>
-                                        KLIK UNTUK MENUJU KE GOOGLE FORMS
+                                        KLIK DI SINI UNTUK MENUJU KE GOOGLE
+                                        FORMS
                                     </Text>
                                 </Anchor>
                             </Paper>
@@ -201,63 +202,72 @@ const LayananPublik = () => {
 
             {/* KRITIK DAN SARAN */}
 
-            <Container size="md" my={100}>
-                <Center>
-                    <Title order={2} ta="center">
-                        KRITIK DAN SARAN
-                    </Title>
-                </Center>
-                <Center my="lg">
-                    <Text>
-                        Sampaikan kritik, saran, atau masukan Anda untuk
-                        meningkatkan kualitas layanan publik:
-                    </Text>
-                </Center>
+            <Container size="lg">
+                <Box className={classes.box}>
+                    <Center>
+                        <Title order={2} ta="center">
+                            KRITIK DAN SARAN
+                        </Title>
+                    </Center>
+                    <Center my="lg">
+                        <Text>
+                            Sampaikan kritik, saran, atau masukan Anda untuk
+                            meningkatkan kualitas layanan publik:
+                        </Text>
+                    </Center>
 
-                <form onSubmit={form.onSubmit(handleSubmit)}>
-                    <Stack mt="md">
-                        <TextInput
-                            withAsterisk
-                            label="Nama Lengkap"
-                            placeholder="Masukkan nama lengkap Anda"
-                            {...form.getInputProps("nama")}
-                        />
-                        <TextInput
-                            label="Email/No. HP (Opsional)"
-                            placeholder="contoh@email.com atau 62812xxx"
-                            {...form.getInputProps("kontak")}
-                        />
-                        <Select
-                            withAsterisk
-                            label="Jenis Masukan"
-                            placeholder="Pilih salah satu"
-                            data={["Kritik", "Saran", "Apresiasi", "Lainnya"]}
-                            {...form.getInputProps("jenis")}
-                        />
-                        <Textarea
-                            withAsterisk
-                            label="Pesan Anda"
-                            placeholder="Tuliskan pesan, kritik, atau saran Anda di sini..."
-                            minRows={4}
-                            {...form.getInputProps("pesan")}
-                        />
+                    <form onSubmit={form.onSubmit(handleSubmit)}>
+                        <Stack mt="md">
+                            <TextInput
+                                withAsterisk
+                                label="Nama Lengkap"
+                                placeholder="Masukkan nama lengkap Anda"
+                                {...form.getInputProps("nama")}
+                            />
+                            <TextInput
+                                label="Email/No. HP (Opsional)"
+                                placeholder="contoh@email.com atau 62812xxx"
+                                {...form.getInputProps("kontak")}
+                            />
+                            <Select
+                                withAsterisk
+                                label="Jenis Masukan"
+                                placeholder="Pilih salah satu"
+                                data={[
+                                    "Kritik",
+                                    "Saran",
+                                    "Apresiasi",
+                                    "Lainnya",
+                                ]}
+                                {...form.getInputProps("jenis")}
+                            />
+                            <Textarea
+                                withAsterisk
+                                label="Pesan Anda"
+                                placeholder="Tuliskan pesan, kritik, atau saran Anda di sini..."
+                                minRows={4}
+                                {...form.getInputProps("pesan")}
+                            />
 
-                        {/* Tambahkan komponen ReCAPTCHA di sini */}
-                        <ReCAPTCHA
-                            ref={captchaRef}
-                            sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY} // <-- GANTI DENGAN SITE KEY ANDA
-                        />
+                            {/* Tambahkan komponen ReCAPTCHA di sini */}
+                            <ReCAPTCHA
+                                ref={captchaRef}
+                                sitekey={
+                                    import.meta.env.VITE_RECAPTCHA_SITE_KEY
+                                } // <-- GANTI DENGAN SITE KEY ANDA
+                            />
 
-                        <Button
-                            type="submit"
-                            fullWidth
-                            mt="md"
-                            loading={isLoading}
-                        >
-                            Kirim Masukan
-                        </Button>
-                    </Stack>
-                </form>
+                            <Button
+                                type="submit"
+                                fullWidth
+                                mt="md"
+                                loading={isLoading}
+                            >
+                                Kirim Masukan
+                            </Button>
+                        </Stack>
+                    </form>
+                </Box>
             </Container>
         </>
     );

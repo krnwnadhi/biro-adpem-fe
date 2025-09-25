@@ -7,7 +7,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 1.5rem;
+    margin: 50px 0px;
+}
+
+.overlay {
+    min-height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 60px 0;
 }
 
 .title {

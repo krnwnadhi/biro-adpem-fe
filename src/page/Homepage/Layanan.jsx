@@ -1,7 +1,9 @@
 /* eslint-disable react/prop-types */
 
 import {
+    BackgroundImage,
     Box,
+    Center,
     Grid,
     Paper,
     Space,
@@ -99,36 +101,43 @@ export function Layanan() {
     return (
         <>
             {/* <Space h="xl" /> */}
-
-            <Box
+            <BackgroundImage
+                src={BACKGROUND_IMAGE_URL}
                 className={classes.wrapper}
-                style={{ backgroundImage: `url(${BACKGROUND_IMAGE_URL})` }}
             >
-                <Title order={1} className={classes.title}>
-                    LAYANAN
-                </Title>
+                <Box className={classes.overlay}>
+                    <Center>
+                        <Title order={1} className={classes.title}>
+                            LAYANAN
+                        </Title>
+                    </Center>
 
-                <Box className={classes.glassContainer}>
-                    <Grid align="center" justify="center" gutter="xl">
-                        {servicesData.map((service, index) => {
-                            // Gabungkan class secara kondisional
-                            const colClassName = `${classes.gridCol} ${
-                                service.isFeatured ? classes.featuredCol : ""
-                            }`;
+                    <Center>
+                        <Box className={classes.glassContainer}>
+                            <Grid align="center" justify="center" gutter="xl">
+                                {servicesData.map((service, index) => {
+                                    // Gabungkan class secara kondisional
+                                    const colClassName = `${classes.gridCol} ${
+                                        service.isFeatured
+                                            ? classes.featuredCol
+                                            : ""
+                                    }`;
 
-                            return (
-                                <Grid.Col
-                                    key={index}
-                                    span={{ base: 12, sm: 8, md: 4 }}
-                                    className={colClassName}
-                                >
-                                    <ServiceCard {...service} />
-                                </Grid.Col>
-                            );
-                        })}
-                    </Grid>
+                                    return (
+                                        <Grid.Col
+                                            key={index}
+                                            span={{ base: 12, sm: 8, md: 4 }}
+                                            className={colClassName}
+                                        >
+                                            <ServiceCard {...service} />
+                                        </Grid.Col>
+                                    );
+                                })}
+                            </Grid>
+                        </Box>
+                    </Center>
                 </Box>
-            </Box>
+            </BackgroundImage>
         </>
     );
 }
