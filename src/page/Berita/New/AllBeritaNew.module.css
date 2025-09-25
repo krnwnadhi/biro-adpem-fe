@@ -2,14 +2,7 @@
     background-size: cover;
     background-position: center;
     border-radius: var(--mantine-radius-sm);
-    min-height: 100vh;
-    width: 100%;
-}
-
-.overlay {
-    background-color: rgba(0, 0, 0, 0.6);
-    padding: 60px 0;
-    min-height: 100vh;
+    min-height: 125svh;
     width: 100%;
 }
 
@@ -33,4 +26,43 @@
 .cardLink {
     text-decoration: none;
     color: inherit;
+}
+
+.overlay {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 60px 0;
+
+    /* Jadikan overlay sebagai flex container vertikal */
+    display: flex;
+    flex-direction: column;
+
+    /* Pastikan tingginya minimal setinggi layar viewport */
+    min-height: 125vh;
+}
+
+.innerContainer {
+    /* Buat kontainer dalam juga menjadi flex container */
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Izinkan kontainer ini untuk tumbuh dan mengisi ruang .overlay */
+    width: 100%;
+}
+
+.content {
+    /* Ini adalah kunci utamanya: */
+    /* Buat area konten tumbuh untuk mengisi semua ruang kosong yang tersedia */
+    flex-grow: 1;
+}
+
+.footer {
+    /* Tidak perlu style khusus, flex-grow dari .content akan mendorongnya ke bawah */
+    /* Kita bisa menambahkan padding-top untuk memberi sedikit jarak jika perlu */
+    padding-top: var(--mantine-spacing-xl);
+}
+
+@media (max-width: 768px) {
+    .overlay {
+        /* Kurangi padding vertikal & tambahkan padding horizontal di mobile */
+        padding: 40px var(--mantine-spacing-md);
+    }
 }
