@@ -68,7 +68,7 @@ const LayananPublik = () => {
 
         const templateParams = {
             nama: values.nama,
-            kontak: values.kontak || "Username", // fallback jika kontak kosong
+            kontak: values.kontak || "random-username", // fallback jika kontak kosong
             jenis: values.jenis,
             pesan: values.pesan,
             "g-recaptcha-response": token, // EmailJS otomatis mendeteksi field ini
@@ -77,10 +77,10 @@ const LayananPublik = () => {
         // Kirim email menggunakan EmailJS
         emailjs
             .send(
-                "service_eno5bvi", // <-- GANTI DENGAN SERVICE ID ANDA
-                "template_a97zhj8", // <-- GANTI DENGAN TEMPLATE ID ANDA
+                "service_eurbhjl", // <-- GANTI DENGAN SERVICE ID ANDA
+                "template_9bysnv9", // <-- GANTI DENGAN TEMPLATE ID ANDA
                 templateParams,
-                "7DfdVwnlxW9u5xCae" // <-- GANTI DENGAN PUBLIC KEY ANDA
+                "W0UKSsiFChfu-hoFP" // <-- GANTI DENGAN PUBLIC KEY ANDA
             )
             .then(
                 (response) => {
@@ -115,6 +115,8 @@ const LayananPublik = () => {
 
     return (
         <>
+            {/* LAYANAN */}
+
             <Layanan />
 
             {/* PERMOHONAN DAN KEBERATAN INFORMASI */}
@@ -222,7 +224,7 @@ const LayananPublik = () => {
                         />
                         <TextInput
                             label="Email/No. HP (Opsional)"
-                            placeholder="contoh@email.com atau 0812..."
+                            placeholder="contoh@email.com atau 62812xxx"
                             {...form.getInputProps("kontak")}
                         />
                         <Select
