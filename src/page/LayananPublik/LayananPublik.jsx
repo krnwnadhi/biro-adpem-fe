@@ -77,10 +77,10 @@ const LayananPublik = () => {
         // Kirim email menggunakan EmailJS
         emailjs
             .send(
-                "service_eurbhjl", // <-- GANTI DENGAN SERVICE ID ANDA
-                "template_9bysnv9", // <-- GANTI DENGAN TEMPLATE ID ANDA
+                import.meta.env.VITE_EMAILJS_SERVICE_ID, // <-- GANTI DENGAN SERVICE ID ANDA
+                import.meta.env.VITE_EMAILJS_TEMPLATE_ID, // <-- GANTI DENGAN TEMPLATE ID ANDA
                 templateParams,
-                "W0UKSsiFChfu-hoFP" // <-- GANTI DENGAN PUBLIC KEY ANDA
+                import.meta.env.VITE_EMAILJS_PUBLIC_KEY // <-- GANTI DENGAN PUBLIC KEY ANDA
             )
             .then(
                 (response) => {
@@ -245,7 +245,7 @@ const LayananPublik = () => {
                         {/* Tambahkan komponen ReCAPTCHA di sini */}
                         <ReCAPTCHA
                             ref={captchaRef}
-                            sitekey="6LdvM9MrAAAAADd7MNt-6g89dQihMaZt8d-zNqkV" // <-- GANTI DENGAN SITE KEY ANDA
+                            sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY} // <-- GANTI DENGAN SITE KEY ANDA
                         />
 
                         <Button
