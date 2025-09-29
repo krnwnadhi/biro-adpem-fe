@@ -14,7 +14,7 @@ const IndexPage = () => {
             <AboutNew />
             <Layanan />
             <BeritaPage />
-            <Gallery />
+            {/* <Gallery /> */}
         </>
     );
 };
