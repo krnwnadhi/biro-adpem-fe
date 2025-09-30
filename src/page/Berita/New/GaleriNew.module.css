@@ -1,0 +1,13 @@
+.galleryItem {
+    background-size: cover;
+    background-position: center;
+    border-radius: var(--mantine-radius-md);
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease;
+    overflow: hidden;
+}
+
+.galleryItem:hover {
+    transform: scale(1.03);
+    box-shadow: var(--mantine-shadow-lg);
+}

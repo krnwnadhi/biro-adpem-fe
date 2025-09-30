@@ -189,7 +189,7 @@ export default function AllBeritaNew() {
     } = posts;
 
     const { result } = postWithoutPagination;
-    console.log(result);
+    // console.log(result);
 
     const ITEMS_PER_PAGE = 3;
     const [activePage, setPage] = useState(1);
