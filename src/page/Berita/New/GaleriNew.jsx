@@ -39,7 +39,7 @@ const GaleriNew = () => {
             try {
                 // Menggunakan limit 4 untuk mengambil hanya 4 gambar per halaman
                 const response = await fetch(
-                    `${baseGalleryURL}/nopagination?page=${activePage}&limit=${ITEMS_PER_PAGE}`
+                    `${baseGalleryURL}/?page=${activePage}&limit=${ITEMS_PER_PAGE}`
                 );
                 if (!response.ok) {
                     throw new Error("Gagal mengambil data dari server");
