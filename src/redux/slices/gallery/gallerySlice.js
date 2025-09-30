@@ -77,6 +77,39 @@ export const fetchAllGalleryAction = createAsyncThunk(
     }
 );
 
+// fetch all gallery no pagination
+export const fetchAllGalleryNoPaginationAction = createAsyncThunk(
+    "gallery/fetchAllNoPagination",
+    async (gallery, { rejectWithValue, getState, dispatch }) => {
+        // get user token
+
+        const user = getState()?.users;
+        const { userAuth } = user;
+        axios.defaults.headers.common[
+            "Authorization"
+        ] = `Bearer ${userAuth?.token}`;
+        const config = {
+            headers: {
+                Authorization: `Bearer ${userAuth?.token}`,
+            },
+        };
+
+        try {
+            const { data } = await axios.get(
+                `${baseGalleryURL}/nopagination`,
+                config
+            );
+            await new Promise((resolve) => setTimeout(resolve, 1500));
+            return data;
+        } catch (error) {
+            if (!error?.response) {
+                throw error;
+            }
+            return rejectWithValue(error?.response?.data);
+        }
+    }
+);
+
 //fetch detail gallery action
 export const fetchDetailGalleryAction = createAsyncThunk(
     "gallery/fetchDetailGallery",
@@ -218,6 +251,31 @@ const gallerySlices = createSlice({
             state.appError = action?.payload?.message;
             state.serverError = action?.error?.message;
         });
+
+        //fetch all gallery noPagination
+        builder.addCase(
+            fetchAllGalleryNoPaginationAction.pending,
+            (state, action) => {
+                state.loading = true;
+            }
+        );
+        builder.addCase(
+            fetchAllGalleryNoPaginationAction.fulfilled,
+            (state, action) => {
+                state.galleryList = action?.payload;
+                state.loading = false;
+                state.appError = undefined;
+                state.serverError = undefined;
+            }
+        );
+        builder.addCase(
+            fetchAllGalleryNoPaginationAction.rejected,
+            (state, action) => {
+                state.loading = false;
+                state.appError = action?.payload?.message;
+                state.serverError = action?.error?.message;
+            }
+        );
 
         //fetch detail gallery
         builder.addCase(fetchDetailGalleryAction.pending, (state, action) => {

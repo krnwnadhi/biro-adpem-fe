@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+
 import "react-pdf/dist/Page/AnnotationLayer.css";
 import "react-pdf/dist/Page/TextLayer.css";
 
@@ -36,10 +38,10 @@ function DocumentRow({ document, onCardClick }) {
     const correctedFilePath = document.file_path.replace(/\\/g, "/");
     const fullPdfUrl = `${SERVER_ROOT_URL}/${correctedFilePath}`;
 
-    const formatDate = (dateString) => {
-        const options = { year: "numeric", month: "long", day: "numeric" };
-        return new Date(dateString).toLocaleDateString("id-ID", options);
-    };
+    // const formatDate = (dateString) => {
+    //     const options = { year: "numeric", month: "long", day: "numeric" };
+    //     return new Date(dateString).toLocaleDateString("id-ID", options);
+    // };
 
     return (
         <Card
