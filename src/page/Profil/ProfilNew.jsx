@@ -19,6 +19,7 @@ import { BagianBiroAdpem } from "./BagianBiroAdpem";
 import { Fade } from "react-awesome-reveal";
 import { SubBagianBiroAdpem } from "./SubBagianBiroAdpem";
 import classes from "./ProfilNew.module.css"; // Kita akan buat file CSS ini nanti
+import { useMediaQuery } from "@mantine/hooks";
 
 // Data untuk tombol dan target scroll
 const menuItems = [
@@ -319,6 +320,8 @@ const sectionsData = [
 ];
 
 export function ProfilNew() {
+    const isMobile = useMediaQuery("(max-width: 768px)");
+
     // Fungsi untuk menangani smooth scroll
     const handleScroll = (targetId) => {
         const element = document.getElementById(targetId);
@@ -338,7 +341,7 @@ export function ProfilNew() {
                 color="#E67E22" // Warna oranye yang mirip dengan gambar
                 fullWidth
                 radius="md"
-                size="md"
+                size={isMobile ? "xs" : "md"}
                 className={classes.button}
             >
                 {item.label}
@@ -380,7 +383,10 @@ export function ProfilNew() {
                                     my="xl"
                                     size="sm"
                                     label={
-                                        <Title c="#E67E22" order={1}>
+                                        <Title
+                                            c="#E67E22"
+                                            order={isMobile ? 3 : 1}
+                                        >
                                             {section.title}
                                         </Title>
                                     }
