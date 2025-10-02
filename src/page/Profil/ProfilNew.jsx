@@ -84,7 +84,7 @@ const sectionsData = [
         id: "kata-sambutan",
         title: "Kata Sambutan",
         imageSrc:
-            "https://res.cloudinary.com/degzbxlnx/image/upload/v1758170196/2_aazdlm.png", // Ganti dengan path gambar
+            "https://res.cloudinary.com/degzbxlnx/image/upload/v1758170179/1_vapphw.png", // Ganti dengan path gambar
         imageAlt: "Kepala Biro Administrasi Pembangunan",
         // 'imageFirst: true' berarti gambar akan ada di sebelah kiri pada layar besar
         imageFirstOnDesktop: true,
@@ -135,13 +135,13 @@ const sectionsData = [
                 </Text>
             </>
         ),
-        imageCaption: (
-            <Text ta="center" mt="sm" size="xs" c="dimmed">
-                <b>Plt. Kepala Biro Administrasi Pembangunan</b>
-                <br />
-                Hj. Eny Purbaningsih, M. S.E,M.M, M.H, M.Sc
-            </Text>
-        ),
+        // imageCaption: (
+        //     <Text ta="center" mt="sm" size="xs" c="dimmed">
+        //         <b>Plt. Kepala Biro Administrasi Pembangunan</b>
+        //         <br />
+        //         Hj. Era Prihantiwi M,S.Hut.,M.Env.Mng
+        //     </Text>
+        // ),
     },
     // Anda bisa menambahkan data untuk bagian lain di sini
     {

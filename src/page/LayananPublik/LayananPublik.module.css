@@ -4,6 +4,7 @@
     background-size: cover;
     background-position: center;
     border-radius: var(--mantine-radius-sm);
+    /* margin-top: rem(80px); */
 }
 
 .overlay {

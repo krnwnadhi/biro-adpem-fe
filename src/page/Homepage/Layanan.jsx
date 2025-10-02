@@ -34,7 +34,7 @@ const servicesData = [
         description:
             "Jelajahi lokasi secara virtual dengan pengalaman interaktif",
         isFeatured: true,
-        link: "#",
+        link: "https://biroadministrasipembangunan.ct.ws/",
     },
     {
         icon: IconDeviceDesktopAnalytics,

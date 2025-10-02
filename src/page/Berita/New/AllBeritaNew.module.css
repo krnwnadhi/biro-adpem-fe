@@ -3,6 +3,7 @@
     background-position: center;
     border-radius: var(--mantine-radius-sm);
     min-height: 125svh;
+    margin-top: rem(80px);
     width: 100%;
 }
 

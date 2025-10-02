@@ -16,7 +16,7 @@ const HeroHeader = () => {
                     expanded: false,
                 },
             ]}
-            style={{ height: "100vh" }}
+            style={{ height: "100vh", marginTop: "80px" }}
         >
             <Overlay color="#000" backgroundOpacity={0.55} zIndex={1} />
             <div className={classes.wrapper}>
