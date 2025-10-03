@@ -100,7 +100,7 @@ export function NavbarNew() {
                 >
                     <header className={classes.header}>
                         <div className={classes.inner}>
-                            <Group>
+                            <Group justify="center" gap="xs">
                                 <Image
                                     className={classes.image}
                                     height={80}
@@ -123,6 +123,7 @@ export function NavbarNew() {
                                             ? "https://res.cloudinary.com/degzbxlnx/image/upload/v1757907964/jm_4_rhrxaa.png"
                                             : "https://res.cloudinary.com/degzbxlnx/image/upload/v1757907964/jm_4_rhrxaa.png"
                                     }
+                                    visibleFrom="sm"
                                 />
                             </Group>
 
