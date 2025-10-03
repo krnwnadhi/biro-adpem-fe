@@ -39,7 +39,7 @@ const sectionsData = [
         id: "selayang-pandang",
         title: "Selayang Pandang",
         imageSrc:
-            "https://res.cloudinary.com/degzbxlnx/image/upload/w_1000,ar_16:9,c_fill,g_auto,e_sharpen/v1758507154/33haris-sani-2021-1_1_pbi25i.jpg",
+            "https://res.cloudinary.com/degzbxlnx/image/upload/v1759205021/xbvwblhbwp1bj2eaesy4.jpg",
         imageAlt: "GUbernur dan Wakil Gubernur Provinsi Jambi",
         // 'imageFirst: false' berarti gambar akan ada di sebelah kanan pada layar besar
         imageFirstOnDesktop: false,
@@ -136,13 +136,6 @@ const sectionsData = [
                 </Text>
             </>
         ),
-        // imageCaption: (
-        //     <Text ta="center" mt="sm" size="xs" c="dimmed">
-        //         <b>Plt. Kepala Biro Administrasi Pembangunan</b>
-        //         <br />
-        //         Hj. Era Prihantiwi M,S.Hut.,M.Env.Mng
-        //     </Text>
-        // ),
     },
     // Anda bisa menambahkan data untuk bagian lain di sini
     {
@@ -150,7 +143,7 @@ const sectionsData = [
         title: "Profil Biro ADPEM",
         imageSrc:
             "https://res.cloudinary.com/degzbxlnx/image/upload/v1758170164/4_i6glez.png",
-        imageAlt: "Pimpinan Biro Administrasi Pembangunan",
+        imageAlt: "Profil Biro Administrasi Pembangunan",
         // 'imageFirst: false' berarti gambar akan ada di sebelah kanan pada layar besar
         imageFirstOnDesktop: false,
         content: (
