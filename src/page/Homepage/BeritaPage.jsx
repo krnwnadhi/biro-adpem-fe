@@ -155,7 +155,7 @@ const BeritaPage = () => {
             <Space h="xl" />
 
             <Container size="lg" p="sm">
-                <Divider
+                {/* <Divider
                     mt="xl"
                     labelPosition="left"
                     label={
@@ -164,6 +164,17 @@ const BeritaPage = () => {
                         </Text>
                     }
                     color="blue"
+                /> */}
+                <Divider
+                    my="xl"
+                    size="sm"
+                    label={
+                        <Title c="#E67E22" order={2}>
+                            BERITA
+                        </Title>
+                    }
+                    labelPosition="center"
+                    color="#E67E22"
                 />
 
                 <Group justify="flex-end">

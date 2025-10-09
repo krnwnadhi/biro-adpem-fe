@@ -15,7 +15,7 @@ const AboutNew = () => {
 
     const slides = images.map((url) => (
         <Carousel.Slide key={url}>
-            <Image src={url} />
+            <Image src={url} radius="md" />
         </Carousel.Slide>
     ));
 
