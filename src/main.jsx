@@ -22,7 +22,11 @@ import { Notifications } from "@mantine/notifications";
 import { ParallaxProvider } from "react-scroll-parallax";
 import { Provider } from "react-redux";
 import ReactDOM from "react-dom/client";
+import { pdfjs } from "react-pdf";
 import store from "./redux/store/store.js";
+
+// Konfigurasi path ke worker pdf.js dari CDN
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 const colorSchemeManager = localStorageColorSchemeManager({
     key: "adpem-color-scheme",

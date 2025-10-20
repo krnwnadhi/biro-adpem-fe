@@ -7,10 +7,10 @@ import { useRef } from "react";
 
 const AboutNew = () => {
     const images = [
-        "https://res.cloudinary.com/degzbxlnx/image/upload/v1758011418/7_itwrfr.png",
-        "https://res.cloudinary.com/degzbxlnx/image/upload/v1758011481/8_q54gid.png",
-        "https://res.cloudinary.com/degzbxlnx/image/upload/v1758011415/9_ufklzz.png",
-        "https://res.cloudinary.com/degzbxlnx/image/upload/v1758011405/10_fcktfo.png",
+        "https://res.cloudinary.com/degzbxlnx/image/upload/v1760933337/ul9rrnubtattotxkx3m3_nikags.webp",
+        "https://res.cloudinary.com/degzbxlnx/image/upload/v1760933276/sahz29y7u1rf4blqvhix_hwyp66.webp",
+        "https://res.cloudinary.com/degzbxlnx/image/upload/v1760933300/scpb34te7ofox4bh8x37_smhikd.webp",
+        "https://res.cloudinary.com/degzbxlnx/image/upload/v1760933321/ypkzfchcvciy1vgxfqvc_tc0ytu.webp",
     ];
 
     const slides = images.map((url) => (

@@ -10,9 +10,9 @@ const IndexPublikasi = () => {
         <>
             <AllBeritaNew />
             <InformasiPengumuman />
-            <DokumenKebijakanKeuangan />
+            {/* <DokumenKebijakanKeuangan />
             <StandarOperasionalProsedur />
-            <InformasiMagang />
+            <InformasiMagang /> */}
             <GaleriNew />
         </>
     );
