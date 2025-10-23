@@ -85,7 +85,7 @@ const sectionsData = [
         id: "kata-sambutan",
         title: "Kata Sambutan",
         imageSrc:
-            "https://res.cloudinary.com/degzbxlnx/image/upload/v1758170179/1_vapphw.png", // Ganti dengan path gambar
+            "https://res.cloudinary.com/degzbxlnx/image/upload/v1760933478/qafsnokzrojnodihn5w9_d5hgdk.webp",
         imageAlt: "Kepala Biro Administrasi Pembangunan",
         // 'imageFirst: true' berarti gambar akan ada di sebelah kiri pada layar besar
         imageFirstOnDesktop: true,
@@ -142,7 +142,7 @@ const sectionsData = [
         id: "profil-adpem",
         title: "Profil Biro ADPEM",
         imageSrc:
-            "https://res.cloudinary.com/degzbxlnx/image/upload/v1758170164/4_i6glez.png",
+            "https://res.cloudinary.com/degzbxlnx/image/upload/v1760933476/ai4cbqup3rh1ukcm0gsu_xxk5dn.webp",
         imageAlt: "Profil Biro Administrasi Pembangunan",
         // 'imageFirst: false' berarti gambar akan ada di sebelah kanan pada layar besar
         imageFirstOnDesktop: false,
@@ -199,7 +199,7 @@ const sectionsData = [
             <Image
                 my="xl"
                 radius="md"
-                src="https://res.cloudinary.com/degzbxlnx/image/upload/v1758183945/visi_misi_3_x_6_ibwuqa.jpg"
+                src="https://res.cloudinary.com/degzbxlnx/image/upload/v1760935405/visi_misi_3_x_6_runqkc.webp"
             />
         ),
     },
@@ -284,10 +284,10 @@ const sectionsData = [
         imageFirstOnDesktop: true,
         content: (
             <>
-                <Image src="https://res.cloudinary.com/degzbxlnx/image/upload/v1758184179/1_y5qzsx.png" />
-                <Image src="https://res.cloudinary.com/degzbxlnx/image/upload/v1758184178/2_ehcaye.png" />
-                <Image src="https://res.cloudinary.com/degzbxlnx/image/upload/v1758184168/3_nhqi4c.png" />
-                <Image src="https://res.cloudinary.com/degzbxlnx/image/upload/v1758184179/4_eemki3.png" />
+                <Image src="https://res.cloudinary.com/degzbxlnx/image/upload/v1760933892/cnforp0vvsjqqvjmwqfu_s5hq2q.webp" />
+                <Image src="https://res.cloudinary.com/degzbxlnx/image/upload/v1760933894/ioaju2wkdkotzm7bdv6i_txwhnn.webp" />
+                <Image src="https://res.cloudinary.com/degzbxlnx/image/upload/v1760933893/qgx21jla6fswq8restyk_qhu8f1.webp" />
+                <Image src="https://res.cloudinary.com/degzbxlnx/image/upload/v1760933892/uzc1fkeis74e5fd9jq6e_mtq1ww.webp" />
             </>
         ),
     },
@@ -346,7 +346,7 @@ export function ProfilNew() {
         <>
             {/* Bagian Hero dengan Background Image */}
             <BackgroundImage
-                src="https://res.cloudinary.com/degzbxlnx/image/upload/v1758699620/islamic_center_cdu0t2.png"
+                src="https://res.cloudinary.com/degzbxlnx/image/upload/v1760935101/islamic_center_t1uizk.webp"
                 radius="xs"
                 className={classes.heroWrapper}
             >

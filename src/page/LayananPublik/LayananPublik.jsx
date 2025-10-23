@@ -172,7 +172,7 @@ const LayananPublik = () => {
                         <Center>
                             <Image
                                 radius="md"
-                                src="https://res.cloudinary.com/degzbxlnx/image/upload/v1758600001/SS_Permohonan_Informasi_vvqeei.png"
+                                src="https://res.cloudinary.com/degzbxlnx/image/upload/v1760934455/SS_Permohonan_Informasi_o80t04.webp"
                             />
                         </Center>
                     </Container>
@@ -196,7 +196,7 @@ const LayananPublik = () => {
 
                 <Image
                     radius="md"
-                    src="https://res.cloudinary.com/degzbxlnx/image/upload/v1758599959/Layanan_pengaduan_vgl39q.png"
+                    src="https://res.cloudinary.com/degzbxlnx/image/upload/v1760934458/Layanan_pengaduan_qsfkyt.webp"
                 />
             </Container>
 
